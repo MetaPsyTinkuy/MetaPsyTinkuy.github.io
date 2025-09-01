@@ -164,7 +164,7 @@ main p {
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* ===== MODALES ===== */
+/* ===== MODAL ===== */
 .modal {
   display: none;
   position: fixed;
@@ -174,12 +174,12 @@ main p {
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.7);
-  opacity: 0;
   align-items: center;
   justify-content: center;
   transition: opacity 0.4s ease;
 }
-.modal.show { display: flex; opacity: 1; }
+
+.modal.show { display: flex; }
 
 .modal-content {
   background: linear-gradient(135deg, #ffffff, #f0f0f0);
@@ -193,17 +193,12 @@ main p {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transform: translateY(-30px);
-  opacity: 0;
-  transition: all 0.4s ease;
   box-shadow: 0 20px 50px rgba(0,0,0,0.25);
 }
-.modal.show .modal-content { transform: translateY(0); opacity:1; }
 
 .modal-content h2 { margin-bottom: 20px; }
-.modal-body { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-.modal-body img { border-radius: 20px; max-width: 100%; max-height: 400px; object-fit: contain; box-shadow: 0 5px 25px rgba(0,0,0,0.2); }
-.modal-body a.btn { padding: 12px 25px; border-radius: 20px; font-weight: 700; text-transform: uppercase; background: linear-gradient(90deg,#00ff88,#008cff); color:#fff; box-shadow:0 5px 20px rgba(0,140,255,0.3); transition: all 0.3s ease; }
+.modal-body img { border-radius: 20px; max-width: 100%; max-height: 400px; object-fit: contain; box-shadow:0 5px 25px rgba(0,0,0,0.2); margin-bottom: 15px; }
+.modal-body a.btn { padding: 12px 25px; border-radius: 20px; font-weight: 700; text-transform: uppercase; background: linear-gradient(90deg,#00ff88,#008cff); color: #fff; box-shadow:0 5px 20px rgba(0,140,255,0.3); transition: all 0.3s ease; }
 .modal-body a.btn:hover { transform: scale(1.05); box-shadow:0 5px 25px rgba(0,255,136,0.5); }
 
 /* ===== FOOTER ===== */
@@ -255,6 +250,7 @@ footer {
   <p>Somos un grupo de estudios dedicado a la investigación y difusión del conocimiento en psicología, revisiones sistemáticas y el encuentro entre saberes.</p>
 
   <div class="inicio-cards">
+    <!-- Tarjeta 1 -->
     <div class="inicio-card">
       <img src="revisionessistematicas.jpg" alt="Revisiones Sistemáticas">
       <h3>Revisiones Sistemáticas</h3>
@@ -262,6 +258,7 @@ footer {
       <button class="btn" data-modal="modal1">Explorar</button>
     </div>
 
+    <!-- Tarjeta 2 -->
     <div class="inicio-card">
       <img src="divulgacioncientifica.jpg" alt="Divulgación Científica">
       <h3>Divulgación Científica</h3>
@@ -269,6 +266,7 @@ footer {
       <button class="btn" data-modal="modal2">Explorar</button>
     </div>
 
+    <!-- Tarjeta 3 -->
     <div class="inicio-card">
       <img src="capacitacionespecializada.jpg" alt="Capacitación Avanzada">
       <h3>Capacitación Avanzada</h3>
@@ -279,37 +277,36 @@ footer {
 </main>
 
 <!-- MODALES -->
-<div class="modal" id="modal1">
+<div id="modal1" class="modal">
   <div class="modal-content">
-    <h2>Poster del Seminario de Revisiones Sistemáticas</h2>
+    <h2>Revisiones Sistemáticas</h2>
     <div class="modal-body">
-      <img src="posterseminario.png" alt="Poster Revisiones Sistemáticas">
-      <a href="https://forms.gle/yb2vhjeffjxFCf7J7" target="_blank" class="btn">Ir al formulario</a>
+      <img src="revisionessistematicas.jpg" alt="Revisiones Sistemáticas">
+      <a href="https://forms.gle/yb2vhjeffjxFCf7J7" target="_blank" class="btn">Ir al Formulario</a>
     </div>
+    <button class="btn" onclick="closeModal('modal1')">Cerrar</button>
   </div>
 </div>
 
-<div class="modal" id="modal2">
+<div id="modal2" class="modal">
   <div class="modal-content">
-    <h2>Bases de Datos Científicas</h2>
+    <h2>Divulgación Científica</h2>
     <div class="modal-body">
-      <a href="https://www.researchgate.net/" target="_blank" class="btn">ResearchGate</a>
-      <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" class="btn">PubMed</a>
-      <a href="https://www.webofscience.com/" target="_blank" class="btn">Web of Science</a>
-      <a href="https://www.scielo.org/" target="_blank" class="btn">SciELO</a>
-      <a href="https://www.springer.com/" target="_blank" class="btn">Springer</a>
-      <a href="https://www.elsevier.com/" target="_blank" class="btn">Elsevier</a>
+      <img src="divulgacioncientifica.jpg" alt="Divulgación Científica">
+      <a href="proyectos.html#divulgacion" class="btn">Ver Proyectos</a>
     </div>
+    <button class="btn" onclick="closeModal('modal2')">Cerrar</button>
   </div>
 </div>
 
-<div class="modal" id="modal3">
+<div id="modal3" class="modal">
   <div class="modal-content">
-    <h2>Herramientas de Capacitación Avanzada</h2>
+    <h2>Capacitación Avanzada</h2>
     <div class="modal-body">
-      <a href="https://miar.ub.edu/" target="_blank" class="btn">MIAR</a>
-      <a href="https://www.scimagojr.com/" target="_blank" class="btn">Scimago</a>
+      <img src="capacitacionespecializada.jpg" alt="Capacitación Avanzada">
+      <a href="proyectos.html#capacitacion" class="btn">Ver Capacitaciones</a>
     </div>
+    <button class="btn" onclick="closeModal('modal3')">Cerrar</button>
   </div>
 </div>
 
@@ -318,7 +315,7 @@ footer {
 </footer>
 
 <script>
-// Efecto cards
+// Animación tarjetas
 const cards = document.querySelectorAll('.inicio-card');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -328,13 +325,10 @@ const observer = new IntersectionObserver(entries => {
     }
   });
 }, {threshold:0.3});
-
 cards.forEach(card => observer.observe(card));
 
-// MODALES
+// Modal
 const modalButtons = document.querySelectorAll('.btn[data-modal]');
-const modals = document.querySelectorAll('.modal');
-
 modalButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     const modal = document.getElementById(btn.getAttribute('data-modal'));
@@ -342,7 +336,12 @@ modalButtons.forEach(btn => {
   });
 });
 
-modals.forEach(modal => {
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+// Cerrar modal al hacer click fuera del contenido
+document.querySelectorAll('.modal').forEach(modal => {
   modal.addEventListener('click', e => {
     if(e.target === modal) modal.classList.remove('show');
   });
@@ -350,4 +349,3 @@ modals.forEach(modal => {
 </script>
 </body>
 </html>
-
