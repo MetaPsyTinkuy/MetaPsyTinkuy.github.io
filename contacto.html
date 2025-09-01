@@ -1,61 +1,98 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #ffecd2, #fcb69f);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #ffecd2, #fcb69f);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
 
+    .container {
+        background-color: rgba(255,255,255,0.95);
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+        width: 100%;
+        max-width: 550px;
+        text-align: center;
+        transition: transform 0.3s;
+    }
+
+    .container:hover {
+        transform: translateY(-5px);
+    }
+
+    h1 {
+        color: #333;
+        margin-bottom: 35px;
+        font-size: 2em;
+    }
+
+    .contact-btn {
+        display: inline-block;
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #ff7e5f, #feb47b);
+        color: #fff;
+        font-size: 1.2em;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+        margin: 10px 0;
+    }
+
+    .contact-btn:hover {
+        background: linear-gradient(135deg, #ff5a36, #ff9c6e);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        transform: translateY(-3px);
+    }
+
+    .back-btn {
+        display: inline-block;
+        padding: 12px 25px;
+        background-color: #999;
+        color: white;
+        font-size: 1em;
+        border-radius: 10px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+        background-color: #777;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 600px) {
         .container {
+            padding: 25px;
+        }
+        .contact-btn, .back-btn {
             width: 100%;
-            max-width: 700px;
-            background-color: #ffffffcc;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
-
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-        }
-
-        iframe {
-            width: 100%;
-            height: 800px;
-            border: none;
-            border-radius: 8px;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
-            iframe {
-                height: 600px;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <div class="container">
         <h1>Contacto</h1>
-        <iframe src="https://forms.gle/4xKprQhusgDNeFqZ6">Cargando…</iframe>
+        <a href="https://forms.gle/4xKprQhusgDNeFqZ6" target="_blank" class="contact-btn">Enviar Mensaje</a>
+        <br>
+        <a href="javascript:history.back()" class="back-btn">Regresar</a>
     </div>
 </body>
 </html>
