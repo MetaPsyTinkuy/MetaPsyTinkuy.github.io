@@ -32,7 +32,7 @@ header {
 header .logo-title {
   display: flex;
   align-items: center;
-  gap: 20px; /* separa título del logo */
+  gap: 20px;
 }
 
 header img {
@@ -58,7 +58,7 @@ nav a {
   text-decoration: none;
   color: #2c3e50;
   font-weight: 600;
-  font-size: 1.2rem; /* más grande */
+  font-size: 1.2rem;
   transition: all 0.3s ease;
 }
 nav a:hover { color: #ff5a36; text-shadow: 0 0 8px #ff5a36; }
@@ -66,7 +66,7 @@ nav a:hover { color: #ff5a36; text-shadow: 0 0 8px #ff5a36; }
 /* ===== MAIN ===== */
 main {
   max-width: 1100px;
-  margin: 80px auto 40px auto; /* más espacio arriba */
+  margin: 80px auto 40px auto;
   padding: 0 20px;
   text-align: center;
 }
@@ -149,7 +149,7 @@ main p {
 /* ===== BOTONES ===== */
 .btn {
   display: inline-block;
-  padding: 14px 30px; /* más grande */
+  padding: 14px 30px;
   border-radius: 25px;
   border: none;
   background: linear-gradient(90deg, #fcb69f, #ffecd2);
@@ -162,6 +162,42 @@ main p {
 .btn:hover {
   transform: scale(1.05);
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* ===== MODALES ===== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.show { display: flex; }
+
+.modal-content {
+  background: linear-gradient(135deg, #ffffff, #f0f0f0);
+  margin: auto;
+  padding: 30px;
+  border-radius: 25px;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  position: relative;
+}
+
+.modal-content .close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 /* ===== FOOTER ===== */
@@ -217,30 +253,59 @@ footer {
       <img src="revisionessistematicas.jpg" alt="Revisiones Sistemáticas">
       <h3>Revisiones Sistemáticas</h3>
       <p>Formación especializada en diseño, ejecución y análisis de revisiones sistemáticas aplicadas a la psicología clínica.</p>
-      <button class="btn">Explorar</button>
+      <button class="btn" id="openModalExplorar1">Explorar</button>
     </div>
 
     <div class="inicio-card">
       <img src="divulgacioncientifica.jpg" alt="Divulgación Científica">
       <h3>Divulgación Científica</h3>
       <p>Acercamos el conocimiento científico a la comunidad, transformando la evidencia en mensajes accesibles y relevantes.</p>
-      <button class="btn">Explorar</button>
+      <button class="btn" id="openModalExplorar2">Explorar</button>
     </div>
 
     <div class="inicio-card">
       <img src="capacitacionespecializada.jpg" alt="Capacitación Avanzada">
       <h3>Capacitación Avanzada</h3>
       <p>Programas de formación para investigadores y clínicos, integrando herramientas estadísticas, metodológicas y humanistas.</p>
-      <button class="btn">Explorar</button>
+      <button class="btn" id="openModalExplorar3">Explorar</button>
     </div>
   </div>
 </main>
+
+<!-- ===== MODALES ===== -->
+<div id="modalExplorar1" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModalExplorar1">&times;</span>
+    <h2>Revisiones Sistemáticas</h2>
+    <p>Formación especializada en diseño, ejecución y análisis de revisiones sistemáticas aplicadas a la psicología clínica.</p>
+    <a href="https://forms.gle/yb2vhjeffjxFCf7J7" target="_blank" class="btn">Ir al Formulario</a>
+  </div>
+</div>
+
+<div id="modalExplorar2" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModalExplorar2">&times;</span>
+    <h2>Divulgación Científica</h2>
+    <p>Acercamos el conocimiento científico a la comunidad, transformando la evidencia en mensajes accesibles y relevantes.</p>
+    <a href="proyectos.html" class="btn">Ver más</a>
+  </div>
+</div>
+
+<div id="modalExplorar3" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModalExplorar3">&times;</span>
+    <h2>Capacitación Avanzada</h2>
+    <p>Programas de formación para investigadores y clínicos, integrando herramientas estadísticas, metodológicas y humanistas.</p>
+    <a href="proyectos.html" class="btn">Ver más</a>
+  </div>
+</div>
 
 <footer>
   <p>&copy; 2025 MetaPsy Tinkuy. Todos los derechos reservados.</p>
 </footer>
 
 <script>
+// Animación tarjetas
 const cards = document.querySelectorAll('.inicio-card');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -250,8 +315,28 @@ const observer = new IntersectionObserver(entries => {
     }
   });
 }, {threshold:0.3});
-
 cards.forEach(card => observer.observe(card));
+
+// Modales Inicio
+const modalesInicio = [
+  {open: 'openModalExplorar1', modal: 'modalExplorar1', close: 'closeModalExplorar1'},
+  {open: 'openModalExplorar2', modal: 'modalExplorar2', close: 'closeModalExplorar2'},
+  {open: 'openModalExplorar3', modal: 'modalExplorar3', close: 'closeModalExplorar3'}
+];
+
+modalesInicio.forEach(m => {
+  const btnOpen = document.getElementById(m.open);
+  const modal = document.getElementById(m.modal);
+  const btnClose = document.getElementById(m.close);
+
+  if(btnOpen && modal && btnClose){
+    btnOpen.onclick = () => modal.classList.add('show');
+    btnClose.onclick = () => modal.classList.remove('show');
+    window.addEventListener('click', e => {
+      if(e.target == modal) modal.classList.remove('show');
+    });
+  }
+});
 </script>
 </body>
 </html>
