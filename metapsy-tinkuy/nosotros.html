@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MetaPsy Tinkuy - Nosotros</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Montserrat', sans-serif;
+  background: linear-gradient(-45deg, #ffecd2, #fcb69f, #ffecd2, #fcb69f);
+  background-size: 400% 400%;
+  animation: gradientBG 20s ease infinite;
+  color: #2c3e50;
+  text-align: center;
+}
+header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 40px;
+  background: rgba(255,236,210,0.9);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  position: sticky;
+  top:0;
+  z-index:1000;
+}
+header .logo-title {
+  display:flex;
+  align-items:center;
+}
+header img {
+  border-radius:50%;
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.5s, box-shadow 0.5s;
+  margin-right: 20px;
+}
+header img:hover {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 0 20px rgba(255,126,95,0.6);
+}
+header h1 {
+  font-size:2.2rem;
+  color:#2c3e50;
+  animation: textPulse 2s infinite;
+}
+nav a {
+  margin: 0 20px;
+  text-decoration:none;
+  color:#2c3e50;
+  font-weight:600;
+  font-size:1.2rem;
+}
+nav a:hover { color:#ff5a36; }
+
+main {
+  max-width:1100px;
+  margin:60px auto;
+  padding:0 20px;
+}
+h2 { font-size:2.5rem; margin-bottom:20px; animation:textPulse 2s infinite; }
+p.intro { font-size:1.1rem; margin-bottom:40px; line-height:1.7; }
+
+.team-cards {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px;
+}
+
+/* Flip Cards mejoradas */
+.flip-card { width:250px; height:300px; perspective:1000px; }
+.flip-card-inner {
+  position:relative;
+  width:100%;
+  height:100%;
+  text-align:center;
+  transition: transform 0.8s cubic-bezier(0.4,0.2,0.2,1);
+  transform-style:preserve-3d;
+  border-radius:15px;
+}
+.flip-card:hover .flip-card-inner { transform:rotateY(180deg); }
+
+.flip-card-front, .flip-card-back {
+  position:absolute;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  border-radius:15px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  font-weight:600;
+  font-size:1.1rem;
+  background: #fff7f2;
+}
+
+.flip-card-front span { 
+  display:block;
+  margin-top:8px;
+  font-weight:400;
+  font-size:0.9rem;
+  color:#555;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  font-size:0.9rem;
+  line-height:1.4;
+  color:#2c3e50;
+  background:#fff7f2;
+}
+
+/* Aliados */
+.aliados-section { margin-top:40px; padding:0 20px; text-align:left; }
+.aliados-section h3 { margin-bottom:20px; font-size:1.5rem; }
+.aliados-logos {
+  display:flex;
+  justify-content:flex-start;
+  gap:40px;
+  flex-wrap:wrap;
+}
+.aliados-logos img {
+  height:80px;
+  width:auto;
+  transition: transform 0.4s, box-shadow 0.4s;
+  border-radius:15px;
+}
+.aliados-logos img:hover {
+  transform: scale(1.2) translateY(-5px);
+  box-shadow:0 12px 25px rgba(0,0,0,0.3);
+}
+
+/* Animaciones */
+@keyframes gradientBG { 0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;} }
+@keyframes textPulse {0%,100%{ text-shadow:2px 2px 10px rgba(0,0,0,0.2);} 50%{ text-shadow:0 0 25px #2c3e50,0 0 35px #2c3e50; }}
+footer { text-align:center; padding:25px; background:rgba(255,236,210,0.9); color:#333; box-shadow:0 -4px 10px rgba(0,0,0,0.1); margin-top:40px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-title">
+    <img src="logometapsytinkuy.jpeg" alt="Logo" width="80">
+    <h1>MetaPsy Tinkuy</h1>
+  </div>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="nosotros.html">Nosotros</a>
+    <a href="proyectos.html">Proyectos</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
+</header>
+
+<main>
+  <h2>Nuestro Equipo</h2>
+  <p class="intro">Somos un equipo dedicado a la investigación, la psicología clínica y la divulgación científica. Descubre quiénes formamos parte de MetaPsy Tinkuy.</p>
+
+  <div class="team-cards">
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          Giuliano Milla Segovia
+          <span>Psicólogo Clínico</span>
+        </div>
+        <div class="flip-card-back">Especialista en Psicología Clínica, Psicoterapeuta y Facilitador de la Ciencia</div>
+      </div>
+    </div>
+
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          Rodrigo Bravo Ruiz
+          <span>Filósofo</span>
+        </div>
+        <div class="flip-card-back">Logoterapeuta y experto en el análisis crítico aplicado a la psicoterapia</div>
+      </div>
+    </div>
+
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          Yamile Olivas Arana
+          <span>Maestra en Artes Visuales</span>
+        </div>
+        <div class="flip-card-back">Arteterapeuta y Especialista en Diseño de Proyectos de Aprendizaje Interdisciplinarios</div>
+      </div>
+    </div>
+
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          Aquí podrías estar tú
+          <span></span>
+        </div>
+        <div class="flip-card-back">Únete a nuestro equipo y aporta tu talento y pasión</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="aliados-section">
+    <h3>Aliados:</h3>
+    <div class="aliados-logos">
+      <img src="consultoriopsicologiconoscuidamos.jpeg" alt="Nos Cuidamos">
+      <img src="wallki.jpeg" alt="Wallki">
+      <img src="consultoriopsicologicodravilmasanchez.jpeg" alt="Dra. Vilma Sánchez">
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>Bajo la dirección de Giuliano Milla Segovia | MetaPsy Tinkuy © 2025. Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>
