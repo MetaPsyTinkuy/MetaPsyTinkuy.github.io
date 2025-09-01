@@ -174,11 +174,12 @@ main p {
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.7);
+  opacity: 0;
   align-items: center;
   justify-content: center;
+  transition: opacity 0.4s ease;
 }
-
-.modal.show { display: flex; }
+.modal.show { display: flex; opacity: 1; }
 
 .modal-content {
   background: linear-gradient(135deg, #ffffff, #f0f0f0);
@@ -188,17 +189,22 @@ main p {
   width: 80%;
   max-width: 600px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-30px);
+  opacity: 0;
+  transition: all 0.4s ease;
   box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-  position: relative;
 }
+.modal.show .modal-content { transform: translateY(0); opacity:1; }
 
-.modal-content .close {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
+.modal-content h2 { margin-bottom: 20px; }
+.modal-body { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.modal-body img { border-radius: 20px; max-width: 100%; max-height: 400px; object-fit: contain; box-shadow: 0 5px 25px rgba(0,0,0,0.2); }
+.modal-body a.btn { padding: 12px 25px; border-radius: 20px; font-weight: 700; text-transform: uppercase; background: linear-gradient(90deg,#00ff88,#008cff); color:#fff; box-shadow:0 5px 20px rgba(0,140,255,0.3); transition: all 0.3s ease; }
+.modal-body a.btn:hover { transform: scale(1.05); box-shadow:0 5px 25px rgba(0,255,136,0.5); }
 
 /* ===== FOOTER ===== */
 footer {
@@ -253,50 +259,57 @@ footer {
       <img src="revisionessistematicas.jpg" alt="Revisiones Sistemáticas">
       <h3>Revisiones Sistemáticas</h3>
       <p>Formación especializada en diseño, ejecución y análisis de revisiones sistemáticas aplicadas a la psicología clínica.</p>
-      <button class="btn" id="openModalExplorar1">Explorar</button>
+      <button class="btn" data-modal="modal1">Explorar</button>
     </div>
 
     <div class="inicio-card">
       <img src="divulgacioncientifica.jpg" alt="Divulgación Científica">
       <h3>Divulgación Científica</h3>
       <p>Acercamos el conocimiento científico a la comunidad, transformando la evidencia en mensajes accesibles y relevantes.</p>
-      <button class="btn" id="openModalExplorar2">Explorar</button>
+      <button class="btn" data-modal="modal2">Explorar</button>
     </div>
 
     <div class="inicio-card">
       <img src="capacitacionespecializada.jpg" alt="Capacitación Avanzada">
       <h3>Capacitación Avanzada</h3>
       <p>Programas de formación para investigadores y clínicos, integrando herramientas estadísticas, metodológicas y humanistas.</p>
-      <button class="btn" id="openModalExplorar3">Explorar</button>
+      <button class="btn" data-modal="modal3">Explorar</button>
     </div>
   </div>
 </main>
 
-<!-- ===== MODALES ===== -->
-<div id="modalExplorar1" class="modal">
+<!-- MODALES -->
+<div class="modal" id="modal1">
   <div class="modal-content">
-    <span class="close" id="closeModalExplorar1">&times;</span>
-    <h2>Revisiones Sistemáticas</h2>
-    <p>Formación especializada en diseño, ejecución y análisis de revisiones sistemáticas aplicadas a la psicología clínica.</p>
-    <a href="https://forms.gle/yb2vhjeffjxFCf7J7" target="_blank" class="btn">Ir al Formulario</a>
+    <h2>Poster del Seminario de Revisiones Sistemáticas</h2>
+    <div class="modal-body">
+      <img src="posterseminario.png" alt="Poster Revisiones Sistemáticas">
+      <a href="https://forms.gle/yb2vhjeffjxFCf7J7" target="_blank" class="btn">Ir al formulario</a>
+    </div>
   </div>
 </div>
 
-<div id="modalExplorar2" class="modal">
+<div class="modal" id="modal2">
   <div class="modal-content">
-    <span class="close" id="closeModalExplorar2">&times;</span>
-    <h2>Divulgación Científica</h2>
-    <p>Acercamos el conocimiento científico a la comunidad, transformando la evidencia en mensajes accesibles y relevantes.</p>
-    <a href="proyectos.html" class="btn">Ver más</a>
+    <h2>Bases de Datos Científicas</h2>
+    <div class="modal-body">
+      <a href="https://www.researchgate.net/" target="_blank" class="btn">ResearchGate</a>
+      <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" class="btn">PubMed</a>
+      <a href="https://www.webofscience.com/" target="_blank" class="btn">Web of Science</a>
+      <a href="https://www.scielo.org/" target="_blank" class="btn">SciELO</a>
+      <a href="https://www.springer.com/" target="_blank" class="btn">Springer</a>
+      <a href="https://www.elsevier.com/" target="_blank" class="btn">Elsevier</a>
+    </div>
   </div>
 </div>
 
-<div id="modalExplorar3" class="modal">
+<div class="modal" id="modal3">
   <div class="modal-content">
-    <span class="close" id="closeModalExplorar3">&times;</span>
-    <h2>Capacitación Avanzada</h2>
-    <p>Programas de formación para investigadores y clínicos, integrando herramientas estadísticas, metodológicas y humanistas.</p>
-    <a href="proyectos.html" class="btn">Ver más</a>
+    <h2>Herramientas de Capacitación Avanzada</h2>
+    <div class="modal-body">
+      <a href="https://miar.ub.edu/" target="_blank" class="btn">MIAR</a>
+      <a href="https://www.scimagojr.com/" target="_blank" class="btn">Scimago</a>
+    </div>
   </div>
 </div>
 
@@ -305,7 +318,7 @@ footer {
 </footer>
 
 <script>
-// Animación tarjetas
+// Efecto cards
 const cards = document.querySelectorAll('.inicio-card');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -315,28 +328,26 @@ const observer = new IntersectionObserver(entries => {
     }
   });
 }, {threshold:0.3});
+
 cards.forEach(card => observer.observe(card));
 
-// Modales Inicio
-const modalesInicio = [
-  {open: 'openModalExplorar1', modal: 'modalExplorar1', close: 'closeModalExplorar1'},
-  {open: 'openModalExplorar2', modal: 'modalExplorar2', close: 'closeModalExplorar2'},
-  {open: 'openModalExplorar3', modal: 'modalExplorar3', close: 'closeModalExplorar3'}
-];
+// MODALES
+const modalButtons = document.querySelectorAll('.btn[data-modal]');
+const modals = document.querySelectorAll('.modal');
 
-modalesInicio.forEach(m => {
-  const btnOpen = document.getElementById(m.open);
-  const modal = document.getElementById(m.modal);
-  const btnClose = document.getElementById(m.close);
+modalButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const modal = document.getElementById(btn.getAttribute('data-modal'));
+    modal.classList.add('show');
+  });
+});
 
-  if(btnOpen && modal && btnClose){
-    btnOpen.onclick = () => modal.classList.add('show');
-    btnClose.onclick = () => modal.classList.remove('show');
-    window.addEventListener('click', e => {
-      if(e.target == modal) modal.classList.remove('show');
-    });
-  }
+modals.forEach(modal => {
+  modal.addEventListener('click', e => {
+    if(e.target === modal) modal.classList.remove('show');
+  });
 });
 </script>
 </body>
 </html>
+
