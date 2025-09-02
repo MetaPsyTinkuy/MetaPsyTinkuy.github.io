@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MetaPsyTinkuy - Killa Super Premium</title>
+  <style>
+    /* ===== Estilos Generales ===== */
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f0f0f0;
+      overflow-x: hidden;
+    }
+
+    /* ===== Contenedor de Killa ===== */
+    .killa-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 150px;
+      height: 150px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .killa {
+      width: 100%;
+      transform-origin: center bottom;
+      animation: breathe 4s ease-in-out infinite, sway 6s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%,100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-5px) rotate(1deg); }
+    }
+
+    @keyframes sway {
+      0%,100% { transform: translateX(0px); }
+      50% { transform: translateX(3px); }
+    }
+
+    /* ===== Overlay de ojos ===== */
+    .eye-overlay {
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      width: 30%;
+      height: 10%;
+      background: rgba(240,240,240,0.9);
+      border-radius: 50%;
+      transform: translateX(-50%) scaleY(1);
+    }
+
+    /* ===== Overlay de expresiones ===== */
+    .expression-overlay {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      width: 50%;
+      height: 50%;
+      background: rgba(255,255,255,0);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>Prueba Killa Super Premium</h1>
+  <p>Killa debería aparecer flotando en la esquina inferior derecha.</p>
+
+  <!-- ===== Contenedor Killa ===== -->
+  <div class="killa-container">
+    <img src="images/killa.png" alt="Killa" class="killa">
+    <div class="eye-overlay"></div>
+    <div class="expression-overlay"></div>
+  </div>
+
+  <script>
+    const killa = document.querySelector('.killa');
+    const container = document.querySelector('.killa-container');
+    const eye = document.querySelector('.eye-overlay');
+    const expression = document.querySelector('.expression-overlay');
+
+    // Seguir cursor
+    container.addEventListener('mousemove', (e) => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      const rotateX = y * 0.03;
+      const rotateY = x * 0.03;
+      killa.style.transform = `translateY(-2px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    // Salto al clic
+    container.addEventListener('click', () => {
+      killa.style.transition = 'transform 0.2s';
+      killa.style.transform += ' translateY(-20px)';
+      setTimeout(() => {
+        killa.style.transform = killa.style.transform.replace(' translateY(-20px)', '');
+      }, 200);
+    });
+
+    // Parpadeo y guiños aleatorios
+    function randomBlink() {
+      const duration = Math.random() * 4000 + 2000;
+      setTimeout(() => {
+        eye.style.transform = 'translateX(-50%) scaleY(0.1)';
+        setTimeout(() => {
+          eye.style.transform = 'translateX(-50%) scaleY(1)';
+          randomBlink();
+        }, 150);
+      }, duration);
+    }
+    randomBlink();
+
+    // Reacciones de expresión aleatorias
+    const expressions = [
+      'rgba(255,255,255,0)',  
+      'rgba(255,255,0,0.3)',  
+      'rgba(0,255,255,0.2)',  
+      'rgba(255,0,255,0.2)'
+    ];
+
+    function randomExpression() {
+      const index = Math.floor(Math.random() * expressions.length);
+      expression.style.background = expressions[index];
+      setTimeout(randomExpression, Math.random() * 5000 + 2000);
+    }
+    randomExpression();
+
+    // Movimiento aleatorio pequeño
+    function randomMove() {
+      const x = (Math.random() - 0.5) * 4;
+      const y = (Math.random() - 0.5) * 4;
+      killa.style.transition = 'transform 0.3s ease-in-out';
+      killa.style.transform += ` translate(${x}px, ${y}px)`;
+      setTimeout(randomMove, 3000);
+    }
+    randomMove();
+  </script>
+</body>
+</html>
