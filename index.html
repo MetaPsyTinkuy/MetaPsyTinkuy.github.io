@@ -461,70 +461,48 @@ function randomMove() {
 randomMove();
 </script>
 
-  <!-- ================= Selector de Idiomas MetaPsyTinkuy – Inglés y Portugués ================= -->
-<div class="translate-widget">
-  <div class="selected-lang" id="translate-toggle" title="Inglés">🇺🇸</div>
-  <div class="lang-options">
-    <button class="lang-btn" data-lang="en" title="Inglés">🇺🇸 Inglés</button>
-    <button class="lang-btn" data-lang="pt" title="Portugués">🇧🇷 Portugués</button>
+ <!-- ================= Widget Flotante MetaPsyTinkuy – Banderita Perú Mejorado ================= -->
+<div class="peru-widget">
+  <div class="peru-flag" id="peru-toggle" title="Tip cultural">🇵🇪</div>
+  <div class="peru-tip">
+    <p id="tip-text">¡Bienvenido a MetaPsyTinkuy, tierra de sabiduría andina! 🌄</p>
   </div>
 </div>
 
-<div id="google_translate_element" style="display:none;"></div>
-
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'es',
-    includedLanguages: 'en,pt',
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-  }, 'google_translate_element');
-}
-
-function changeLanguage(lang) {
-  const interval = setInterval(() => {
-    const select = document.querySelector('select.goog-te-combo');
-    if(select){
-      select.value = lang;
-      select.dispatchEvent(new Event('change'));
-      clearInterval(interval);
-    }
-  }, 300);
-}
-
+<script>
 document.addEventListener("DOMContentLoaded", function() {
-  const toggle = document.getElementById("translate-toggle");
-  const options = document.querySelector(".lang-options");
+  const toggle = document.getElementById("peru-toggle");
+  const tip = document.querySelector(".peru-tip");
 
-  // Toggle con clase CSS
+  const tips = [
+    "¡Bienvenido a MetaPsyTinkuy, tierra de sabiduría andina! 🌄",
+    "Recuerda respirar profundo y conectar con tu presente. 🧘",
+    "La cosmovisión andina nos enseña equilibrio y armonía. 🌿",
+    "Pequeños actos de bondad fortalecen tu espíritu. 💛",
+    "La meditación diaria mejora la claridad y el bienestar. ✨"
+  ];
+  let index = 0;
+
   toggle.addEventListener("click", () => {
-    options.classList.toggle("show");
+    tip.classList.toggle("show");
+    index = (index + 1) % tips.length;
+    document.getElementById("tip-text").textContent = tips[index];
   });
 
-  // Cambiar idioma
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const lang = btn.getAttribute('data-lang');
-      changeLanguage(lang);
-
-      // Animación de salto y rotación
-      toggle.style.transition = "transform 0.3s";
-      toggle.style.transform = "scale(1.3) rotate(-10deg)";
-      setTimeout(() => {
-        toggle.textContent = btn.textContent.split(" ")[0];
-        toggle.title = btn.title;
-        toggle.style.transform = "scale(1) rotate(0deg)";
-      }, 300);
-
-      // Ocultar opciones
-      options.classList.remove("show");
-    });
-  });
+  // Animación de salto + resplandor cada 4 segundos
+  setInterval(() => {
+    toggle.style.transform = "translateY(-8px) scale(1.1)";
+    toggle.style.boxShadow = "0 8px 16px rgba(255,215,0,0.6)"; // resplandor dorado
+    setTimeout(() => {
+      toggle.style.transform = "translateY(0) scale(1)";
+      toggle.style.boxShadow = "0 6px 12px rgba(0,0,0,0.3)";
+    }, 300);
+  }, 4000);
 });
 </script>
 
 <style>
-.translate-widget {
+.peru-widget {
   position: fixed;
   bottom: 60px;
   left: 10px;
@@ -535,79 +513,63 @@ document.addEventListener("DOMContentLoaded", function() {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.selected-lang {
-  background: linear-gradient(315deg, #4b6cb7 0%, #182848 74%);
-  color: #fff;
-  font-size: 22px;
-  padding: 14px;
+.peru-flag {
+  font-size: 28px;
+  padding: 12px;
   border-radius: 50%;
   cursor: pointer;
+  background: linear-gradient(315deg, #4b6cb7 0%, #182848 74%);
+  color: #fff;
   box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
   text-align: center;
   line-height: 1;
 }
 
-.selected-lang:hover {
-  transform: scale(1.15) rotate(0deg);
+.peru-flag:hover {
+  transform: scale(1.15);
+  box-shadow: 0 8px 16px rgba(255,215,0,0.6); /* efecto dorado al pasar cursor */
 }
 
-.lang-options {
+.peru-tip {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 10px;
   opacity: 0;
-  transform: translateY(-15px);
   pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-  border-radius: 12px;
+  flex-direction: column;
   background: #ffffffdd;
-  padding: 6px 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin-top: 8px;
+  max-width: 250px;
+  text-align: center;
+  font-size: 16px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  transform: translateY(-15px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.lang-options.show {
+.peru-tip.show {
   opacity: 1;
-  transform: translateY(0);
   pointer-events: auto;
-}
-
-.lang-btn {
-  background: #ffffffcc;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 10px;
-  font-size: 20px;
-  cursor: pointer;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-  transition: background 0.25s, transform 0.25s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.lang-btn:hover {
-  background: #f0f0f0dd;
-  transform: scale(1.08);
+  transform: translateY(0);
 }
 
 @media (max-width: 600px) {
-  .selected-lang {
-    font-size: 20px;
-    padding: 12px;
+  .peru-flag {
+    font-size: 24px;
+    padding: 10px;
   }
-  .lang-btn {
-    font-size: 18px;
-    padding: 6px 10px;
+  .peru-tip {
+    font-size: 14px;
+    max-width: 200px;
+    padding: 8px 10px;
   }
 }
 </style>
-
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   
 </body>
 </html>
+
 
 
 
