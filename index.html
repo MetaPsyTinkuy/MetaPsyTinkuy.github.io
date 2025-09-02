@@ -461,8 +461,7 @@ function randomMove() {
 randomMove();
 </script>
 
-  <!-- ================= Selector de Idiomas MetaPsyTinkuy – Ultra Pulido ================= -->
-<div class="translate-widget">
+  <div class="translate-widget">
   <div class="selected-lang" id="translate-toggle" title="Quechua">🇵🇪</div>
   <div class="lang-options">
     <button class="lang-btn" data-lang="en" title="Inglés">🇺🇸 Inglés</button>
@@ -474,168 +473,135 @@ randomMove();
 <div id="google_translate_element" style="display:none;"></div>
 
 <script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'es',
-      includedLanguages: 'en,pt,qu',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-    }, 'google_translate_element');
-  }
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'es',
+    includedLanguages: 'en,pt,qu',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+  }, 'google_translate_element');
+}
 
-  function changeLanguage(lang) {
-    const interval = setInterval(() => {
-      const select = document.querySelector('select.goog-te-combo');
-      if(select){
-        select.value = lang;
-        select.dispatchEvent(new Event('change'));
-        clearInterval(interval);
-      }
-    }, 300);
-  }
-
-  document.addEventListener("DOMContentLoaded", function() {
-    const toggle = document.getElementById("translate-toggle");
-    const options = document.querySelector(".lang-options");
-
-    function showOptions() {
-      options.style.display = "flex";
-      options.style.opacity = 0;
-      options.style.transform = "translateY(-15px)";
-      let opacity = 0;
-      let translate = -15;
-      const fadeSlideIn = setInterval(() => {
-        if(opacity >= 1){
-          clearInterval(fadeSlideIn);
-        } else {
-          opacity += 0.08;
-          translate += 1.2;
-          options.style.opacity = opacity;
-          options.style.transform = `translateY(${translate}px)`;
-        }
-      }, 20);
+function changeLanguage(lang) {
+  const interval = setInterval(() => {
+    const select = document.querySelector('select.goog-te-combo');
+    if(select){
+      select.value = lang;
+      select.dispatchEvent(new Event('change'));
+      clearInterval(interval);
     }
+  }, 300);
+}
 
-    function hideOptions() {
-      let opacity = 1;
-      let translate = 0;
-      const fadeSlideOut = setInterval(() => {
-        if(opacity <= 0){
-          clearInterval(fadeSlideOut);
-          options.style.display = "none";
-        } else {
-          opacity -= 0.08;
-          translate -= 1.2;
-          options.style.opacity = opacity;
-          options.style.transform = `translateY(${translate}px)`;
-        }
-      }, 20);
-    }
+document.addEventListener("DOMContentLoaded", function() {
+  const toggle = document.getElementById("translate-toggle");
+  const options = document.querySelector(".lang-options");
 
-    toggle.addEventListener("mouseenter", showOptions);
-    toggle.addEventListener("mouseleave", hideOptions);
-    options.addEventListener("mouseenter", showOptions);
-    options.addEventListener("mouseleave", hideOptions);
+  // Toggle con clase CSS
+  toggle.addEventListener("click", () => {
+    options.classList.toggle("show");
+  });
 
-    toggle.addEventListener("click", () => {
-      if(options.style.display === "flex"){
-        hideOptions();
-      } else {
-        showOptions();
-      }
-    });
+  // Cambiar idioma
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.getAttribute('data-lang');
+      changeLanguage(lang);
 
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const lang = btn.getAttribute('data-lang');
-        changeLanguage(lang);
+      // Animación de salto
+      toggle.style.transition = "transform 0.3s";
+      toggle.style.transform = "scale(1.3) rotate(-10deg)";
+      setTimeout(() => {
+        toggle.textContent = btn.textContent.split(" ")[0];
+        toggle.title = btn.title;
+        toggle.style.transform = "scale(1) rotate(0deg)";
+      }, 300);
 
-        // Animación avanzada de bandera al cambiar idioma
-        toggle.style.transition = "transform 0.3s";
-        toggle.style.transform = "scale(1.3) rotate(-10deg)";
-        setTimeout(() => {
-          toggle.textContent = btn.textContent.split(" ")[0];
-          toggle.title = btn.title;
-          toggle.style.transform = "scale(1) rotate(0deg)";
-        }, 300);
-
-        hideOptions();
-      });
+      // Ocultar opciones después de seleccionar
+      options.classList.remove("show");
     });
   });
+});
 </script>
 
 <style>
-  .translate-widget {
-    position: fixed;
-    bottom: 60px;
-    left: 10px;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: Arial, Helvetica, sans-serif;
-  }
+.translate-widget {
+  position: fixed;
+  bottom: 60px;
+  left: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
+.selected-lang {
+  background: linear-gradient(315deg, #4b6cb7 0%, #182848 74%);
+  color: #fff;
+  font-size: 22px;
+  padding: 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  transition: transform 0.3s;
+  text-align: center;
+  line-height: 1;
+}
+
+.selected-lang:hover {
+  transform: scale(1.15) rotate(0deg);
+}
+
+.lang-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  opacity: 0;
+  transform: translateY(-15px);
+  pointer-events: none; /* evita clics mientras no está visible */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  border-radius: 12px;
+  background: #ffffffdd;
+  padding: 6px 0;
+}
+
+.lang-options.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto; /* activamos clics */
+}
+
+.lang-btn {
+  background: #ffffffcc;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  transition: background 0.25s, transform 0.25s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang-btn:hover {
+  background: #f0f0f0dd;
+  transform: scale(1.08);
+}
+
+@media (max-width: 600px) {
   .selected-lang {
-    background: linear-gradient(315deg, #4b6cb7 0%, #182848 74%);
-    color: #fff;
-    font-size: 22px;
-    padding: 14px;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-    transition: transform 0.3s;
-    text-align: center;
-    line-height: 1;
-  }
-
-  .selected-lang:hover {
-    transform: scale(1.15) rotate(0deg);
-  }
-
-  .lang-options {
-    display: none;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 10px;
-    opacity: 0;
-    transform: translateY(-15px);
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-    border-radius: 12px;
-    background: #ffffffdd;
-    padding: 6px 0;
-  }
-
-  .lang-btn {
-    background: #ffffffcc;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 10px;
     font-size: 20px;
-    cursor: pointer;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-    transition: background 0.25s, transform 0.25s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    padding: 12px;
   }
-
-  .lang-btn:hover {
-    background: #f0f0f0dd;
-    transform: scale(1.08);
+  .lang-btn {
+    font-size: 18px;
+    padding: 6px 10px;
   }
-
-  @media (max-width: 600px) {
-    .selected-lang {
-      font-size: 20px;
-      padding: 12px;
-    }
-    .lang-btn {
-      font-size: 18px;
-      padding: 6px 10px;
-    }
-  }
+}
 </style>
 
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
@@ -643,6 +609,7 @@ randomMove();
   
 </body>
 </html>
+
 
 
 
