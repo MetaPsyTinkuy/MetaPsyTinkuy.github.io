@@ -461,9 +461,133 @@ function randomMove() {
 randomMove();
 </script>
 
+  <!-- Selector de idiomas profesional -->
+<div class="translate-widget">
+  <div class="selected-lang" id="translate-toggle" title="Quechua">🇵🇪</div>
+  <div class="lang-options">
+    <button class="lang-btn" data-lang="en" title="Inglés">🇺🇸</button>
+    <button class="lang-btn" data-lang="pt" title="Portugués">🇧🇷</button>
+    <button class="lang-btn" data-lang="qu" title="Quechua">🇵🇪</button>
+  </div>
+</div>
+
+<!-- Google Translate invisible -->
+<div id="google_translate_element" style="display:none;"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'es',
+    includedLanguages: 'en,pt,qu',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+  }, 'google_translate_element');
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  const toggle = document.getElementById("translate-toggle");
+  const options = document.querySelector(".lang-options");
+
+  // Mostrar opciones al hover (desktop) o tocar (móvil)
+  toggle.addEventListener("mouseenter", () => options.style.display = "flex");
+  toggle.addEventListener("mouseleave", () => options.style.display = "none");
+  options.addEventListener("mouseenter", () => options.style.display = "flex");
+  options.addEventListener("mouseleave", () => options.style.display = "none");
+
+  toggle.addEventListener("click", () => {
+    options.style.display = options.style.display === "flex" ? "none" : "flex";
+  });
+
+  // Cambiar idioma y actualizar bandera y tooltip
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.getAttribute('data-lang');
+      const select = document.querySelector('select.goog-te-combo');
+      if(select){
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+      }
+      toggle.textContent = btn.textContent; // actualizar bandera
+      toggle.title = btn.title; // actualizar tooltip
+      options.style.display = "none";
+    });
+  });
+});
+</script>
+
+<style>
+/* Contenedor flotante */
+.translate-widget {
+  position: fixed;
+  bottom: 60px;
+  left: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Botón de idioma seleccionado */
+.selected-lang {
+  background: linear-gradient(315deg, #4b6cb7 0%, #182848 74%);
+  color: #fff;
+  font-size: 22px;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+}
+
+.selected-lang:hover {
+  transform: scale(1.1);
+}
+
+/* Opciones de idiomas */
+.lang-options {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+/* Botones de idiomas secundarios */
+.lang-btn {
+  background: #ffffffcc;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.lang-btn:hover {
+  background: #f0f0f0cc;
+  transform: scale(1.1);
+}
+
+/* Adaptación móvil */
+@media (max-width: 600px) {
+  .selected-lang {
+    font-size: 20px;
+    padding: 10px;
+  }
+  .lang-btn {
+    font-size: 18px;
+    padding: 6px 10px;
+  }
+}
+</style>
+
+<!-- Script Google Translate -->
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
   
 </body>
 </html>
+
 
 
 
