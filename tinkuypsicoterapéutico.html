@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tinkuy Psicoterapéutico</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* === Estilos de tarjetas === */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    /* === Modal === */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      padding-top: 60px;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+    }
+
+    .modal-content {
+      background: #fff;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 600px;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .close {
+      float: right;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #333;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.9);}
+      to {opacity: 1; transform: scale(1);}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Tinkuy Psicoterapéutico</h1>
+    <nav>
+      <ul>
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="index.html" class="active">Tinkuy Psicoterapéutico</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Fórmulas Psicoterapéuticas</h2>
+      <div class="grid">
+        <!-- Tarjetas de fórmulas -->
+        <div class="card" data-modal="modal1">Fórmula 1</div>
+        <div class="card" data-modal="modal2">Fórmula 2</div>
+        <div class="card" data-modal="modal3">Fórmula 3</div>
+        <div class="card" data-modal="modal4">Fórmula 4</div>
+        <div class="card" data-modal="modal7">Fórmula 7</div>
+        <div class="card" data-modal="modal8">Fórmula 8</div>
+        <div class="card" data-modal="modal9">Fórmula 9</div>
+        <div class="card" data-modal="modal10">Fórmula 10</div>
+        <div class="card" data-modal="modal11">Fórmula 11</div>
+        <div class="card" data-modal="modal12">Fórmula 12</div>
+        <div class="card" data-modal="modal13">Fórmula 13</div>
+        <div class="card" data-modal="modal14">Fórmula 14</div>
+        <div class="card" data-modal="modal15">Fórmula 15</div>
+        <div class="card" data-modal="modal17">Fórmula 17</div>
+        <div class="card" data-modal="modal18">Fórmula 18</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 MetaPsy Tinkuy</p>
+  </footer>
+
+  <!-- Modales -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <span class="close" data-close="modal1">&times;</span>
+      <h2>Fórmula 1</h2>
+      <p>Ejemplo de aplicación de la Fórmula 1 en psicoterapia.</p>
+    </div>
+  </div>
+
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <span class="close" data-close="modal2">&times;</span>
+      <h2>Fórmula 2</h2>
+      <p>Ejemplo de aplicación de la Fórmula 2 en psicoterapia.</p>
+    </div>
+  </div>
+
+  <!-- (Aquí irían los demás modales hasta el 18, con placeholders) -->
+
+  <script>
+    // Intersection Observer para animaciones
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    });
+
+    document.querySelectorAll('.card').forEach(el => observer.observe(el));
+
+    // Script para modales
+    const cards = document.querySelectorAll('.card');
+    const modals = document.querySelectorAll('.modal');
+    const closes = document.querySelectorAll('.close');
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const modalId = card.getAttribute('data-modal');
+        document.getElementById(modalId).style.display = 'block';
+      });
+    });
+
+    closes.forEach(close => {
+      close.addEventListener('click', () => {
+        const modalId = close.getAttribute('data-close');
+        document.getElementById(modalId).style.display = 'none';
+      });
+    });
+
+    window.onclick = event => {
+      modals.forEach(modal => {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    };
+  </script>
+</body>
+</html>
