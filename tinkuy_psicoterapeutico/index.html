@@ -449,66 +449,48 @@
       </article>
 
     </section>
-  <!-- ===== BLOQUE DE DESCARGA CON NUBES DE PALABRAS ===== -->
-<section style="position:relative; background: linear-gradient(135deg,#ffecd2,#fcb69f); padding:36px 24px; border-radius:20px; margin:36px 0; box-shadow:0 10px 28px rgba(0,0,0,0.12); text-align:center; overflow:hidden;">
-  
-  <!-- Nubes de palabras decorativas -->
-  <div style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none;">
-    <span class="word-cloud" style="top:10%; left:15%;">Empatía</span>
-    <span class="word-cloud" style="top:30%; left:70%;">Asertividad</span>
-    <span class="word-cloud" style="top:50%; left:25%;">Escucha</span>
-    <span class="word-cloud" style="top:70%; left:55%;">Feedback</span>
-    <span class="word-cloud" style="top:20%; left:45%;">Colaboración</span>
-    <span class="word-cloud" style="top:60%; left:80%;">Respeto</span>
-    <span class="word-cloud" style="top:40%; left:10%;">Petición</span>
-    <span class="word-cloud" style="top:80%; left:30%;">Validación</span>
-  </div>
+<!-- ===== BLOQUE DESCARGA MATERIAL COMPLETO CON NUBES 3D ===== -->
+<section style="position:relative; background: linear-gradient(to top, #87ceeb, #cce7ff); padding:48px 24px; border-radius:20px; margin:36px 0; box-shadow:0 10px 28px rgba(0,0,0,0.12); text-align:center; overflow:hidden;">
 
-  <h3 style="position:relative; z-index:1; color:#8B4513; font-size:1.6rem; margin-bottom:12px;">📚 Descarga el material completo</h3>
-  <p style="position:relative; z-index:1; max-width:700px; margin:12px auto; color:#2c3e50; font-size:1rem; line-height:1.55;">
-    Todo lo que viste en estas tarjetas de comunicación asertiva está resumido en un PDF listo para usar. ¡Guárdalo y aplícalo en tu día a día!
+  <h3 style="color:#2c3e50; font-size:1.6rem; margin-bottom:16px;">📥 Descarga el material completo</h3>
+  <p style="max-width:700px; margin:12px auto; color:#2c3e50; font-size:1rem; line-height:1.55;">
+    Aquí puedes descargar todo el material de <strong>comunicación asertiva</strong> para aplicarlo en tu día a día.
   </p>
-  <p style="position:relative; z-index:1; margin-top:12px;">
-    📥 <a href="material-comunicacion-asertiva.pdf" download 
-          style="display:inline-block; padding:12px 22px; font-weight:600; border-radius:16px; background:#fff7f2; color:#8B4513; text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,0.12); transition: all .25s ease; transform:translateY(0);">
-      Descargar PDF
+  <p style="margin-top:16px;">
+    <a href="material-comunicacion-asertiva.pdf" download 
+       style="display:inline-block; padding:12px 20px; font-weight:600; border-radius:12px; background:#fff7f2; color:#8B4513; text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,0.12); transition: all .22s ease;">
+      Descargar material completo
     </a>
   </p>
+
+  <!-- ===== NUBES REALISTAS 3D Y TEXTO FLOTANTE ===== -->
+  <div class="cloud-container" aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; overflow:hidden;">
+    <!-- Nube 1 -->
+    <div class="cloud" style="position:absolute; top:10%; left:-150px; width:180px; height:90px; background: rgba(255,255,255,0.6); border-radius:90px; filter: blur(6px); animation:cloudMove1 60s linear infinite;"></div>
+    <!-- Nube 2 -->
+    <div class="cloud" style="position:absolute; top:35%; left:-200px; width:220px; height:110px; background: rgba(255,255,255,0.55); border-radius:110px; filter: blur(8px); animation:cloudMove2 80s linear infinite;"></div>
+    <!-- Nube 3 -->
+    <div class="cloud" style="position:absolute; top:60%; left:-180px; width:200px; height:100px; background: rgba(255,255,255,0.5); border-radius:100px; filter: blur(7px); animation:cloudMove3 70s linear infinite;"></div>
+
+    <!-- Palabras flotando -->
+    <span class="cloud-word" style="position:absolute; top:15%; left:20%; font-size:2rem; color:rgba(255,255,255,0.85); animation:floatWord 8s ease-in-out infinite;">escucha</span>
+    <span class="cloud-word" style="position:absolute; top:40%; left:60%; font-size:1.8rem; color:rgba(255,255,255,0.8); animation:floatWord 10s ease-in-out infinite;">empatía</span>
+    <span class="cloud-word" style="position:absolute; top:65%; left:30%; font-size:1.9rem; color:rgba(255,255,255,0.82); animation:floatWord 12s ease-in-out infinite;">respeto</span>
+  </div>
+
 </section>
 
 <style>
-  /* Animación de flotación para palabras */
-  .word-cloud {
-    position:absolute;
-    font-weight:700;
-    font-size:1rem;
-    color: rgba(255,255,255,0.8);
-    text-shadow: 1px 1px 8px rgba(0,0,0,0.1);
-    animation: floatWord 12s ease-in-out infinite;
-    white-space: nowrap;
-  }
-
-  .word-cloud:nth-child(2) { animation-duration: 14s; }
-  .word-cloud:nth-child(3) { animation-duration: 16s; }
-  .word-cloud:nth-child(4) { animation-duration: 18s; }
-  .word-cloud:nth-child(5) { animation-duration: 13s; }
-  .word-cloud:nth-child(6) { animation-duration: 15s; }
-  .word-cloud:nth-child(7) { animation-duration: 17s; }
-  .word-cloud:nth-child(8) { animation-duration: 19s; }
+  @keyframes cloudMove1 { 0%{left:-200px;} 100%{left:120%;} }
+  @keyframes cloudMove2 { 0%{left:-250px;} 100%{left:130%;} }
+  @keyframes cloudMove3 { 0%{left:-220px;} 100%{left:125%;} }
 
   @keyframes floatWord {
-    0% { transform: translateY(0px) translateX(0px); opacity:0.8; }
-    50% { transform: translateY(-12px) translateX(6px); opacity:1; }
-    100% { transform: translateY(0px) translateX(0px); opacity:0.8; }
-  }
-
-  section a:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 28px rgba(0,0,0,0.18);
-    color:#ff5a36;
+    0%,100%{transform: translateY(0);}
+    50%{transform: translateY(-12px);}
   }
 </style>
-
+    
   </main>
 
   <!-- ===== FOOTER ===== -->
