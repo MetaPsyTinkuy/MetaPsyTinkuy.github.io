@@ -397,8 +397,46 @@ document.querySelectorAll('.modal').forEach(modal => {
   });
 });
 </script>
+<!-- ===== CONTENEDOR DE KILLA ===== -->
+<div class="killa-container">
+  <img src="killa.png" alt="Killa" class="killa">
+</div>
+<script>
+const killa = document.querySelector('.killa');
+const container = document.querySelector('.killa-container');
+
+// ===== Seguir cursor =====
+container.addEventListener('mousemove', (e) => {
+  const rect = container.getBoundingClientRect();
+  const x = e.clientX - rect.left - rect.width / 2;
+  const y = e.clientY - rect.top - rect.height / 2;
+  const rotateX = y * 0.03;
+  const rotateY = x * 0.03;
+  killa.style.transform = `translateY(-2px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+});
+
+// ===== Salto al clic =====
+container.addEventListener('click', () => {
+  killa.style.transform += ' translateY(-20px)';
+  setTimeout(() => {
+    killa.style.transform = killa.style.transform.replace(' translateY(-20px)', '');
+  }, 200);
+});
+
+// ===== Movimiento aleatorio pequeño =====
+function randomMove() {
+  const x = (Math.random() - 0.5) * 4;
+  const y = (Math.random() - 0.5) * 4;
+  killa.style.transform += ` translate(${x}px, ${y}px)`;
+  setTimeout(randomMove, 3000);
+}
+randomMove();
+</script>
+
+  
 </body>
 </html>
+
 
 
 
