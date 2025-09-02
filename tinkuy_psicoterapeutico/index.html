@@ -1,45 +1,446 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tinkuy Psicoterapéutico</title>
-  <link rel="stylesheet" href="../styles.css">
-</head>
-<body>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MetaPsy Tinkuy — Tinkuy Psicoterapéutico</title>
+  <link rel="icon" href="../favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
 
+  <style>
+    /* ===== BASE ===== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(-45deg, #ffecd2, #fcb69f, #ffecd2, #fcb69f);
+      background-size: 400% 400%;
+      animation: gradientBG 20s ease infinite;
+      color: #2c3e50;
+      scroll-behavior: smooth;
+      display: flex; flex-direction: column;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 40px; background: rgba(255,236,210,0.9);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 1000;
+      backdrop-filter: blur(6px);
+    }
+    header .logo-title { display: flex; align-items: center; gap: 16px; }
+    header img { border-radius: 50%; width: 72px; height: 72px; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: transform .5s, box-shadow .5s; }
+    header img:hover { transform: scale(1.12) rotate(3deg); box-shadow: 0 0 25px #00ff88, 0 0 40px #00ff88; }
+    header h1 { font-size: 1.6rem; color: #2c3e50; text-shadow: 1px 1px 8px rgba(0,0,0,0.2); animation: textGlow 2s ease-in-out infinite; }
+
+    nav a { margin: 0 12px; text-decoration: none; color: #2c3e50; font-weight: 600; font-size: 1.05rem; transition: all .3s ease; }
+    nav a:hover { color: #ff5a36; text-shadow: 0 0 8px #ff5a36; }
+
+    /* ===== MAIN ===== */
+    main { max-width: 1200px; width: 100%; margin: 48px auto; padding: 0 24px; flex: 1; }
+    main h2 { font-size: 2.4rem; text-align: center; margin-bottom: 10px; animation: textGlow 2s ease-in-out infinite; }
+    main p.lead { text-align: center; font-size: 1.1rem; color: #35495e; margin-bottom: 28px; }
+
+    /* ===== GRID ===== */
+    .grid { display: grid; gap: 22px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    @media (max-width: 1024px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+
+    /* ===== FLIP CARD ===== */
+    .flip-card { perspective: 1200px; }
+    .flip-inner {
+      position: relative; width: 100%; height: 240px; transform-style: preserve-3d;
+      transition: transform .8s cubic-bezier(.2,.7,.2,1);
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0,0,0,.18);
+    }
+    .flip-card:hover .flip-inner { transform: rotateY(180deg); }
+    .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+
+    .flip-face {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      padding: 22px; backface-visibility: hidden;
+      background: #fff7f2; border: 4px solid transparent; background-clip: padding-box;
+    }
+    .flip-face::before {
+      content: ""; position: absolute; inset: -4px; border-radius: 24px; z-index: -1;
+      background: linear-gradient(45deg, #ffecd2, #fcb69f, #a0eaff, #ffecd2);
+      filter: blur(14px); opacity: .7; animation: borderGlow 6s linear infinite;
+    }
+
+    .front { gap: 10px; text-align: center; }
+    .front h3 { font-size: 1.35rem; color: #8B4513; margin-bottom: 8px; }
+    .formula {
+      font-weight: 700; font-size: 1.05rem; line-height: 1.5;
+      color: #2c3e50; letter-spacing: .2px;
+    }
+    .formula .plus { font-weight: 900; padding: 0 .35rem; }
+    .formula .token { display: inline-block; padding: 2px 8px; border-radius: 10px; background: rgba(255, 236, 210, .7); border: 1px dashed rgba(252, 182, 159, .8); }
+
+    .back { transform: rotateY(180deg); text-align: left; background: linear-gradient(135deg,#ffffff,#f7f7f7); }
+    .back h4 { font-size: 1.05rem; color: #8B4513; margin-bottom: 10px; }
+    .back p { color: #444; line-height: 1.6; }
+    .badge { display: inline-block; font-size: .78rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: linear-gradient(90deg,#fcb69f,#ffecd2); color: #fff; margin-bottom: 8px; box-shadow: 0 6px 20px rgba(0,0,0,.15); }
+
+    /* Hint táctil */
+    .tap-hint { text-align: center; font-size: .95rem; color: #5b5b5b; margin: 12px 0 22px; }
+
+    /* ===== FOOTER ===== */
+    footer { text-align: center; padding: 24px; background: linear-gradient(90deg, #ffecd2, #fcb69f); color: #333; box-shadow: 0 -4px 15px rgba(0,0,0,0.1); }
+
+    /* ===== ANIMACIONES ===== */
+    @keyframes gradientBG { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    @keyframes textGlow { 0%,100%{ text-shadow: 2px 2px 8px rgba(0,0,0,0.2);} 50%{ text-shadow: 0 0 20px #2c3e50, 0 0 30px #2c3e50;} }
+    @keyframes borderGlow { 0%{ transform: rotate(0deg);} 50%{ transform: rotate(180deg);} 100%{ transform: rotate(360deg);} }
+  </style>
+</head>
+
+<body>
+  <!-- ===== HEADER ===== -->
   <header>
     <div class="logo-title">
-      <img src="../logometapsytinkuy.jpeg" alt="Logo MetaPsy Tinkuy" width="100">
+      <img src="../logometapsytinkuy.jpeg" alt="Logo MetaPsy Tinkuy" />
       <h1>MetaPsy Tinkuy</h1>
     </div>
-    <nav>
+    <nav aria-label="Navegación principal">
       <a href="../index.html">Inicio</a>
       <a href="../nosotros.html">Nosotros</a>
       <a href="../proyectos.html">Proyectos</a>
       <a href="../contacto.html">Contacto</a>
-      <a href="index.html">Tinkuy Psicoterapéutico</a>
+      <a href="./index.html" aria-current="page">Tinkuy Psicoterapéutico</a>
     </nav>
   </header>
 
+  <!-- ===== MAIN ===== -->
   <main>
     <h2>Tinkuy Psicoterapéutico</h2>
-    <p>Bienvenido a la sección de Tinkuy Psicoterapéutico. Aquí encontrarás las 17 fórmulas que iremos incorporando paso a paso.</p>
+    <p class="lead">12 fórmulas prácticas de comunicación — al frente verás la fórmula (formato “matemático” con <strong>+</strong>), al reverso un ejemplo listo para usar.</p>
 
-    <section>
-      <h3>Fórmulas</h3>
-      <ul>
-        <li>Fórmula 1</li>
-        <li>Fórmula 2</li>
-        <li>Fórmula 3</li>
-        <!-- Aquí seguiremos agregando hasta la 17 -->
-      </ul>
+    <p class="tap-hint">💡 En móvil: toca una tarjeta para girarla. En escritorio: pasa el mouse por encima.</p>
+
+    <section class="grid" aria-label="Tarjetas de fórmulas">
+      <!-- CARD 01 -->
+      <article class="flip-card" tabindex="0" aria-label="Fórmula 1: Yo siento + cuando + porque necesito + me gustaría">
+        <div class="flip-inner">
+          <div class="flip-face front">
+            <div>
+              <span class="badge">Fórmula 1</span>
+              <h3>Expresión asertiva</h3>
+              <p class="formula">
+                <span class="token">Yo siento</span>
+                <span class="plus">+</span>
+                <span class="token">cuando</span>
+                <span class="plus">+</span>
+                <span class="token">porque necesito</span>
+                <span class="plus">+</span>
+                <span class="token">me gustaría</span>
+              </p>
+            </div>
+          </div>
+          <div class="flip-face back">
+            <div>
+              <h4>Ejemplo</h4>
+              <p>"Yo me siento <strong>frustrado</strong> cuando los planes cambian a última hora, porque necesito <strong>organizarme</strong>. Me gustaría que me avises con al menos <strong>24 horas</strong> de anticipación."</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 02 -->
+      <article class="flip-card" tabindex="0" aria-label="Fórmula 2: Conducta + emoción + necesidad + petición concreta">
+        <div class="flip-inner">
+          <div class="flip-face front">
+            <div>
+              <span class="badge">Fórmula 2</span>
+              <h3>De la conducta al pedido</h3>
+              <p class="formula">
+                <span class="token">cuando [conducta]</span>
+                <span class="plus">+</span>
+                <span class="token">me siento [emoción]</span>
+                <span class="plus">+</span>
+                <span class="token">porque [necesidad]</span>
+                <span class="plus">+</span>
+                <span class="token">¿podrías [petición]?</span>
+              </p>
+            </div>
+          </div>
+          <div class="flip-face back">
+            <div>
+              <h4>Ejemplo</h4>
+              <p>"Cuando hablas por el altavoz durante la noche me siento <strong>tenso</strong> porque necesito <strong>descansar</strong>. ¿Podrías usar audífonos después de las <strong>10 pm</strong>?"</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 03 -->
+      <article class="flip-card" tabindex="0" aria-label="Fórmula 3: Validación + reformulación + pregunta abierta">
+        <div class="flip-inner">
+          <div class="flip-face front">
+            <div>
+              <span class="badge">Fórmula 3</span>
+              <h3>Escucha que abre</h3>
+              <p class="formula">
+                <span class="token">validación</span>
+                <span class="plus">+</span>
+                <span class="token">reformulación</span>
+                <span class="plus">+</span>
+                <span class="token">pregunta abierta</span>
+              </p>
+            </div>
+          </div>
+          <div class="flip-face back">
+            <div>
+              <h4>Ejemplo</h4>
+              <p>"Tiene sentido que estés <strong>molesto</strong>. Si entiendo bien, te preocupa el <strong>plazo</strong>. ¿Qué te ayudaría a sentirte más tranquilo ahora?"</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 04 -->
+      <article class="flip-card" tabindex="0" aria-label="Fórmula 4: Empatía + límite claro + alternativa">
+        <div class="flip-inner">
+          <div class="flip-face front">
+            <div>
+              <span class="badge">Fórmula 4</span>
+              <h3>Límite respetuoso</h3>
+              <p class="formula">
+                <span class="token">empatía</span>
+                <span class="plus">+</span>
+                <span class="token">límite</span>
+                <span class="plus">+</span>
+                <span class="token">alternativa</span>
+              </p>
+            </div>
+          </div>
+          <div class="flip-face back">
+            <div>
+              <h4>Ejemplo</h4>
+              <p>"Entiendo que quieras conversar ahora. <strong>No puedo</strong> atenderte en este momento. ¿Te parece si hablamos a las <strong>6 pm</strong>?"</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 05 -->
+      <article class="flip-card" tabindex="0" aria-label="Fórmula 5: Agradecimiento + petición específica">
+        <div class="flip-inner">
+          <div class="flip-face front">
+            <div>
+              <span class="badge">Fórmula 5</span>
+              <h3>Refuerzo positivo</h3>
+              <p class="formula">
+                <span class="token">agradecimiento</span>
+                <span class="plus">+</span>
+                <span class="token">petición específica</span>
+              </p>
+            </div>
+          </div>
+          <div class="flip-face back">
+            <div>
+              <h4>Ejemplo</h4>
+              <p>"Gracias por tu apoyo con la mudanza. ¿Podrías también ayudarme a <strong>etiquetar las cajas</strong> mañana por la tarde?"</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 06 -->
+      <article class="flip-card" tabindex="0" aria-label="Fórmula 6: Observación sin juicio + impacto + petición">
+        <div class="flip-inner">
+          <div class="flip-face front">
+            <div>
+              <span class="badge">Fórmula 6</span>
+              <h3>Hecho → impacto → pedido</h3>
+              <p class="formula">
+                <span class="token">observación</span>
+                <span class="plus">+</span>
+                <span class="token">impacto</span>
+                <span class="plus">+</span>
+                <span class="token">petición</span>
+              </p>
+            </div>
+          </div>
+          <div class="flip-face back">
+            <div>
+              <h4>Ejemplo</h4>
+              <p>"Noté que el informe llegó <strong>sin las referencias</strong>; me dificulta revisarlo. ¿Podrías <strong>adjuntarlas</strong> hoy?"</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 07 -->
+      <article class="flip-card" tabindex="0" aria-label="Fórmula 7: Pausa + describir hechos + intención de colaborar">
+        <div class="flip-inner">
+          <div class="flip-face front">
+            <div>
+              <span class="badge">Fórmula 7</span>
+              <h3>Desescalar</h3>
+              <p class="formula">
+                <span class="token">pausa</span>
+                <span class="plus">+</span>
+                <span class="token">hechos</span>
+                <span class="plus">+</span>
+                <span class="token">intención de colaborar</span>
+              </p>
+            </div>
+          </div>
+          <div class="flip-face back">
+            <div>
+              <h4>Ejemplo</h4>
+              <p>"Démonos <strong>5 minutos</strong>. Lo que pasó fue que <strong>no llegó el archivo</strong>. Mi intención es <strong>resolverlo juntos</strong>."</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 08 -->
+      <article class="flip-card" tabindex="0" aria-label="Fórmula 8: Parafraseo + reflejo emocional + síntesis">
+        <div class="flip-inner">
+          <div class="flip-face front">
+            <div>
+              <span class="badge">Fórmula 8</span>
+              <h3>Escucha activa</h3>
+              <p class="formula">
+                <span class="token">parafraseo</span>
+                <span class="plus">+</span>
+                <span class="token">reflejo emocional</span>
+                <span class="plus">+</span>
+                <span class="token">síntesis</span>
+              </p>
+            </div>
+          </div>
+          <div class="flip-face back">
+            <div>
+              <h4>Ejemplo</h4>
+              <p>"Entonces, lo que dices es que el <strong>plazo</strong> es ajustado y te sientes <strong>presionado</strong>. En resumen, necesitas <strong>apoyo</strong> con la parte final."</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 09 -->
+      <article class="flip-card" tabindex="0" aria-label="Fórmula 9: Yo necesito + negociar + acordar siguiente paso">
+        <div class="flip-inner">
+          <div class="flip-face front">
+            <div>
+              <span class="badge">Fórmula 9</span>
+              <h3>Negociación simple</h3>
+              <p class="formula">
+                <span class="token">yo necesito</span>
+                <span class="plus">+</span>
+                <span class="token">negociemos</span>
+                <span class="plus">+</span>
+                <span class="token">siguiente paso</span>
+              </p>
+            </div>
+          </div>
+          <div class="flip-face back">
+            <div>
+              <h4>Ejemplo</h4>
+              <p>"Yo necesito <strong>dos horas</strong> para terminar. Negociemos la entrega: ¿te parece que lo envíe a las <strong>7 pm</strong> y revisamos mañana?"</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 10 -->
+      <article class="flip-card" tabindex="0" aria-label="Fórmula 10: Aprecio + no + motivo breve + alternativa">
+        <div class="flip-inner">
+          <div class="flip-face front">
+            <div>
+              <span class="badge">Fórmula 10</span>
+              <h3>Decir no con respeto</h3>
+              <p class="formula">
+                <span class="token">aprecio</span>
+                <span class="plus">+</span>
+                <span class="token">no</span>
+                <span class="plus">+</span>
+                <span class="token">motivo</span>
+                <span class="plus">+</span>
+                <span class="token">alternativa</span>
+              </p>
+            </div>
+          </div>
+          <div class="flip-face back">
+            <div>
+              <h4>Ejemplo</h4>
+              <p>"Aprecio que me consideres. <strong>No puedo</strong> este fin de semana por un <strong>compromiso familiar</strong>. ¿Te parece si te ayudo el <strong>miércoles</strong>?"</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 11 -->
+      <article class="flip-card" tabindex="0" aria-label="Fórmula 11: Feedback 3:1 — elogio + mejora + cierre constructivo">
+        <div class="flip-inner">
+          <div class="flip-face front">
+            <div>
+              <span class="badge">Fórmula 11</span>
+              <h3>Feedback breve</h3>
+              <p class="formula">
+                <span class="token">elogio</span>
+                <span class="plus">+</span>
+                <span class="token">mejora</span>
+                <span class="plus">+</span>
+                <span class="token">cierre</span>
+              </p>
+            </div>
+          </div>
+          <div class="flip-face back">
+            <div>
+              <h4>Ejemplo</h4>
+              <p>"Me gustó la <strong>claridad</strong> del informe. Mejoraría la sección de <strong>métodos</strong>. Cierra excelente si agregas las <strong>fuentes</strong>."</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 12 -->
+      <article class="flip-card" tabindex="0" aria-label="Fórmula 12: Tiempo fuera + autorregulación + reprogramar">
+        <div class="flip-inner">
+          <div class="flip-face front">
+            <div>
+              <span class="badge">Fórmula 12</span>
+              <h3>Pedir tiempo</h3>
+              <p class="formula">
+                <span class="token">tiempo fuera</span>
+                <span class="plus">+</span>
+                <span class="token">autorregulación</span>
+                <span class="plus">+</span>
+                <span class="token">reprogramar</span>
+              </p>
+            </div>
+          </div>
+          <div class="flip-face back">
+            <div>
+              <h4>Ejemplo</h4>
+              <p>"Estoy <strong>muy alterado</strong> ahora y no quiero decir algo que <strong>lamentemos</strong>. Tomo <strong>20 minutos</strong> y retomamos a las <strong>6:30</strong>."</p>
+            </div>
+          </div>
+        </div>
+      </article>
     </section>
   </main>
 
+  <!-- ===== FOOTER ===== -->
   <footer>
     <p>&copy; 2025 MetaPsy Tinkuy. Todos los derechos reservados.</p>
   </footer>
 
+  <script>
+    // Soporte táctil/clic para girar en móvil o con teclado
+    document.querySelectorAll('.flip-card').forEach(card => {
+      card.addEventListener('click', () => card.classList.toggle('flipped'));
+      card.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.classList.toggle('flipped');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
