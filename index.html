@@ -256,6 +256,7 @@ footer {
     <a href="nosotros.html">Nosotros</a>
     <a href="proyectos.html">Proyectos</a>
     <a href="contacto.html">Contacto</a>
+    <a href="tinkuy.html">Tinkuy Psicoterapéutico</a>
   </nav>
 </header>
 
@@ -288,9 +289,40 @@ footer {
       <button class="btn" data-modal="modal3">Explorar</button>
     </div>
   </div>
+
+  <!-- NUEVA SECCIÓN: TINKUY PSICOTERAPÉUTICO -->
+  <h2 style="margin-top:60px;">Tinkuy Psicoterapéutico</h2>
+  <p>Recursos prácticos de habilidades de comunicación para adultos, con ejemplos claros y aplicables.</p>
+
+  <div class="inicio-cards">
+    <!-- Tarjeta 1 -->
+    <div class="inicio-card">
+      <img src="formula1.jpg" alt="Fórmula 1">
+      <h3>Fórmula 1</h3>
+      <p>Ejemplo de uso para comunicar emociones de manera asertiva.</p>
+      <button class="btn" data-modal="modalT1">Explorar</button>
+    </div>
+
+    <!-- Tarjeta 2 -->
+    <div class="inicio-card">
+      <img src="formula2.jpg" alt="Fórmula 2">
+      <h3>Fórmula 2</h3>
+      <p>Ejemplo de uso con enfoque en escuchar activamente al otro.</p>
+      <button class="btn" data-modal="modalT2">Explorar</button>
+    </div>
+
+    <!-- Tarjeta 3 -->
+    <div class="inicio-card">
+      <img src="formula3.jpg" alt="Fórmula 3">
+      <h3>Fórmula 3</h3>
+      <p>Ejemplo práctico de comunicación empática y clara.</p>
+      <button class="btn" data-modal="modalT3">Explorar</button>
+    </div>
+  </div>
+
 </main>
 
-<!-- MODALES -->
+<!-- MODALES EXISTENTES -->
 <div id="modal1" class="modal">
   <div class="modal-content">
     <h2>Revisiones Sistemáticas</h2>
@@ -321,6 +353,40 @@ footer {
       <a href="proyectos.html#capacitacion" class="btn">Ver Capacitaciones</a>
     </div>
     <button class="btn" onclick="closeModal('modal3')">Cerrar</button>
+  </div>
+</div>
+
+<!-- MODALES NUEVOS TINKUY -->
+<div id="modalT1" class="modal">
+  <div class="modal-content">
+    <h2>Fórmula 1</h2>
+    <div class="modal-body">
+      <img src="formula1.jpg" alt="Fórmula 1">
+      <p>Ejemplo: "Yo me siento enojado cuando no me avisas porque necesito organizarme. Me gustaría que me informes con anticipación."</p>
+    </div>
+    <button class="btn" onclick="closeModal('modalT1')">Cerrar</button>
+  </div>
+</div>
+
+<div id="modalT2" class="modal">
+  <div class="modal-content">
+    <h2>Fórmula 2</h2>
+    <div class="modal-body">
+      <img src="formula2.jpg" alt="Fórmula 2">
+      <p>Ejemplo: "Cuando hablas tan rápido, me cuesta seguirte. Me gustaría que pauses un momento para poder entenderte mejor."</p>
+    </div>
+    <button class="btn" onclick="closeModal('modalT2')">Cerrar</button>
+  </div>
+</div>
+
+<div id="modalT3" class="modal">
+  <div class="modal-content">
+    <h2>Fórmula 3</h2>
+    <div class="modal-body">
+      <img src="formula3.jpg" alt="Fórmula 3">
+      <p>Ejemplo: "Cuando interrumpes mis ideas, me siento frustrado. Me gustaría que me escuches hasta terminar mi explicación."</p>
+    </div>
+    <button class="btn" onclick="closeModal('modalT3')">Cerrar</button>
   </div>
 </div>
 
@@ -363,7 +429,3 @@ document.querySelectorAll('.modal').forEach(modal => {
 </script>
 </body>
 </html>
-
-
-
-
