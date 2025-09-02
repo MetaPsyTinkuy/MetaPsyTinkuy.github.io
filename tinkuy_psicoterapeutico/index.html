@@ -449,23 +449,21 @@
       </article>
 
     </section>
-<!-- ===== BLOQUE DESCARGA MATERIAL COMPLETO - CIELO DINÁMICO PREMIUM ===== -->
+<!-- ===== BLOQUE DESCARGA MATERIAL COMPLETO - NOCHE INTERACTIVA ===== -->
 <section style="position:relative; padding:80px 24px; border-radius:20px; margin:36px 0; box-shadow:0 10px 28px rgba(0,0,0,0.12); text-align:center; overflow:hidden;">
 
-  <!-- ===== CIELO DINÁMICO ===== -->
+  <!-- ===== CIELO NOCTURNO ===== -->
   <div class="sky-container" aria-hidden="true" style="position:absolute; inset:0; overflow:hidden; border-radius:20px; z-index:0;">
-    <div class="sky" style="position:absolute; inset:0; background: linear-gradient(to top, #87ceeb, #cce7ff); transition: background 20s linear;"></div>
+    <div class="sky" style="position:absolute; inset:0; background: linear-gradient(to top, #0d1b2a, #1b263b);"></div>
     <!-- Estrellas -->
-    <div class="stars" style="position:absolute; inset:0; background: transparent; pointer-events:none;"></div>
+    <div class="stars" style="position:absolute; inset:0; pointer-events:none;"></div>
     <!-- Luna -->
-    <div class="moon" style="position:absolute; top:10%; right:10%; width:80px; height:80px; border-radius:50%; background: rgba(255,255,224,0.9); box-shadow:0 0 20px rgba(255,255,224,0.8); opacity:0; transition: opacity 20s linear;"></div>
+    <div class="moon" style="position:absolute; top:10%; right:10%; width:80px; height:80px; border-radius:50%; background: rgba(255,255,224,0.9); box-shadow:0 0 30px rgba(255,255,224,0.8); cursor:pointer;"></div>
     <!-- Nubes -->
-    <div class="cloud-container" style="position:absolute; inset:0; pointer-events:none; perspective:1000px;">
-      <div class="cloud" style="position:absolute; top:5%; left:-250px; width:220px; height:120px; background: rgba(255,255,255,0.8); border-radius:120px; filter: blur(8px); transform: translateZ(80px); animation:cloudMove1 60s linear infinite;"></div>
-      <div class="cloud" style="position:absolute; top:20%; left:-280px; width:260px; height:130px; background: rgba(255,255,255,0.75); border-radius:130px; filter: blur(9px); transform: translateZ(60px); animation:cloudMove2 75s linear infinite;"></div>
-      <div class="cloud" style="position:absolute; top:40%; left:-300px; width:200px; height:100px; background: rgba(255,255,255,0.7); border-radius:100px; filter: blur(7px); transform: translateZ(40px); animation:cloudMove3 90s linear infinite;"></div>
-      <div class="cloud" style="position:absolute; top:60%; left:-250px; width:180px; height:90px; background: rgba(255,255,255,0.65); border-radius:90px; filter: blur(6px); transform: translateZ(30px); animation:cloudMove4 105s linear infinite;"></div>
-      <div class="cloud" style="position:absolute; top:75%; left:-270px; width:220px; height:110px; background: rgba(255,255,255,0.6); border-radius:110px; filter: blur(8px); transform: translateZ(20px); animation:cloudMove5 120s linear infinite;"></div>
+    <div class="cloud-container" style="position:absolute; inset:0; pointer-events:auto; perspective:1000px;">
+      <div class="cloud" style="position:absolute; top:5%; left:-250px; width:220px; height:120px; background: rgba(255,255,255,0.15); border-radius:120px; filter: blur(8px); transform: translateZ(80px); animation:cloudMove1 60s linear infinite;"></div>
+      <div class="cloud" style="position:absolute; top:20%; left:-280px; width:260px; height:130px; background: rgba(255,255,255,0.12); border-radius:130px; filter: blur(9px); transform: translateZ(60px); animation:cloudMove2 75s linear infinite;"></div>
+      <div class="cloud" style="position:absolute; top:40%; left:-300px; width:200px; height:100px; background: rgba(255,255,255,0.1); border-radius:100px; filter: blur(7px); transform: translateZ(40px); animation:cloudMove3 90s linear infinite;"></div>
       <!-- Palabras flotantes -->
       <span class="cloud-word" style="position:absolute; top:10%; left:20%; font-size:2rem; color:rgba(255,255,255,0.85); text-shadow:2px 2px 8px rgba(0,0,0,0.15); animation:floatWord 8s ease-in-out infinite;">escucha</span>
       <span class="cloud-word" style="position:absolute; top:30%; left:60%; font-size:1.9rem; color:rgba(255,255,255,0.82); text-shadow:2px 2px 6px rgba(0,0,0,0.12); animation:floatWord 10s ease-in-out infinite;">empatía</span>
@@ -477,8 +475,8 @@
 
   <!-- ===== CONTENIDO DEL BLOQUE ===== -->
   <div style="position:relative; z-index:1;">
-    <h3 style="color:#2c3e50; font-size:1.8rem; margin-bottom:20px;">📥 Descarga el material completo</h3>
-    <p style="max-width:750px; margin:12px auto; color:#2c3e50; font-size:1rem; line-height:1.55;">
+    <h3 style="color:#fff; font-size:1.8rem; margin-bottom:20px;">📥 Descarga el material completo</h3>
+    <p style="max-width:750px; margin:12px auto; color:#fff; font-size:1rem; line-height:1.55;">
       Descarga todo el material de <strong>comunicación asertiva</strong> y empieza a aplicarlo de inmediato en tu día a día.
     </p>
     <p style="margin-top:18px;">
@@ -493,67 +491,101 @@
 
 <style>
   /* Animaciones de nubes */
-  @keyframes cloudMove1 { 0%{left:-250px;} 100%{left:120%;} }
-  @keyframes cloudMove2 { 0%{left:-280px;} 100%{left:130%;} }
-  @keyframes cloudMove3 { 0%{left:-300px;} 100%{left:125%;} }
-  @keyframes cloudMove4 { 0%{left:-250px;} 100%{left:120%;} }
-  @keyframes cloudMove5 { 0%{left:-270px;} 100%{left:130%;} }
+  @keyframes cloudMove1 {0%{left:-250px;} 100%{left:120%;}}
+  @keyframes cloudMove2 {0%{left:-280px;} 100%{left:130%;}}
+  @keyframes cloudMove3 {0%{left:-300px;} 100%{left:125%;}}
 
   /* Palabras flotantes */
-  @keyframes floatWord {
-    0%,100%{transform: translateY(0);}
-    50%{transform: translateY(-14px);}
-  }
+  @keyframes floatWord {0%,100%{transform: translateY(0);} 50%{transform: translateY(-14px);}}
 </style>
 
 <script>
-  // ===== CICLO DE CIELO: Día → Crepúsculo → Noche → Amanecer =====
-  const sky = document.querySelector('.sky');
-  const moon = document.querySelector('.moon');
   const starsContainer = document.querySelector('.stars');
+  const cloudWords = document.querySelectorAll('.cloud-word');
+  const clouds = document.querySelectorAll('.cloud');
+  const moon = document.querySelector('.moon');
 
-  // Generar estrellas
-  for (let i = 0; i < 120; i++) {
+  // Estrellas fijas
+  for(let i=0;i<120;i++){
     const star = document.createElement('div');
-    star.style.position = 'absolute';
-    star.style.width = `${Math.random()*2 + 1}px`;
-    star.style.height = star.style.width;
-    star.style.borderRadius = '50%';
-    star.style.background = 'white';
+    star.style.position='absolute';
+    const size = Math.random()*2 + 1;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    star.style.borderRadius='50%';
+    star.style.background='white';
     star.style.top = `${Math.random()*100}%`;
     star.style.left = `${Math.random()*100}%`;
     star.style.opacity = Math.random();
     starsContainer.appendChild(star);
   }
 
-  let phase = 0; // 0:día, 1:crepúsculo, 2:noche, 3:amanecer
-  function updateSky() {
-    switch(phase){
-      case 0: // Día
-        sky.style.background = 'linear-gradient(to top, #87ceeb, #cce7ff)';
-        moon.style.opacity = 0;
-        starsContainer.style.opacity = 0;
-        break;
-      case 1: // Crepúsculo
-        sky.style.background = 'linear-gradient(to top, #fcb69f, #ffecd2)';
-        moon.style.opacity = 0.3;
-        starsContainer.style.opacity = 0.2;
-        break;
-      case 2: // Noche
-        sky.style.background = 'linear-gradient(to top, #0d1b2a, #1b263b)';
-        moon.style.opacity = 1;
-        starsContainer.style.opacity = 1;
-        break;
-      case 3: // Amanecer
-        sky.style.background = 'linear-gradient(to top, #ffe0b2, #cce7ff)';
-        moon.style.opacity = 0.2;
-        starsContainer.style.opacity = 0.3;
-        break;
-    }
-    phase = (phase+1)%4;
-  }
+  // Estrellas fugaces curvas y aleatorias
+  function createCurvedShootingStar(){
+    const star = document.createElement('div');
+    star.style.position='absolute';
+    const startX = -50;
+    const startY = Math.random()*50;
+    const endX = 800 + Math.random()*200;
+    const endY = 400 + Math.random()*100;
+    const size = Math.random()*2 +1;
+    star.style.width = `${size}px`;
+    star.style.height = `${size*30}px`;
+    star.style.background='linear-gradient(white, rgba(255,255,255,0))';
+    star.style.top = `${startY}%`;
+    star.style.left = `${startX}px`;
+    star.style.transform = `rotate(${30 + Math.random()*30}deg)`;
+    star.style.opacity = 1;
+    star.style.pointerEvents = 'none';
+    star.style.zIndex = 0;
+    starsContainer.appendChild(star);
 
-  setInterval(updateSky, 15000); // cada 15s cambia fase, rápido pero sutil
+    const duration = 1200 + Math.random()*800;
+    const startTime = performance.now();
+
+    function animateStar(time){
+      let t = (time - startTime)/duration;
+      if(t>1) t=1;
+      const x = startX + (endX-startX)*t;
+      const y = startY*4 + (endY-startY*4)*t + 50*Math.sin(t*Math.PI*3);
+      star.style.left = x+'px';
+      star.style.top = y+'px';
+      star.style.opacity = 1-t;
+
+      cloudWords.forEach(word=>{
+        const rect = word.getBoundingClientRect();
+        const dx = (rect.left + rect.width/2) - x;
+        const dy = (rect.top + rect.height/2) - y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < 100){
+          word.style.transition='color 0.2s ease';
+          word.style.color='rgba(255,255,255,1)';
+        } else {
+          word.style.color='';
+        }
+      });
+
+      if(t<1) requestAnimationFrame(animateStar);
+      else starsContainer.removeChild(star);
+    }
+    requestAnimationFrame(animateStar);
+  }
+  setInterval(createCurvedShootingStar, 2000);
+
+  // ===== Interactividad de viento =====
+  const skyContainer = document.querySelector('.cloud-container');
+  skyContainer.addEventListener('mousemove', e=>{
+    const centerX = window.innerWidth/2;
+    const centerY = window.innerHeight/2;
+    const dx = (e.clientX - centerX)/centerX;
+    const dy = (e.clientY - centerY)/centerY;
+    clouds.forEach((cloud,i)=>{
+      cloud.style.transform = `translateZ(${80-i*20}px) translateX(${dx*20}px) translateY(${dy*10}px)`;
+    });
+    cloudWords.forEach((word,i)=>{
+      word.style.transform = `translateY(${Math.sin(Date.now()/1000+i)*10 + dy*15}px) translateX(${dx*10}px)`;
+    });
+  });
 </script>
 
     
