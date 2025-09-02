@@ -461,14 +461,15 @@ function randomMove() {
 randomMove();
 </script>
 
- <!-- ================= Widget Flotante MetaPsyTinkuy – Banderita Perú Ultra Animado ================= -->
+<!-- ================= Widget Flotante MetaPsyTinkuy – Ultra Interactivo ================= -->
 <div class="peru-widget">
   <div class="peru-flag" id="peru-toggle" title="Tip cultural">
     <img src="peru.png" alt="Perú" />
   </div>
   <div class="peru-tip">
+    <div class="tip-background"></div>
     <p id="tip-text">
-      <span class="tip-icon">🌄</span> ¡Bienvenido a MetaPsyTinkuy, tierra de sabiduría andina!
+      <span class="tip-icon" id="tip-icon">🌄</span> ¡Bienvenido a MetaPsyTinkuy, tierra de sabiduría andina!
     </p>
   </div>
 </div>
@@ -478,6 +479,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const toggle = document.getElementById("peru-toggle");
   const tip = document.querySelector(".peru-tip");
   const tipText = document.getElementById("tip-text");
+  const tipIcon = document.getElementById("tip-icon");
 
   const tips = [
     {text:"¡Bienvenido a MetaPsyTinkuy, tierra de sabiduría andina!", icon:"🌄"},
@@ -510,31 +512,51 @@ document.addEventListener("DOMContentLoaded", function() {
   ];
 
   let index = 0;
+  let animating = false;
 
   toggle.addEventListener("click", () => {
-    tip.classList.toggle("show");
+    if(animating) return;
+    animating = true;
+
+    tip.classList.add("show");
     index = (index + 1) % tips.length;
-    tipText.innerHTML = `<span class="tip-icon">${tips[index].icon}</span> ${tips[index].text}`;
-    
-    // Animación de entrada de tip
+
+    // Cambiar tip y icono
+    tipText.innerHTML = `<span class="tip-icon" id="tip-icon">${tips[index].icon}</span> ${tips[index].text}`;
+    const tipIconNew = document.getElementById("tip-icon");
+
+    // Animaciones individuales iconos (movimientos aleatorios)
+    const rotateDeg = Math.floor(Math.random() * 20) - 10; // -10 a 10 grados
+    tipIconNew.style.animation = `float ${1.5 + Math.random()}s ease-in-out infinite alternate, rotate ${3 + Math.random()*2}s linear infinite`;
+    tipIconNew.style.transform = `rotate(${rotateDeg}deg)`;
+
+    // Animación de entrada del tip
     tipText.style.opacity = 0;
     tipText.style.transform = "translateY(-15px) scale(0.95)";
     setTimeout(() => {
       tipText.style.transition = "opacity 0.5s ease, transform 0.5s ease";
       tipText.style.opacity = 1;
       tipText.style.transform = "translateY(0) scale(1)";
+      animating = false;
     }, 50);
   });
 
-  // Animación de salto + resplandor cada 4 segundos
+  // Bandera: salto, resplandor y respiración
   setInterval(() => {
-    toggle.style.transform = "translateY(-8px) scale(1.1)";
+    toggle.style.transform = "translateY(-8px) scale(1.15)";
     toggle.style.boxShadow = "0 8px 16px rgba(255,215,0,0.6)";
     setTimeout(() => {
       toggle.style.transform = "translateY(0) scale(1)";
       toggle.style.boxShadow = "0 6px 12px rgba(0,0,0,0.3)";
     }, 300);
   }, 4000);
+
+  // Respiración suave bandera
+  setInterval(() => {
+    toggle.style.transition = "transform 1.5s ease-in-out";
+    toggle.style.transform = "scale(1.05)";
+    setTimeout(()=>{ toggle.style.transform = "scale(1)"; }, 1500);
+  }, 6000);
 });
 </script>
 
@@ -556,7 +578,7 @@ document.addEventListener("DOMContentLoaded", function() {
   padding: 4px;
   border-radius: 50%;
   cursor: pointer;
-  background: linear-gradient(315deg, #4b6cb7 0%, #182848 74%);
+  background: linear-gradient(315deg, #D35400 0%, #E67E22 74%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -571,25 +593,27 @@ document.addEventListener("DOMContentLoaded", function() {
 }
 
 .peru-flag:hover {
-  transform: scale(1.15);
+  transform: scale(1.2);
   box-shadow: 0 8px 16px rgba(255,215,0,0.6);
 }
 
 .peru-tip {
+  position: relative;
   display: flex;
   opacity: 0;
   pointer-events: none;
   flex-direction: column;
   background: #ffffffdd;
-  padding: 10px 14px;
-  border-radius: 12px;
+  padding: 12px 16px;
+  border-radius: 14px;
   margin-top: 8px;
   max-width: 280px;
   text-align: center;
   font-size: 16px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   transform: translateY(-15px);
   transition: opacity 0.3s ease, transform 0.3s ease;
+  overflow: hidden;
 }
 
 .peru-tip.show {
@@ -598,36 +622,51 @@ document.addEventListener("DOMContentLoaded", function() {
   transform: translateY(0);
 }
 
+.tip-background {
+  position: absolute;
+  top:0; left:0; right:0; bottom:0;
+  background: radial-gradient(circle, rgba(255,215,0,0.2) 0%, transparent 70%);
+  animation: pulse 3s infinite alternate;
+  border-radius: 14px;
+  z-index: 0;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity:0.6; }
+  50% { transform: scale(1.05); opacity:0.3; }
+  100% { transform: scale(1); opacity:0.5; }
+}
+
 .tip-icon {
   display: inline-block;
   margin-right: 6px;
-  animation: float 2s ease-in-out infinite;
+  position: relative;
+  z-index:1;
+  animation: float 2s ease-in-out infinite alternate, rotate 4s linear infinite;
 }
 
 @keyframes float {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(4px); }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
 }
 
 @media (max-width: 600px) {
-  .peru-flag {
-    width: 40px;
-    height: 40px;
-  }
-  .peru-flag img {
-    width: 28px;
-    height: 28px;
-  }
-  .peru-tip {
-    font-size: 14px;
-    max-width: 220px;
-    padding: 8px 10px;
-  }
+  .peru-flag { width: 40px; height: 40px; }
+  .peru-flag img { width: 28px; height: 28px; }
+  .peru-tip { font-size: 14px; max-width: 220px; padding: 10px 12px; }
 }
 </style>
-  
+
 </body>
 </html>
+
 
 
 
