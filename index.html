@@ -483,11 +483,23 @@ function googleTranslateElementInit() {
   }, 'google_translate_element');
 }
 
+// Función para cambiar idioma asegurando que el iframe de Google Translate esté cargado
+function changeLanguage(lang) {
+  const interval = setInterval(() => {
+    const select = document.querySelector('select.goog-te-combo');
+    if(select){
+      select.value = lang;
+      select.dispatchEvent(new Event('change'));
+      clearInterval(interval);
+    }
+  }, 500); // revisa cada 0.5s
+}
+
 document.addEventListener("DOMContentLoaded", function() {
   const toggle = document.getElementById("translate-toggle");
   const options = document.querySelector(".lang-options");
 
-  // Mostrar opciones al hover (desktop) o tocar (móvil)
+  // Mostrar/ocultar opciones al hover (desktop) o tocar (móvil)
   toggle.addEventListener("mouseenter", () => options.style.display = "flex");
   toggle.addEventListener("mouseleave", () => options.style.display = "none");
   options.addEventListener("mouseenter", () => options.style.display = "flex");
@@ -497,16 +509,12 @@ document.addEventListener("DOMContentLoaded", function() {
     options.style.display = options.style.display === "flex" ? "none" : "flex";
   });
 
-  // Cambiar idioma y actualizar bandera y tooltip
+  // Cambiar idioma al hacer clic en un botón
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const lang = btn.getAttribute('data-lang');
-      const select = document.querySelector('select.goog-te-combo');
-      if(select){
-        select.value = lang;
-        select.dispatchEvent(new Event('change'));
-      }
-      toggle.textContent = btn.textContent; // actualizar bandera
+      changeLanguage(lang);
+      toggle.textContent = btn.textContent; // actualizar bandera seleccionada
       toggle.title = btn.title; // actualizar tooltip
       options.style.display = "none";
     });
@@ -518,7 +526,7 @@ document.addEventListener("DOMContentLoaded", function() {
 /* Contenedor flotante */
 .translate-widget {
   position: fixed;
-  bottom: 60px;
+  bottom: 60px; /* espacio para el footer */
   left: 10px;
   z-index: 1000;
   display: flex;
@@ -584,9 +592,11 @@ document.addEventListener("DOMContentLoaded", function() {
 <!-- Script Google Translate -->
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+
   
 </body>
 </html>
+
 
 
 
