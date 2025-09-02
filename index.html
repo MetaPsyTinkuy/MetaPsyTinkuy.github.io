@@ -242,6 +242,34 @@ footer {
   nav a { font-size: 1rem; }
   .inicio-card img { height: 200px; }
 }
+  /* ===== CONTENEDOR DE KILLA ===== */
+.killa-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.killa {
+  width: 100%;
+  transform-origin: center bottom;
+  animation: breathe 4s ease-in-out infinite, sway 6s ease-in-out infinite;
+  transition: transform 0.3s ease-in-out;
+}
+
+@keyframes breathe {
+  0%,100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(1deg); }
+}
+
+@keyframes sway {
+  0%,100% { transform: translateX(0px); }
+  50% { transform: translateX(3px); }
+}
+
 </style>
 </head>
 <body>
@@ -436,6 +464,7 @@ randomMove();
   
 </body>
 </html>
+
 
 
 
