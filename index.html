@@ -461,11 +461,15 @@ function randomMove() {
 randomMove();
 </script>
 
- <!-- ================= Widget Flotante MetaPsyTinkuy – Banderita Perú Mejorado ================= -->
+ <!-- ================= Widget Flotante MetaPsyTinkuy – Banderita Perú Ultra Animado ================= -->
 <div class="peru-widget">
-  <div class="peru-flag" id="peru-toggle" title="Tip cultural">🇵🇪</div>
+  <div class="peru-flag" id="peru-toggle" title="Tip cultural">
+    <img src="peru.png" alt="Perú" />
+  </div>
   <div class="peru-tip">
-    <p id="tip-text">¡Bienvenido a MetaPsyTinkuy, tierra de sabiduría andina! 🌄</p>
+    <p id="tip-text">
+      <span class="tip-icon">🌄</span> ¡Bienvenido a MetaPsyTinkuy, tierra de sabiduría andina!
+    </p>
   </div>
 </div>
 
@@ -473,26 +477,59 @@ randomMove();
 document.addEventListener("DOMContentLoaded", function() {
   const toggle = document.getElementById("peru-toggle");
   const tip = document.querySelector(".peru-tip");
+  const tipText = document.getElementById("tip-text");
 
   const tips = [
-    "¡Bienvenido a MetaPsyTinkuy, tierra de sabiduría andina! 🌄",
-    "Recuerda respirar profundo y conectar con tu presente. 🧘",
-    "La cosmovisión andina nos enseña equilibrio y armonía. 🌿",
-    "Pequeños actos de bondad fortalecen tu espíritu. 💛",
-    "La meditación diaria mejora la claridad y el bienestar. ✨"
+    {text:"¡Bienvenido a MetaPsyTinkuy, tierra de sabiduría andina!", icon:"🌄"},
+    {text:"Recuerda respirar profundo y conectar con tu presente.", icon:"🧘"},
+    {text:"La cosmovisión andina nos enseña equilibrio y armonía.", icon:"🌿"},
+    {text:"Pequeños actos de bondad fortalecen tu espíritu.", icon:"💛"},
+    {text:"La meditación diaria mejora la claridad y el bienestar.", icon:"✨"},
+    {text:"Agradece cada día los logros, grandes o pequeños.", icon:"🙏"},
+    {text:"Conecta con la naturaleza para recargar energía.", icon:"🌱"},
+    {text:"Caminar descalzo sobre tierra o césped ayuda a centrarte.", icon:"🌾"},
+    {text:"Practica la paciencia; todo tiene su tiempo.", icon:"⏳"},
+    {text:"Escucha tu respiración y tu cuerpo con atención.", icon:"🌬️"},
+    {text:"Dedica unos minutos al silencio cada día.", icon:"🕊️"},
+    {text:"Registra tus pensamientos en un diario para claridad mental.", icon:"📖"},
+    {text:"Sonríe aunque estés solo, tu cerebro lo agradecerá.", icon:"🙂"},
+    {text:"Comparte tiempo con seres que te nutran emocionalmente.", icon:"💞"},
+    {text:"Observa el cielo y siente la conexión con el universo.", icon:"🌌"},
+    {text:"La música andina puede ayudar a equilibrar tus emociones.", icon:"🎶"},
+    {text:"Realiza movimientos suaves para liberar tensiones.", icon:"🤸‍♂️"},
+    {text:"Cada error es una oportunidad de aprendizaje.", icon:"📚"},
+    {text:"Apoya a otros y tu bienestar aumentará.", icon:"🤝"},
+    {text:"Desconéctate de pantallas por momentos para reconectar contigo.", icon:"📵"},
+    {text:"Usa colores que te transmitan calma en tu entorno.", icon:"🎨"},
+    {text:"Hidrátate y aliméntate conscientemente.", icon:"💧🥑"},
+    {text:"Visualiza tus metas con detalle y emoción.", icon:"🎯"},
+    {text:"Medita sobre la gratitud antes de dormir.", icon:"🌙"},
+    {text:"Escucha historias y leyendas andinas para inspiración.", icon:"📜"},
+    {text:"Respeta tus límites y aprende a decir ‘no’ cuando sea necesario.", icon:"✋"},
+    {text:"Celebra cada paso hacia tu bienestar con alegría.", icon:"🎉"}
   ];
+
   let index = 0;
 
   toggle.addEventListener("click", () => {
     tip.classList.toggle("show");
     index = (index + 1) % tips.length;
-    document.getElementById("tip-text").textContent = tips[index];
+    tipText.innerHTML = `<span class="tip-icon">${tips[index].icon}</span> ${tips[index].text}`;
+    
+    // Animación de entrada de tip
+    tipText.style.opacity = 0;
+    tipText.style.transform = "translateY(-15px) scale(0.95)";
+    setTimeout(() => {
+      tipText.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+      tipText.style.opacity = 1;
+      tipText.style.transform = "translateY(0) scale(1)";
+    }, 50);
   });
 
   // Animación de salto + resplandor cada 4 segundos
   setInterval(() => {
     toggle.style.transform = "translateY(-8px) scale(1.1)";
-    toggle.style.boxShadow = "0 8px 16px rgba(255,215,0,0.6)"; // resplandor dorado
+    toggle.style.boxShadow = "0 8px 16px rgba(255,215,0,0.6)";
     setTimeout(() => {
       toggle.style.transform = "translateY(0) scale(1)";
       toggle.style.boxShadow = "0 6px 12px rgba(0,0,0,0.3)";
@@ -514,21 +551,28 @@ document.addEventListener("DOMContentLoaded", function() {
 }
 
 .peru-flag {
-  font-size: 28px;
-  padding: 12px;
+  width: 48px;
+  height: 48px;
+  padding: 4px;
   border-radius: 50%;
   cursor: pointer;
   background: linear-gradient(315deg, #4b6cb7 0%, #182848 74%);
-  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-shadow: 0 6px 12px rgba(0,0,0,0.3);
   transition: transform 0.3s, box-shadow 0.3s;
-  text-align: center;
-  line-height: 1;
+}
+
+.peru-flag img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
 }
 
 .peru-flag:hover {
   transform: scale(1.15);
-  box-shadow: 0 8px 16px rgba(255,215,0,0.6); /* efecto dorado al pasar cursor */
+  box-shadow: 0 8px 16px rgba(255,215,0,0.6);
 }
 
 .peru-tip {
@@ -540,7 +584,7 @@ document.addEventListener("DOMContentLoaded", function() {
   padding: 10px 14px;
   border-radius: 12px;
   margin-top: 8px;
-  max-width: 250px;
+  max-width: 280px;
   text-align: center;
   font-size: 16px;
   box-shadow: 0 6px 12px rgba(0,0,0,0.2);
@@ -554,14 +598,29 @@ document.addEventListener("DOMContentLoaded", function() {
   transform: translateY(0);
 }
 
+.tip-icon {
+  display: inline-block;
+  margin-right: 6px;
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
 @media (max-width: 600px) {
   .peru-flag {
-    font-size: 24px;
-    padding: 10px;
+    width: 40px;
+    height: 40px;
+  }
+  .peru-flag img {
+    width: 28px;
+    height: 28px;
   }
   .peru-tip {
     font-size: 14px;
-    max-width: 200px;
+    max-width: 220px;
     padding: 8px 10px;
   }
 }
@@ -569,6 +628,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
 </body>
 </html>
+
 
 
 
