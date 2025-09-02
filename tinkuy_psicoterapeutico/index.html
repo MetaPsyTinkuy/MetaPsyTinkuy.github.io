@@ -449,52 +449,46 @@
       </article>
 
     </section>
-<!-- ===== BLOQUE DESCARGA MATERIAL COMPLETO - CIELO 3D CONTINUO PREMIUM ===== -->
-<section id="premium-download-3d" style="position:relative; padding:80px 24px; border-radius:20px; margin:36px 0; box-shadow:0 10px 28px rgba(0,0,0,0.12); text-align:center; overflow:hidden;">
+<!-- ===== BLOQUE DESCARGA MATERIAL COMPLETO - CIELO DINÁMICO PREMIUM ===== -->
+<section style="position:relative; padding:80px 24px; border-radius:20px; margin:36px 0; box-shadow:0 10px 28px rgba(0,0,0,0.12); text-align:center; overflow:hidden;">
 
-  <!-- Sky 3D -->
-  <div class="sky-3d" style="position:absolute; inset:0; z-index:-10; background:linear-gradient(to top,#87ceeb,#cce7ff); transition:background 2s linear;"></div>
-
-  <!-- Stars -->
-  <div class="stars-3d" style="position:absolute; inset:0; z-index:-5; pointer-events:none; opacity:0; transition:opacity 2s linear;">
-    <div style="position:absolute; width:2px; height:2px; background:white; top:10%; left:20%; border-radius:50%;"></div>
-    <div style="position:absolute; width:2px; height:2px; background:white; top:25%; left:70%; border-radius:50%;"></div>
-    <div style="position:absolute; width:2px; height:2px; background:white; top:60%; left:40%; border-radius:50%;"></div>
-    <div style="position:absolute; width:2px; height:2px; background:white; top:80%; left:55%; border-radius:50%;"></div>
-    <div style="position:absolute; width:2px; height:2px; background:white; top:35%; left:10%; border-radius:50%;"></div>
-    <!-- Puedes agregar más estrellas si quieres -->
+  <!-- ===== CIELO DINÁMICO ===== -->
+  <div class="sky-container" aria-hidden="true" style="position:absolute; inset:0; overflow:hidden; border-radius:20px; z-index:0;">
+    <div class="sky" style="position:absolute; inset:0; background: linear-gradient(to top, #87ceeb, #cce7ff); transition: background 20s linear;"></div>
+    <!-- Estrellas -->
+    <div class="stars" style="position:absolute; inset:0; background: transparent; pointer-events:none;"></div>
+    <!-- Luna -->
+    <div class="moon" style="position:absolute; top:10%; right:10%; width:80px; height:80px; border-radius:50%; background: rgba(255,255,224,0.9); box-shadow:0 0 20px rgba(255,255,224,0.8); opacity:0; transition: opacity 20s linear;"></div>
+    <!-- Nubes -->
+    <div class="cloud-container" style="position:absolute; inset:0; pointer-events:none; perspective:1000px;">
+      <div class="cloud" style="position:absolute; top:5%; left:-250px; width:220px; height:120px; background: rgba(255,255,255,0.8); border-radius:120px; filter: blur(8px); transform: translateZ(80px); animation:cloudMove1 60s linear infinite;"></div>
+      <div class="cloud" style="position:absolute; top:20%; left:-280px; width:260px; height:130px; background: rgba(255,255,255,0.75); border-radius:130px; filter: blur(9px); transform: translateZ(60px); animation:cloudMove2 75s linear infinite;"></div>
+      <div class="cloud" style="position:absolute; top:40%; left:-300px; width:200px; height:100px; background: rgba(255,255,255,0.7); border-radius:100px; filter: blur(7px); transform: translateZ(40px); animation:cloudMove3 90s linear infinite;"></div>
+      <div class="cloud" style="position:absolute; top:60%; left:-250px; width:180px; height:90px; background: rgba(255,255,255,0.65); border-radius:90px; filter: blur(6px); transform: translateZ(30px); animation:cloudMove4 105s linear infinite;"></div>
+      <div class="cloud" style="position:absolute; top:75%; left:-270px; width:220px; height:110px; background: rgba(255,255,255,0.6); border-radius:110px; filter: blur(8px); transform: translateZ(20px); animation:cloudMove5 120s linear infinite;"></div>
+      <!-- Palabras flotantes -->
+      <span class="cloud-word" style="position:absolute; top:10%; left:20%; font-size:2rem; color:rgba(255,255,255,0.85); text-shadow:2px 2px 8px rgba(0,0,0,0.15); animation:floatWord 8s ease-in-out infinite;">escucha</span>
+      <span class="cloud-word" style="position:absolute; top:30%; left:60%; font-size:1.9rem; color:rgba(255,255,255,0.82); text-shadow:2px 2px 6px rgba(0,0,0,0.12); animation:floatWord 10s ease-in-out infinite;">empatía</span>
+      <span class="cloud-word" style="position:absolute; top:50%; left:25%; font-size:2rem; color:rgba(255,255,255,0.8); text-shadow:2px 2px 6px rgba(0,0,0,0.12); animation:floatWord 12s ease-in-out infinite;">respeto</span>
+      <span class="cloud-word" style="position:absolute; top:65%; left:70%; font-size:1.8rem; color:rgba(255,255,255,0.78); text-shadow:2px 2px 6px rgba(0,0,0,0.12); animation:floatWord 14s ease-in-out infinite;">paciencia</span>
+      <span class="cloud-word" style="position:absolute; top:80%; left:40%; font-size:1.9rem; color:rgba(255,255,255,0.8); text-shadow:2px 2px 6px rgba(0,0,0,0.12); animation:floatWord 16s ease-in-out infinite;">asertividad</span>
+    </div>
   </div>
 
-  <!-- Moon -->
-  <div class="moon-3d" style="position:absolute; top:15%; left:75%; width:60px; height:60px; background:rgba(255,255,230,0.9); border-radius:50%; box-shadow:0 0 20px rgba(255,255,200,0.6); opacity:0; transition:opacity 2s linear, left 2s linear;"></div>
-
-  <!-- Contenido -->
-  <h3 style="color:#2c3e50; font-size:1.8rem; margin-bottom:20px;">📥 Descarga el material completo</h3>
-  <p style="max-width:750px; margin:12px auto; color:#2c3e50; font-size:1rem; line-height:1.55;">
-    Descarga todo el material de <strong>comunicación asertiva</strong> y empieza a aplicarlo de inmediato en tu día a día.
-  </p>
-  <p style="margin-top:18px;">
-    <a href="material-comunicacion-asertiva.pdf" download
-       style="display:inline-block; padding:14px 26px; font-weight:600; border-radius:12px; background:#fff7f2; color:#8B4513; text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,0.12); transition: all .22s ease;">
-      Descargar material completo
-    </a>
-  </p>
-
-  <!-- ===== NUBES REALISTAS CON PARALLAX ===== -->
-  <div class="cloud-container" aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; overflow:hidden; perspective:1000px;">
-    <div class="cloud" style="position:absolute; top:5%; left:-250px; width:220px; height:120px; background: rgba(255,255,255,0.8); border-radius:120px; filter: blur(8px); transform: translateZ(80px); animation:cloudMove1 70s linear infinite;"></div>
-    <div class="cloud" style="position:absolute; top:20%; left:-280px; width:260px; height:130px; background: rgba(255,255,255,0.75); border-radius:130px; filter: blur(9px); transform: translateZ(60px); animation:cloudMove2 90s linear infinite;"></div>
-    <div class="cloud" style="position:absolute; top:40%; left:-300px; width:200px; height:100px; background: rgba(255,255,255,0.7); border-radius:100px; filter: blur(7px); transform: translateZ(40px); animation:cloudMove3 110s linear infinite;"></div>
-    <div class="cloud" style="position:absolute; top:60%; left:-250px; width:180px; height:90px; background: rgba(255,255,255,0.65); border-radius:90px; filter: blur(6px); transform: translateZ(30px); animation:cloudMove4 130s linear infinite;"></div>
-    <div class="cloud" style="position:absolute; top:75%; left:-270px; width:220px; height:110px; background: rgba(255,255,255,0.6); border-radius:110px; filter: blur(8px); transform: translateZ(20px); animation:cloudMove5 150s linear infinite;"></div>
-
-    <!-- Palabras flotantes -->
-    <span class="cloud-word" style="position:absolute; top:10%; left:20%; font-size:2rem; color:rgba(255,255,255,0.85); text-shadow: 2px 2px 8px rgba(0,0,0,0.15); animation:floatWord 8s ease-in-out infinite;">escucha</span>
-    <span class="cloud-word" style="position:absolute; top:30%; left:60%; font-size:1.9rem; color:rgba(255,255,255,0.82); text-shadow: 2px 2px 6px rgba(0,0,0,0.12); animation:floatWord 10s ease-in-out infinite;">empatía</span>
-    <span class="cloud-word" style="position:absolute; top:50%; left:25%; font-size:2rem; color:rgba(255,255,255,0.8); text-shadow: 2px 2px 6px rgba(0,0,0,0.12); animation:floatWord 12s ease-in-out infinite;">respeto</span>
-    <span class="cloud-word" style="position:absolute; top:65%; left:70%; font-size:1.8rem; color:rgba(255,255,255,0.78); text-shadow: 2px 2px 6px rgba(0,0,0,0.12); animation:floatWord 14s ease-in-out infinite;">paciencia</span>
-    <span class="cloud-word" style="position:absolute; top:80%; left:40%; font-size:1.9rem; color:rgba(255,255,255,0.8); text-shadow: 2px 2px 6px rgba(0,0,0,0.12); animation:floatWord 16s ease-in-out infinite;">asertividad</span>
+  <!-- ===== CONTENIDO DEL BLOQUE ===== -->
+  <div style="position:relative; z-index:1;">
+    <h3 style="color:#2c3e50; font-size:1.8rem; margin-bottom:20px;">📥 Descarga el material completo</h3>
+    <p style="max-width:750px; margin:12px auto; color:#2c3e50; font-size:1rem; line-height:1.55;">
+      Descarga todo el material de <strong>comunicación asertiva</strong> y empieza a aplicarlo de inmediato en tu día a día.
+    </p>
+    <p style="margin-top:18px;">
+      <a href="material-comunicacion-asertiva.pdf" download
+         style="display:inline-block; padding:14px 26px; font-weight:600; border-radius:12px; background:#fff7f2; color:#8B4513; text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,0.12); transition: all .22s ease;">
+        Descargar material completo
+      </a>
+    </p>
   </div>
+
 </section>
 
 <style>
@@ -506,32 +500,60 @@
   @keyframes cloudMove5 { 0%{left:-270px;} 100%{left:130%;} }
 
   /* Palabras flotantes */
-  @keyframes floatWord { 0%,100%{transform: translateY(0);} 50%{transform: translateY(-14px);} }
+  @keyframes floatWord {
+    0%,100%{transform: translateY(0);}
+    50%{transform: translateY(-14px);}
+  }
 </style>
 
 <script>
-  const sky = document.querySelector('#premium-download-3d .sky-3d');
-  const stars = document.querySelector('#premium-download-3d .stars-3d');
-  const moon = document.querySelector('#premium-download-3d .moon-3d');
+  // ===== CICLO DE CIELO: Día → Crepúsculo → Noche → Amanecer =====
+  const sky = document.querySelector('.sky');
+  const moon = document.querySelector('.moon');
+  const starsContainer = document.querySelector('.stars');
 
-  let progress = 0; // 0 → día, 1 → crepúsculo, 2 → noche, 3 → amanecer
-  const phases = [
-    {bg:'linear-gradient(to top,#87ceeb,#cce7ff)', stars:0, moon:0},       // día
-    {bg:'linear-gradient(to top,#ff9e6d,#ffd1aa)', stars:0.2, moon:0.3},   // crepúsculo
-    {bg:'linear-gradient(to top,#0b1d51,#1c2d73)', stars:1, moon:1},       // noche
-    {bg:'linear-gradient(to top,#ffddaa,#ffeedd)', stars:0.1, moon:0.1}    // amanecer
-  ];
-
-  function animateSky(){
-    const phase = phases[progress];
-    sky.style.background = phase.bg;
-    stars.style.opacity = phase.stars;
-    moon.style.opacity = phase.moon;
-    progress = (progress + 0.01) % phases.length; // transición continua
-    requestAnimationFrame(animateSky);
+  // Generar estrellas
+  for (let i = 0; i < 120; i++) {
+    const star = document.createElement('div');
+    star.style.position = 'absolute';
+    star.style.width = `${Math.random()*2 + 1}px`;
+    star.style.height = star.style.width;
+    star.style.borderRadius = '50%';
+    star.style.background = 'white';
+    star.style.top = `${Math.random()*100}%`;
+    star.style.left = `${Math.random()*100}%`;
+    star.style.opacity = Math.random();
+    starsContainer.appendChild(star);
   }
 
-  animateSky();
+  let phase = 0; // 0:día, 1:crepúsculo, 2:noche, 3:amanecer
+  function updateSky() {
+    switch(phase){
+      case 0: // Día
+        sky.style.background = 'linear-gradient(to top, #87ceeb, #cce7ff)';
+        moon.style.opacity = 0;
+        starsContainer.style.opacity = 0;
+        break;
+      case 1: // Crepúsculo
+        sky.style.background = 'linear-gradient(to top, #fcb69f, #ffecd2)';
+        moon.style.opacity = 0.3;
+        starsContainer.style.opacity = 0.2;
+        break;
+      case 2: // Noche
+        sky.style.background = 'linear-gradient(to top, #0d1b2a, #1b263b)';
+        moon.style.opacity = 1;
+        starsContainer.style.opacity = 1;
+        break;
+      case 3: // Amanecer
+        sky.style.background = 'linear-gradient(to top, #ffe0b2, #cce7ff)';
+        moon.style.opacity = 0.2;
+        starsContainer.style.opacity = 0.3;
+        break;
+    }
+    phase = (phase+1)%4;
+  }
+
+  setInterval(updateSky, 15000); // cada 15s cambia fase, rápido pero sutil
 </script>
 
     
