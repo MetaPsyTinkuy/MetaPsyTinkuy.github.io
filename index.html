@@ -461,141 +461,189 @@ function randomMove() {
 randomMove();
 </script>
 
-  <!-- Selector de idiomas profesional -->
+  <!-- ================= Selector de Idiomas MetaPsyTinkuy – Ultra Pulido ================= -->
 <div class="translate-widget">
   <div class="selected-lang" id="translate-toggle" title="Quechua">🇵🇪</div>
   <div class="lang-options">
-    <button class="lang-btn" data-lang="en" title="Inglés">🇺🇸</button>
-    <button class="lang-btn" data-lang="pt" title="Portugués">🇧🇷</button>
-    <button class="lang-btn" data-lang="qu" title="Quechua">🇵🇪</button>
+    <button class="lang-btn" data-lang="en" title="Inglés">🇺🇸 Inglés</button>
+    <button class="lang-btn" data-lang="pt" title="Portugués">🇧🇷 Portugués</button>
+    <button class="lang-btn" data-lang="qu" title="Quechua">🇵🇪 Quechua</button>
   </div>
 </div>
 
-<!-- Google Translate invisible -->
 <div id="google_translate_element" style="display:none;"></div>
 
 <script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'es',
-    includedLanguages: 'en,pt,qu',
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-  }, 'google_translate_element');
-}
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'es',
+      includedLanguages: 'en,pt,qu',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
 
-// Función para cambiar idioma asegurando que el iframe de Google Translate esté cargado
-function changeLanguage(lang) {
-  const interval = setInterval(() => {
-    const select = document.querySelector('select.goog-te-combo');
-    if(select){
-      select.value = lang;
-      select.dispatchEvent(new Event('change'));
-      clearInterval(interval);
+  function changeLanguage(lang) {
+    const interval = setInterval(() => {
+      const select = document.querySelector('select.goog-te-combo');
+      if(select){
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+        clearInterval(interval);
+      }
+    }, 300);
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const toggle = document.getElementById("translate-toggle");
+    const options = document.querySelector(".lang-options");
+
+    function showOptions() {
+      options.style.display = "flex";
+      options.style.opacity = 0;
+      options.style.transform = "translateY(-15px)";
+      let opacity = 0;
+      let translate = -15;
+      const fadeSlideIn = setInterval(() => {
+        if(opacity >= 1){
+          clearInterval(fadeSlideIn);
+        } else {
+          opacity += 0.08;
+          translate += 1.2;
+          options.style.opacity = opacity;
+          options.style.transform = `translateY(${translate}px)`;
+        }
+      }, 20);
     }
-  }, 500); // revisa cada 0.5s
-}
 
-document.addEventListener("DOMContentLoaded", function() {
-  const toggle = document.getElementById("translate-toggle");
-  const options = document.querySelector(".lang-options");
+    function hideOptions() {
+      let opacity = 1;
+      let translate = 0;
+      const fadeSlideOut = setInterval(() => {
+        if(opacity <= 0){
+          clearInterval(fadeSlideOut);
+          options.style.display = "none";
+        } else {
+          opacity -= 0.08;
+          translate -= 1.2;
+          options.style.opacity = opacity;
+          options.style.transform = `translateY(${translate}px)`;
+        }
+      }, 20);
+    }
 
-  // Mostrar/ocultar opciones al hover (desktop) o tocar (móvil)
-  toggle.addEventListener("mouseenter", () => options.style.display = "flex");
-  toggle.addEventListener("mouseleave", () => options.style.display = "none");
-  options.addEventListener("mouseenter", () => options.style.display = "flex");
-  options.addEventListener("mouseleave", () => options.style.display = "none");
+    toggle.addEventListener("mouseenter", showOptions);
+    toggle.addEventListener("mouseleave", hideOptions);
+    options.addEventListener("mouseenter", showOptions);
+    options.addEventListener("mouseleave", hideOptions);
 
-  toggle.addEventListener("click", () => {
-    options.style.display = options.style.display === "flex" ? "none" : "flex";
-  });
+    toggle.addEventListener("click", () => {
+      if(options.style.display === "flex"){
+        hideOptions();
+      } else {
+        showOptions();
+      }
+    });
 
-  // Cambiar idioma al hacer clic en un botón
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const lang = btn.getAttribute('data-lang');
-      changeLanguage(lang);
-      toggle.textContent = btn.textContent; // actualizar bandera seleccionada
-      toggle.title = btn.title; // actualizar tooltip
-      options.style.display = "none";
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lang = btn.getAttribute('data-lang');
+        changeLanguage(lang);
+
+        // Animación avanzada de bandera al cambiar idioma
+        toggle.style.transition = "transform 0.3s";
+        toggle.style.transform = "scale(1.3) rotate(-10deg)";
+        setTimeout(() => {
+          toggle.textContent = btn.textContent.split(" ")[0];
+          toggle.title = btn.title;
+          toggle.style.transform = "scale(1) rotate(0deg)";
+        }, 300);
+
+        hideOptions();
+      });
     });
   });
-});
 </script>
 
 <style>
-/* Contenedor flotante */
-.translate-widget {
-  position: fixed;
-  bottom: 60px; /* espacio para el footer */
-  left: 10px;
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: Arial, Helvetica, sans-serif;
-}
+  .translate-widget {
+    position: fixed;
+    bottom: 60px;
+    left: 10px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+  }
 
-/* Botón de idioma seleccionado */
-.selected-lang {
-  background: linear-gradient(315deg, #4b6cb7 0%, #182848 74%);
-  color: #fff;
-  font-size: 22px;
-  padding: 12px;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  transition: transform 0.2s;
-}
-
-.selected-lang:hover {
-  transform: scale(1.1);
-}
-
-/* Opciones de idiomas */
-.lang-options {
-  display: none;
-  flex-direction: column;
-  gap: 6px;
-  margin-top: 8px;
-}
-
-/* Botones de idiomas secundarios */
-.lang-btn {
-  background: #ffffffcc;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 20px;
-  cursor: pointer;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-  transition: background 0.2s, transform 0.2s;
-}
-
-.lang-btn:hover {
-  background: #f0f0f0cc;
-  transform: scale(1.1);
-}
-
-/* Adaptación móvil */
-@media (max-width: 600px) {
   .selected-lang {
-    font-size: 20px;
-    padding: 10px;
+    background: linear-gradient(315deg, #4b6cb7 0%, #182848 74%);
+    color: #fff;
+    font-size: 22px;
+    padding: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+    text-align: center;
+    line-height: 1;
   }
+
+  .selected-lang:hover {
+    transform: scale(1.15) rotate(0deg);
+  }
+
+  .lang-options {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+    opacity: 0;
+    transform: translateY(-15px);
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    border-radius: 12px;
+    background: #ffffffdd;
+    padding: 6px 0;
+  }
+
   .lang-btn {
-    font-size: 18px;
-    padding: 6px 10px;
+    background: #ffffffcc;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    transition: background 0.25s, transform 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
-}
+
+  .lang-btn:hover {
+    background: #f0f0f0dd;
+    transform: scale(1.08);
+  }
+
+  @media (max-width: 600px) {
+    .selected-lang {
+      font-size: 20px;
+      padding: 12px;
+    }
+    .lang-btn {
+      font-size: 18px;
+      padding: 6px 10px;
+    }
+  }
 </style>
 
-<!-- Script Google Translate -->
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
 
   
 </body>
 </html>
+
 
 
 
