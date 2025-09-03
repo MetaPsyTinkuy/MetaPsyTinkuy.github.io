@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -279,8 +279,6 @@ footer {
       basadas en evidencia. Nos permiten sintetizar de manera rigurosa los hallazgos
       de múltiples estudios, identificar vacíos en el conocimiento y ofrecer
       recomendaciones sólidas para la práctica clínica y la toma de decisiones.
-      Son herramientas que evitan la desinformación y fortalecen la investigación
-      responsable.
     </p>
     <blockquote style="font-style: italic; color: #555; margin: 15px 0;">
       “Las revisiones sistemáticas ayudan a tomar decisiones mejor fundamentadas 
@@ -298,9 +296,7 @@ footer {
       La divulgación científica acerca la investigación a la sociedad. 
       Al compartir el conocimiento en un lenguaje claro y accesible, 
       fortalecemos la cultura científica, desmontamos mitos y empoderamos
-      a la comunidad para tomar decisiones informadas sobre su bienestar
-      psicológico y social. La ciencia cobra sentido cuando logra transformar
-      la vida de las personas.
+      a la comunidad para tomar decisiones informadas.
     </p>
     <blockquote style="font-style: italic; color: #555; margin: 15px 0;">
       “La ciencia debe ser patrimonio común, comprensible y útil para toda la humanidad.” – UNESCO
@@ -316,9 +312,7 @@ footer {
     <p>
       La formación continua es fundamental para crecer como profesionales
       y como comunidad. Capacitarse con un enfoque crítico y humano
-      nos permite aplicar técnicas basadas en evidencia, innovar en la práctica
-      clínica y contribuir al desarrollo de la psicología. El aprendizaje compartido
-      asegura un futuro más preparado y comprometido con la salud mental.
+      nos permite aplicar técnicas basadas en evidencia e innovar en la práctica.
     </p>
     <blockquote style="font-style: italic; color: #555; margin: 15px 0;">
       “El desarrollo profesional continuo es esencial para mantener estándares de calidad en la práctica psicológica.” – APA
@@ -381,94 +375,60 @@ const observer=new IntersectionObserver(entries=>{
 },{threshold:0.3});
 cards.forEach(c=>observer.observe(c));
 
-<!-- ===== KILLA CHAT ===== -->
-<script>
-// Elementos del chat
+// ===== KILLA CHAT =====
 const killa=document.querySelector('.killa');
 const chat=document.getElementById('killa-chat');
 const input=document.getElementById('killa-chat-input');
 const sendBtn=document.getElementById('killa-chat-send');
 const messages=document.getElementById('killa-chat-messages');
 
-// Respuestas predeterminadas
-const respuestas = [
-  {
-    patrones: ["hola", "ola", "buenas", "hey"],
-    respuesta: "¡Hola! Soy Killa 🌙 ¿Cómo estás? 💫"
-  },
-  {
-    patrones: ["como estas", "todo bien", "que tal"],
-    respuesta: "Estoy muy bien, gracias por preguntar 🙌 ¿y tú?"
-  },
-  {
-    patrones: ["informacion", "info", "quisiera saber", "necesito"],
-    respuesta: "Claro ✨, ¿quieres información sobre nuestras revisiones sistemáticas, capacitaciones o divulgación científica?"
-  },
-  {
-    patrones: ["que es", "explica", "significa"],
-    respuesta: "Te cuento: en psicología trabajamos mucho con la Terapia Cognitivo Conductual (TCC). Se enfoca en cómo tus pensamientos influyen en lo que sientes y haces 💡."
-  },
-  {
-    patrones: ["tcc", "terapia cognitiva", "cognitivo conductual"],
-    respuesta: "La TCC es una de las terapias con mayor evidencia científica 📚. Ayuda a identificar y cambiar pensamientos negativos para mejorar tu bienestar."
-  },
-  {
-    patrones: ["tecnicas", "ejercicio", "estrategia", "que puedo hacer"],
-    respuesta: "Un buen inicio es la **reestructuración cognitiva**: cuando notes un pensamiento negativo, escribe una alternativa más realista y positiva ✍️."
-  },
-  {
-    patrones: ["gracias", "thanks"],
-    respuesta: "¡Con mucho gusto! 🌟 Estoy aquí para ayudarte."
-  }
-];
-
-// Función para detectar respuesta
-function obtenerRespuesta(texto) {
-  const entrada = texto.toLowerCase();
-  for (const r of respuestas) {
-    if (r.patrones.some(p => entrada.includes(p))) {
-      return r.respuesta;
-    }
-  }
-  return "Mmm 🤔 no estoy segura, pero puedo contarte sobre TCC, técnicas de autorregulación y psicología científica 🧠✨.";
-}
-
-// Mostrar/Ocultar chat al hacer clic en Killa
 killa.addEventListener('click', ()=> chat.classList.toggle('hidden'));
 
-// Enviar mensaje
-sendBtn.addEventListener('click', ()=>{
-  if(!input.value.trim()) return;
-
-  // Mensaje del usuario
-  const msg=document.createElement('div'); 
-  msg.textContent="Tú: "+input.value; 
+function addMessage(text, sender="Tú") {
+  const msg = document.createElement('div');
+  msg.textContent = `${sender}: ${text}`;
   messages.appendChild(msg);
+  messages.scrollTop = messages.scrollHeight;
+}
 
-  // "Escribiendo..."
-  const typing=document.createElement('div');
-  typing.textContent="Killa está escribiendo...";
-  typing.style.fontStyle="italic";
-  typing.style.color="#888";
+function killaReply(userText) {
+  const lower = userText.toLowerCase();
+  let response = "✨ No entendí bien, pero estoy aquí para escucharte.";
+
+  if(lower.includes("hola") || lower.includes("buenas")) {
+    response = "🌙 ¡Hola! Soy Killa, guardiana de la sabiduría andina.";
+  } else if(lower.includes("ansiedad")) {
+    response = "💙 Recuerda respirar profundo. La calma llega poco a poco.";
+  } else if(lower.includes("estres") || lower.includes("estrés")) {
+    response = "🍃 Haz una pausa, estira tu cuerpo y conecta con tu presente.";
+  } else if(lower.includes("gracias")) {
+    response = "🙏 Gracias a ti por compartir este momento.";
+  } else if(lower.includes("adios") || lower.includes("chao")) {
+    response = "🌄 Hasta pronto, que la luz de los Apus te acompañe.";
+  }
+
+  const typing = document.createElement('div');
+  typing.textContent = "Killa está escribiendo...";
+  typing.style.fontStyle = "italic";
   messages.appendChild(typing);
-  messages.scrollTop=messages.scrollHeight;
+  messages.scrollTop = messages.scrollHeight;
 
-  // Simular respuesta tras 1.2 segundos
-  setTimeout(()=>{
+  setTimeout(() => {
     typing.remove();
-    const reply=document.createElement('div'); 
-    reply.textContent="Killa: " + obtenerRespuesta(input.value); 
-    messages.appendChild(reply);
-    messages.scrollTop=messages.scrollHeight;
-  },1200);
+    addMessage(response, "Killa");
+  }, 1200);
+}
 
-  // Limpiar input
-  input.value=''; 
+sendBtn.addEventListener('click', () => {
+  if (!input.value.trim()) return;
+  const userText = input.value;
+  addMessage(userText, "Tú");
+  input.value = '';
+  killaReply(userText);
 });
 
-// Enviar con Enter
-input.addEventListener('keypress', e=>{ 
-  if(e.key==="Enter") sendBtn.click(); 
+input.addEventListener('keypress', e => { 
+  if(e.key === "Enter") sendBtn.click(); 
 });
 
 // ===== BANDERA PERÚ =====
@@ -486,40 +446,3 @@ document.getElementById("peru-toggle").addEventListener("click",()=>{
 </script>
 
 <style>
-/* ===== WIDGET PERÚ ===== */
-.peru-widget {
-  position: fixed;
-  bottom: 60px;
-  left: 10px;
-  z-index: 1200;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.peru-flag {
-  width: 48px; height: 48px;
-  border-radius: 50%; cursor: pointer;
-  background: linear-gradient(315deg, #D35400 0%, #E67E22 74%);
-  display: flex; justify-content: center; align-items: center;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-}
-.peru-flag img { width: 36px; height: 36px; border-radius: 50%; }
-.peru-tip {
-  margin-top: 8px; background: #fff; padding: 8px 12px;
-  border-radius: 12px; max-width: 220px; font-size: 14px;
-  text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-</style>
-
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
