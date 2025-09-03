@@ -391,7 +391,7 @@ killa.addEventListener('click', ()=> chat.classList.toggle('hidden'));
 sendBtn.addEventListener('click', ()=>{
   if(!input.value.trim()) return;
   const msg=document.createElement('div'); msg.textContent="Tú: "+input.value; messages.appendChild(msg);
-  const reply=document.createElement('div'); reply.textContent="Killa: ¡Entendido!"; messages.appendChild(reply);
+  const reply=document.createElement('div'); reply.textContent="Killa: ¡Bienvenid@!"; messages.appendChild(reply);
   input.value=''; messages.scrollTop=messages.scrollHeight;
 });
 input.addEventListener('keypress', e=>{ if(e.key==="Enter") sendBtn.click(); });
@@ -438,6 +438,7 @@ document.getElementById("peru-toggle").addEventListener("click",()=>{
 
 </body>
 </html>
+
 
 
 
