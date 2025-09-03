@@ -320,6 +320,52 @@ footer {
 
     </main>
 
+<!-- ===== PASO B: Chat interactivo de Killa ===== -->
+<div id="killa-chat" class="hidden" style="position: fixed; bottom: 180px; right: 20px; width: 300px; max-width: 90%; background: #fff; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); z-index: 1100; display: flex; flex-direction: column; overflow: hidden;">
+  <div id="killa-chat-messages" style="flex: 1; padding: 10px; max-height: 300px; overflow-y: auto; font-family: Arial, sans-serif; font-size: 14px;"></div>
+  <div style="display: flex; border-top: 1px solid #ccc;">
+    <input id="killa-chat-input" type="text" placeholder="Escribe un mensaje..." style="flex: 1; border: none; padding: 10px; outline: none;">
+    <button id="killa-chat-send" style="padding: 0 15px; border: none; background: #00ff88; color: #fff; cursor: pointer;">Enviar</button>
+  </div>
+</div>
+
+<!-- ===== CONTENEDOR DE KILLA ===== -->
+<div class="killa-container">
+  <img src="killa.png" alt="Killa" class="killa">
+</div>
+
+<footer>
+  &copy; 2025 MetaPsy Tinkuy. Todos los derechos reservados.
+</footer>
+
+<script>
+// ===== MODALES =====
+function openModal(id) { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+// ===== KILLA INTERACTIVO =====
+const killa = document.querySelector('.killa');
+const chat = document.getElementById('killa-chat');
+const input = document.getElementById('killa-chat-input');
+const sendBtn = document.getElementById('killa-chat-send');
+const messages = document.getElementById('killa-chat-messages');
+
+killa.addEventListener('click', () => { chat.classList.toggle('hidden'); });
+
+sendBtn.addEventListener('click', () => {
+  if(input.value.trim() === '') return;
+  const msg = document.createElement('div');
+  msg.textContent = "Tú: " + input.value;
+  messages.appendChild(msg);
+  const reply = document.createElement('div');
+  reply.textContent = "Killa: ¡Entendido!";
+  messages.appendChild(reply);
+  messages.scrollTop = messages.scrollHeight;
+  input.value = '';
+});
+
+input.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendBtn.click(); });
+  
 <!-- MODALES EXISTENTES -->
 <div id="modal1" class="modal">
   <div class="modal-content">
@@ -736,6 +782,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </body>
 </html>
+
 
 
 
