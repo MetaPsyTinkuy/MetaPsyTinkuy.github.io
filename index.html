@@ -381,20 +381,95 @@ const observer=new IntersectionObserver(entries=>{
 },{threshold:0.3});
 cards.forEach(c=>observer.observe(c));
 
-// ===== KILLA CHAT =====
+<!-- ===== KILLA CHAT ===== -->
+<script>
+// Elementos del chat
 const killa=document.querySelector('.killa');
 const chat=document.getElementById('killa-chat');
 const input=document.getElementById('killa-chat-input');
 const sendBtn=document.getElementById('killa-chat-send');
 const messages=document.getElementById('killa-chat-messages');
+
+// Respuestas predeterminadas
+const respuestas = [
+  {
+    patrones: ["hola", "ola", "buenas", "hey"],
+    respuesta: "¡Hola! Soy Killa 🌙 ¿Cómo estás? 💫"
+  },
+  {
+    patrones: ["como estas", "todo bien", "que tal"],
+    respuesta: "Estoy muy bien, gracias por preguntar 🙌 ¿y tú?"
+  },
+  {
+    patrones: ["informacion", "info", "quisiera saber", "necesito"],
+    respuesta: "Claro ✨, ¿quieres información sobre nuestras revisiones sistemáticas, capacitaciones o divulgación científica?"
+  },
+  {
+    patrones: ["que es", "explica", "significa"],
+    respuesta: "Te cuento: en psicología trabajamos mucho con la Terapia Cognitivo Conductual (TCC). Se enfoca en cómo tus pensamientos influyen en lo que sientes y haces 💡."
+  },
+  {
+    patrones: ["tcc", "terapia cognitiva", "cognitivo conductual"],
+    respuesta: "La TCC es una de las terapias con mayor evidencia científica 📚. Ayuda a identificar y cambiar pensamientos negativos para mejorar tu bienestar."
+  },
+  {
+    patrones: ["tecnicas", "ejercicio", "estrategia", "que puedo hacer"],
+    respuesta: "Un buen inicio es la **reestructuración cognitiva**: cuando notes un pensamiento negativo, escribe una alternativa más realista y positiva ✍️."
+  },
+  {
+    patrones: ["gracias", "thanks"],
+    respuesta: "¡Con mucho gusto! 🌟 Estoy aquí para ayudarte."
+  }
+];
+
+// Función para detectar respuesta
+function obtenerRespuesta(texto) {
+  const entrada = texto.toLowerCase();
+  for (const r of respuestas) {
+    if (r.patrones.some(p => entrada.includes(p))) {
+      return r.respuesta;
+    }
+  }
+  return "Mmm 🤔 no estoy segura, pero puedo contarte sobre TCC, técnicas de autorregulación y psicología científica 🧠✨.";
+}
+
+// Mostrar/Ocultar chat al hacer clic en Killa
 killa.addEventListener('click', ()=> chat.classList.toggle('hidden'));
+
+// Enviar mensaje
 sendBtn.addEventListener('click', ()=>{
   if(!input.value.trim()) return;
-  const msg=document.createElement('div'); msg.textContent="Tú: "+input.value; messages.appendChild(msg);
-  const reply=document.createElement('div'); reply.textContent="Killa: ¡Bienvenid@!"; messages.appendChild(reply);
-  input.value=''; messages.scrollTop=messages.scrollHeight;
+
+  // Mensaje del usuario
+  const msg=document.createElement('div'); 
+  msg.textContent="Tú: "+input.value; 
+  messages.appendChild(msg);
+
+  // "Escribiendo..."
+  const typing=document.createElement('div');
+  typing.textContent="Killa está escribiendo...";
+  typing.style.fontStyle="italic";
+  typing.style.color="#888";
+  messages.appendChild(typing);
+  messages.scrollTop=messages.scrollHeight;
+
+  // Simular respuesta tras 1.2 segundos
+  setTimeout(()=>{
+    typing.remove();
+    const reply=document.createElement('div'); 
+    reply.textContent="Killa: " + obtenerRespuesta(input.value); 
+    messages.appendChild(reply);
+    messages.scrollTop=messages.scrollHeight;
+  },1200);
+
+  // Limpiar input
+  input.value=''; 
 });
-input.addEventListener('keypress', e=>{ if(e.key==="Enter") sendBtn.click(); });
+
+// Enviar con Enter
+input.addEventListener('keypress', e=>{ 
+  if(e.key==="Enter") sendBtn.click(); 
+});
 
 // ===== BANDERA PERÚ =====
 const tips=[
@@ -438,6 +513,7 @@ document.getElementById("peru-toggle").addEventListener("click",()=>{
 
 </body>
 </html>
+
 
 
 
