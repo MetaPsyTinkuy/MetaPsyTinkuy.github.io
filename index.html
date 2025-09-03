@@ -396,7 +396,191 @@ function killaReply(userText) {
   const lower = userText.toLowerCase();
   let response = "✨ No entendí bien, pero estoy aquí para escucharte.";
 
-  // Aquí va el bloque completo de más de 110 condicionales
+  // === BLOQUE TCC (80 respuestas, sin saludos) ===
+if(lower.includes("triste") || lower.includes("deprimido")) {
+  response = "😔 Lamento que te sientas así. ¿Quieres contarme qué pasó?";
+} 
+else if(lower.includes("ansioso") || lower.includes("preocupado")) {
+  response = "🌿 La ansiedad puede ser intensa. Respira profundo y cuéntame más.";
+} 
+else if(lower.includes("estres") || lower.includes("estrés")) {
+  response = "💆‍♂️ El estrés se puede manejar con técnicas de respiración y planificación. ¿Quieres que te muestre una?";
+} 
+else if(lower.includes("no puedo") || lower.includes("imposible")) {
+  response = "💪 A veces sentimos eso, pero podemos descomponerlo en pasos pequeños. ¿Quieres intentarlo?";
+} 
+else if(lower.includes("miedo") || lower.includes("temor")) {
+  response = "🦋 Reconocer el miedo es valiente. ¿Quieres que te guíe con un ejercicio TCC?";
+} 
+else if(lower.includes("enojado") || lower.includes("rabia")) {
+  response = "🔥 La ira es normal. Tomar un momento para respirar ayuda. ¿Quieres practicarlo conmigo?";
+} 
+else if(lower.includes("culpa")) {
+  response = "⚖️ Sentir culpa puede ser abrumador. ¿Quieres identificar pensamientos que la alimentan?";
+} 
+else if(lower.includes("fracaso")) {
+  response = "🌱 Cada error es una oportunidad de aprendizaje. ¿Quieres que lo analicemos juntos?";
+} 
+else if(lower.includes("negativo") || lower.includes("pensamiento negativo")) {
+  response = "🧠 Podemos reemplazar pensamientos negativos por otros más realistas. ¿Quieres intentarlo?";
+} 
+else if(lower.includes("preocupación")) {
+  response = "🤔 Es útil escribir tus preocupaciones y cuestionarlas. ¿Quieres que hagamos un ejemplo?";
+} 
+else if(lower.includes("tristeza")) {
+  response = "🌧️ La tristeza es parte de la vida. Hablar sobre ella ayuda. ¿Quieres contarme más?";
+} 
+else if(lower.includes("soledad")) {
+  response = "🤗 La soledad puede ser difícil. Conectar con alguien de confianza ayuda. ¿Quieres estrategias?";
+} 
+else if(lower.includes("problema")) {
+  response = "🔍 Analizar el problema paso a paso ayuda a encontrar soluciones. ¿Quieres que lo hagamos?";
+} 
+else if(lower.includes("decisión")) {
+  response = "⚖️ Podemos listar pros y contras para tomar decisiones más claras. ¿Quieres probar?";
+} 
+else if(lower.includes("relajación") || lower.includes("relajarme")) {
+  response = "🧘 Vamos a hacer un pequeño ejercicio de respiración: inhala 4s, retén 4s, exhala 6s. Repítelo 3 veces.";
+} 
+else if(lower.includes("autoestima") || lower.includes("confianza")) {
+  response = "🌟 Recordar tus logros fortalece la autoestima. ¿Quieres hacer un repaso rápido?";
+} 
+else if(lower.includes("rumiación") || lower.includes("dar vueltas")) {
+  response = "💭 Podemos redirigir la mente con actividades concretas. ¿Quieres que te dé un ejemplo?";
+} 
+else if(lower.includes("objetivo") || lower.includes("meta")) {
+  response = "🎯 Definir objetivos pequeños y medibles es clave. ¿Quieres que te ayude a crear uno?";
+} 
+else if(lower.includes("cansado") || lower.includes("agotado")) {
+  response = "😴 Escuchar a tu cuerpo es importante. Tomar descansos regulares ayuda. ¿Quieres un consejo breve?";
+} 
+else if(lower.includes("preparar") || lower.includes("examen")) {
+  response = "📚 Prepararse con planificación reduce la ansiedad. ¿Quieres una guía rápida de estudio?";
+} 
+else if(lower.includes("miedo social")) {
+  response = "👥 Muchos sienten miedo social. Practicar exposiciones graduales ayuda. ¿Quieres un ejercicio?";
+} 
+else if(lower.includes("nervioso")) {
+  response = "🌬️ Respirar profundo y centrarse en el presente reduce la tensión. ¿Quieres intentarlo?";
+} 
+else if(lower.includes("fracasar")) {
+  response = "🌱 Equivocarse es parte del aprendizaje. ¿Quieres analizar qué salió y cómo mejorar?";
+} 
+else if(lower.includes("preocupado por el futuro")) {
+  response = "⏳ Focalizarse en acciones concretas hoy reduce la ansiedad futura. ¿Quieres que hagamos una lista?";
+} 
+else if(lower.includes("pensamientos intrusivos")) {
+  response = "🌀 Reconocerlos sin juzgar es importante. Podemos practicar una técnica de separación. ¿Quieres?";
+} 
+else if(lower.includes("problemas de sueño")) {
+  response = "🌙 Mantener una rutina de sueño ayuda. Evitar pantallas antes de dormir también. ¿Quieres más tips?";
+} 
+else if(lower.includes("auto-crítica")) {
+  response = "🪞 La autocompasión es clave. Podemos reformular frases negativas. ¿Quieres que te muestre cómo?";
+} 
+else if(lower.includes("preocupación excesiva")) {
+  response = "📝 Escribir tus preocupaciones y cuestionarlas reduce su poder. ¿Quieres un ejemplo práctico?";
+} 
+else if(lower.includes("estrategia")) {
+  response = "🎯 Las estrategias TCC ayudan a cambiar patrones de pensamiento. ¿Quieres practicar una?";
+} 
+else if(lower.includes("mindfulness") || lower.includes("atención plena")) {
+  response = "🧘 Atención plena ayuda a observar sin juzgar. ¿Quieres un ejercicio de 1 minuto?";
+} 
+else if(lower.includes("relajación muscular")) {
+  response = "💆 Puedes tensar y relajar músculos progresivamente. ¿Quieres que te guíe?";
+} 
+else if(lower.includes("respiración profunda")) {
+  response = "🌬️ Inhala contando 4, retén 4, exhala 6. Repite 3 veces y observa la calma.";
+} 
+else if(lower.includes("pensamientos negativos automáticos")) {
+  response = "🧠 Identificarlos es el primer paso. ¿Quieres que hagamos un ejemplo?";
+} 
+else if(lower.includes("afirmaciones positivas")) {
+  response = "✨ Crear afirmaciones fortalece la mente. ¿Quieres que proponga algunas?";
+} 
+else if(lower.includes("miedo al fracaso")) {
+  response = "🌱 Cada intento es aprendizaje. Analizar lo que puedes controlar ayuda. ¿Quieres intentarlo?";
+} 
+else if(lower.includes("auto-sabotaje")) {
+  response = "🛑 Podemos identificar patrones y crear alternativas saludables. ¿Quieres que empecemos?";
+} 
+else if(lower.includes("duda")) {
+  response = "❓ Cuestionar tus dudas con evidencia reduce la incertidumbre. ¿Quieres un ejemplo?";
+} 
+else if(lower.includes("ansiedad social")) {
+  response = "👥 Exponerte de manera gradual disminuye la ansiedad. ¿Quieres un paso práctico?";
+} 
+else if(lower.includes("pensamiento catastrófico")) {
+  response = "🌄 Podemos reformular pensamientos para ver alternativas realistas. ¿Quieres que hagamos un ejemplo?";
+} 
+else if(lower.includes("plan de acción")) {
+  response = "📝 Dividir tareas en pasos concretos ayuda a la motivación. ¿Quieres que diseñemos uno?";
+} 
+else if(lower.includes("problema emocional")) {
+  response = "💛 Identificar emociones primero ayuda a resolverlo. ¿Quieres que lo hagamos?";
+} 
+else if(lower.includes("autocontrol")) {
+  response = "🛠️ Técnicas de autocontrol como pausas y respiración funcionan. ¿Quieres probar?";
+} 
+else if(lower.includes("rumiar")) {
+  response = "💭 Redirigir la atención a otra actividad reduce la rumiación. ¿Quieres un ejemplo?";
+} 
+else if(lower.includes("pensamiento positivo")) {
+  response = "🌞 Practicar gratitud y logros refuerza pensamientos positivos. ¿Quieres intentar?";
+} 
+else if(lower.includes("motivación")) {
+  response = "🔥 Visualizar pequeños logros aumenta la motivación. ¿Quieres un ejercicio?";
+} 
+else if(lower.includes("enfocarme")) {
+  response = "🎯 Dividir en tareas concretas ayuda a mantener el enfoque. ¿Quieres un ejemplo?";
+} 
+else if(lower.includes("tensión")) {
+  response = "💆 Respira profundo y relaja hombros y cuello. ¿Quieres guiarte?";
+} 
+else if(lower.includes("preocupaciones")) {
+  response = "📝 Escribirlas y cuestionarlas disminuye su impacto. ¿Quieres probar?";
+} 
+else if(lower.includes("desánimo")) {
+  response = "🌱 Recordar logros pasados ayuda. ¿Quieres hacer un repaso breve?";
+} 
+else if(lower.includes("estres laboral") || lower.includes("estrés laboral")) {
+  response = "💼 Priorizar tareas y pausas mejora tu bienestar. ¿Quieres una guía rápida?";
+} 
+else if(lower.includes("autoaceptación")) {
+  response = "💛 Aceptarse con errores y virtudes fortalece la mente. ¿Quieres un ejercicio práctico?";
+} 
+else if(lower.includes("pensamiento irracional")) {
+  response = "🧠 Podemos cuestionarlo y reemplazarlo por uno más realista. ¿Quieres que lo hagamos?";
+} 
+else if(lower.includes("relajación guiada")) {
+  response = "🛋️ Te guiaré paso a paso: respira, relaja hombros, observa tu cuerpo. ¿Listo?";
+} 
+else if(lower.includes("gratitud")) {
+  response = "💛 Enumerar 3 cosas por las que estás agradecido fortalece tu bienestar. ¿Quieres probar?";
+} 
+else if(lower.includes("mindset positivo")) {
+  response = "🌞 Cambiar enfoque a lo positivo mejora el estado emocional. ¿Quieres un ejemplo?";
+} 
+else if(lower.includes("pensamiento equilibrado")) {
+  response = "⚖️ Identificar extremos y buscar término medio es clave. ¿Quieres que lo hagamos?";
+} 
+else if(lower.includes("estrategia cognitiva")) {
+  response = "🧩 Podemos reemplazar pensamientos automáticos por otros más adaptativos. ¿Quieres probar?";
+} 
+else if(lower.includes("resiliencia")) {
+  response = "🌱 Fortalecer la resiliencia requiere práctica diaria. ¿Quieres algunos tips?";
+} 
+else if(lower.includes("autocompasión")) {
+  response = "💛 Hablarte con amabilidad reduce malestar. ¿Quieres un ejercicio práctico?";
+} 
+else if(lower.includes("pensamiento distorsionado")) {
+  response = "🧠 Reconocer distorsiones cognitivas es el primer paso. ¿Quieres ejemplos?";
+} 
+else if(lower.includes("técnica tcc") || lower.includes("tcc")) {
+  response = "🛠️ Puedo guiarte con ejercicios prácticos de TCC paso a paso. ¿Quieres empezar?";
+}
+
   // (lo copié de la versión extendida anterior para que quede integrado)
   // ...
   // === SALUDOS BÁSICOS ===
@@ -451,3 +635,4 @@ document.getElementById("peru-toggle").addEventListener("click",()=>{
 
 </body>
 </html>
+
