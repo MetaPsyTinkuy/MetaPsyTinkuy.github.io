@@ -274,56 +274,24 @@ footer {
 <div id="modal1" class="modal">
   <div class="modal-content">
     <h2>Revisiones Sistemáticas</h2>
-    <p>
-      Las revisiones sistemáticas son el pilar de la psicología y la medicina
-      basadas en evidencia. Nos permiten sintetizar de manera rigurosa los hallazgos
-      de múltiples estudios, identificar vacíos en el conocimiento y ofrecer
-      recomendaciones sólidas para la práctica clínica y la toma de decisiones.
-      Son herramientas que evitan la desinformación y fortalecen la investigación
-      responsable.
-    </p>
-    <blockquote style="font-style: italic; color: #555; margin: 15px 0;">
-      “Las revisiones sistemáticas ayudan a tomar decisiones mejor fundamentadas 
-      en salud y políticas públicas.” – Cochrane Collaboration
-    </blockquote>
-    <a href="https://forms.gle/yb2vhjeffjxFCf7J7" target="_blank" class="btn">Participar</a>
+    <img src="revisionessistematicas.jpg" alt="">
+    <a href="https://forms.gle/yb2vhjeffjxFCf7J7" target="_blank" class="btn">Ir al Formulario</a>
     <button class="btn" onclick="closeModal('modal1')">Cerrar</button>
   </div>
 </div>
-
 <div id="modal2" class="modal">
   <div class="modal-content">
     <h2>Divulgación Científica</h2>
-    <p>
-      La divulgación científica acerca la investigación a la sociedad. 
-      Al compartir el conocimiento en un lenguaje claro y accesible, 
-      fortalecemos la cultura científica, desmontamos mitos y empoderamos
-      a la comunidad para tomar decisiones informadas sobre su bienestar
-      psicológico y social. La ciencia cobra sentido cuando logra transformar
-      la vida de las personas.
-    </p>
-    <blockquote style="font-style: italic; color: #555; margin: 15px 0;">
-      “La ciencia debe ser patrimonio común, comprensible y útil para toda la humanidad.” – UNESCO
-    </blockquote>
+    <img src="divulgacioncientifica.jpg" alt="">
     <a href="proyectos.html#divulgacion" class="btn">Ver Proyectos</a>
     <button class="btn" onclick="closeModal('modal2')">Cerrar</button>
   </div>
 </div>
-
 <div id="modal3" class="modal">
   <div class="modal-content">
     <h2>Capacitación Avanzada</h2>
-    <p>
-      La formación continua es fundamental para crecer como profesionales
-      y como comunidad. Capacitarse con un enfoque crítico y humano
-      nos permite aplicar técnicas basadas en evidencia, innovar en la práctica
-      clínica y contribuir al desarrollo de la psicología. El aprendizaje compartido
-      asegura un futuro más preparado y comprometido con la salud mental.
-    </p>
-    <blockquote style="font-style: italic; color: #555; margin: 15px 0;">
-      “El desarrollo profesional continuo es esencial para mantener estándares de calidad en la práctica psicológica.” – APA
-    </blockquote>
-    <a href="proyectos.html#capacitacion" class="btn">Explorar Capacitaciones</a>
+    <img src="capacitacionespecializada.jpg" alt="">
+    <a href="proyectos.html#capacitacion" class="btn">Ver Capacitaciones</a>
     <button class="btn" onclick="closeModal('modal3')">Cerrar</button>
   </div>
 </div>
@@ -381,88 +349,21 @@ const observer=new IntersectionObserver(entries=>{
 },{threshold:0.3});
 cards.forEach(c=>observer.observe(c));
 
-<script>
-  // ===== Normalización del texto =====
-  function normalizar(texto) {
-    return texto
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, ""); // elimina tildes
-  }
+// ===== KILLA CHAT =====
+const killa=document.querySelector('.killa');
+const chat=document.getElementById('killa-chat');
+const input=document.getElementById('killa-chat-input');
+const sendBtn=document.getElementById('killa-chat-send');
+const messages=document.getElementById('killa-chat-messages');
+killa.addEventListener('click', ()=> chat.classList.toggle('hidden'));
+sendBtn.addEventListener('click', ()=>{
+  if(!input.value.trim()) return;
+  const msg=document.createElement('div'); msg.textContent="Tú: "+input.value; messages.appendChild(msg);
+  const reply=document.createElement('div'); reply.textContent="Killa: ¡Entendido!"; messages.appendChild(reply);
+  input.value=''; messages.scrollTop=messages.scrollHeight;
+});
+input.addEventListener('keypress', e=>{ if(e.key==="Enter") sendBtn.click(); });
 
-  // ===== Diccionario de respuestas =====
-  const respuestas = {
-    // --- Saludos y sociales ---
-    "hola": "¡Hola! Soy Killa 🌙✨ ¿Cómo te encuentras hoy?",
-    "holaa": "¡Qué gusto saludarte 💜",
-    "ola": "¡Hola! Soy Killa 🌙✨ ¿Cómo estás?",
-    "como estas": "Muy bien, gracias por preguntar 💜 Estoy aquí para acompañarte.",
-    "informacion": "Claro, dime qué tema te interesa y te comparto lo que sé 📚.",
-    "info": "Con gusto, dime si quieres sobre TCC, autorregulación o algo específico ✨.",
-    "que puedo hacer": "Podemos explorar juntos algunas técnicas psicológicas que ayudan a sentirte mejor 💡.",
-
-    // --- Psicología y TCC ---
-    "tcc": "La Terapia Cognitivo Conductual (TCC) trabaja en identificar y cambiar patrones de pensamiento poco útiles 🧠.",
-    "cognitivo": "La TCC ayuda a cambiar la forma en que pensamos y actuamos ante ciertas situaciones 🔄.",
-    "pensamiento": "Los pensamientos automáticos influyen en cómo nos sentimos. Una técnica es cuestionarlos y buscar alternativas 🌿.",
-    "autorregulacion": "La autorregulación es manejar emociones y conductas. Mindfulness, respiración profunda o escribir ayudan mucho 🌱.",
-    "ansiedad": "La ansiedad puede manejarse con técnicas como respiración diafragmática, reestructuración cognitiva o exposición gradual 🫁✨.",
-    "estres": "El estrés disminuye con pausas activas, relajación y organización de tareas. Un paso a la vez 😉."
-  };
-
-  // ===== Función de respuesta =====
-  function responderKilla(mensaje) {
-    const msg = normalizar(mensaje);
-
-    for (let clave in respuestas) {
-      if (msg.includes(clave)) {
-        return respuestas[clave];
-      }
-    }
-
-    // Respuesta genérica si no entiende
-    const genericas = [
-      "Interesante 🤔, cuéntame un poco más.",
-      "Entiendo 💜, ¿quieres que te muestre algo sobre TCC?",
-      "Gracias por compartir eso conmigo 🙌.",
-      "Podemos ver juntos alguna técnica de autorregulación si quieres 🌱."
-    ];
-    return genericas[Math.floor(Math.random() * genericas.length)];
-  }
-
-  // ===== Integración con el chat =====
-  const input = document.querySelector("#killa-chat-input");
-  const sendBtn = document.querySelector("#killa-chat-send");
-  const messages = document.querySelector("#killa-chat-messages");
-
-  sendBtn.addEventListener("click", () => {
-    const mensaje = input.value.trim();
-    if (!mensaje) return;
-
-    // Mensaje del usuario
-    const userMsg = document.createElement("div");
-    userMsg.className = "user-message";
-    userMsg.textContent = "Tú: " + mensaje;
-    messages.appendChild(userMsg);
-
-    // Respuesta de Killa
-    const respuesta = responderKilla(mensaje);
-    const killaMsg = document.createElement("div");
-    killaMsg.className = "killa-message";
-    killaMsg.textContent = "Killa: " + respuesta;
-    messages.appendChild(killaMsg);
-
-    input.value = "";
-    messages.scrollTop = messages.scrollHeight;
-  });
-
-  // También permite enviar con Enter
-  input.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      sendBtn.click();
-    }
-  });
-  
 // ===== BANDERA PERÚ =====
 const tips=[
 "🌄 ¡Bienvenido a MetaPsyTinkuy, tierra de sabiduría andina!",
@@ -505,11 +406,6 @@ document.getElementById("peru-toggle").addEventListener("click",()=>{
 
 </body>
 </html>
-
-
-
-
-
 
 
 
