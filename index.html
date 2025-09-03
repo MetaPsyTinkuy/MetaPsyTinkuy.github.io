@@ -459,6 +459,76 @@ function randomMove() {
   setTimeout(randomMove, 3000);
 }
 randomMove();
+<script src="https://cdn.jsdelivr.net/npm/@xenova/transformers@2.5.0/dist/transformers.min.js"></script>
+<script>
+let model;
+const killaPromptBase = `
+Eres Killa, psicoterapeuta peruana en terapia cognitivo-conductual. 
+Responde con calidez, claridad y empatía, guiando al usuario en reflexiones sobre sus emociones y pensamientos.
+`;
+
+async function initKillaModel() {
+  model = await window.transformers.AutoModelForCausalLM.from_pretrained('Xenova/distilgpt2');
+  console.log("Killa: modelo cargado en el navegador.");
+}
+
+// Efecto de escritura letra por letra
+async function typeEffect(element, text, speed = 25) {
+  element.textContent = "";
+  for (let i = 0; i < text.length; i++) {
+    element.textContent += text[i];
+    await new Promise(r => setTimeout(r, speed));
+  }
+}
+
+async function getKillaResponse(userMessage) {
+  const input = `${killaPromptBase}\nUsuario: ${userMessage}\nKilla:`;
+  const output = await model.generate(input, { max_length: 150 });
+  return output[0]?.generated_text.replace(input, '').trim() || "Lo siento, no entendí eso.";
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  await initKillaModel();
+
+  const killaImg = document.querySelector('.killa');
+  const chatBox = document.getElementById("killa-chat");
+  const chatMessages = document.getElementById("killa-chat-messages");
+  const chatInput = document.getElementById("killa-chat-input");
+  const chatSend = document.getElementById("killa-chat-send");
+
+  // Abrir chat al clic en Killa
+  killaImg.addEventListener("click", () => {
+    chatBox.classList.toggle("hidden");
+    chatInput.focus();
+  });
+
+  function addMessage(sender, message) {
+    const msgDiv = document.createElement("div");
+    msgDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return msgDiv;
+  }
+
+  async function sendMessage() {
+    const message = chatInput.value.trim();
+    if(!message) return;
+    addMessage("Tú", message);
+    chatInput.value = "";
+
+    const typingDiv = addMessage("Killa", "Killa está escribiendo...");
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    const reply = await getKillaResponse(message);
+    await typeEffect(typingDiv, reply);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  chatSend.addEventListener("click", sendMessage);
+  chatInput.addEventListener("keypress", e => { if(e.key === "Enter") sendMessage(); });
+});
+</script>
+  
 </script>
 
 <!-- ================= Widget Flotante MetaPsyTinkuy – Ultra Interactivo ================= -->
@@ -666,6 +736,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </body>
 </html>
+
 
 
 
