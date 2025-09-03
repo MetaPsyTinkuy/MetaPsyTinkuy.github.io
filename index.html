@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>MetaPsy Tinkuy - Inicio</title>
-
-<!-- Favicon -->
 <link rel="icon" href="https://metapsytinkuy.github.io/favicon.png" type="image/png">
 
 <!-- Open Graph y Twitter Card -->
@@ -13,7 +11,6 @@
 <meta property="og:image" content="https://metapsytinkuy.github.io/logo_preview.png">
 <meta property="og:url" content="https://metapsytinkuy.github.io/">
 <meta property="og:type" content="website">
-
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="MetaPsy Tinkuy">
 <meta name="twitter:description" content="Proyectos de psicología y revisiones sistemáticas">
@@ -57,7 +54,6 @@ header img {
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   transition: transform 0.5s, box-shadow 0.5s;
 }
-
 header img:hover {
   transform: scale(1.15) rotate(5deg);
   box-shadow: 0 0 25px #00ff88, 0 0 40px #00ff88;
@@ -87,53 +83,35 @@ main {
   padding: 0 20px;
   text-align: center;
 }
-
 main h2 {
   font-size: 2.8rem;
   color: #2c3e50;
   margin-bottom: 20px;
   animation: textGlow 2s ease-in-out infinite;
 }
-
 main p {
   font-size: 1.2rem;
   line-height: 1.7;
   margin-bottom: 15px;
 }
 
-/* ===== TARJETAS INICIO ===== */
+/* ===== TARJETAS ===== */
 .inicio-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
   margin-top: 40px;
 }
-
 .inicio-card {
   background: #fff7f2;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  border: 4px solid transparent;
-  background-clip: padding-box;
   position: relative;
-  transition: transform 0.5s, box-shadow 0.5s, border 1s;
-  opacity: 1;
-  transform: translateY(0);
+  transition: transform 0.5s, box-shadow 0.5s;
+  opacity: 0;
+  transform: translateY(40px);
 }
-
-.inicio-card::before {
-  content: "";
-  position: absolute;
-  top: -4px; left: -4px; right: -4px; bottom: -4px;
-  border-radius: 24px;
-  background: linear-gradient(45deg, #ffecd2, #fcb69f, #a0eaff, #ffecd2);
-  z-index: -1;
-  filter: blur(15px);
-  opacity: 0.6;
-  animation: borderGlow 6s linear infinite;
-}
-
 .inicio-card img {
   width: 100%;
   height: 240px;
@@ -141,27 +119,13 @@ main p {
   transition: transform 0.5s, filter 0.5s;
   filter: brightness(0.95);
 }
-
-.inicio-card:hover img {
-  transform: scale(1.05);
-  filter: brightness(1.05);
-}
-
+.inicio-card:hover img { transform: scale(1.05); filter: brightness(1.05); }
 .inicio-card h3 {
   margin: 1rem 0 0.5rem 0;
   color: #8B4513;
   font-size: 1.8rem;
-  text-shadow: 1px 1px 6px rgba(0,0,0,0.2);
 }
-
-.inicio-card p {
-  padding: 0 1rem 1rem 1rem;
-  color: #555;
-}
-
-.inicio-card .btn {
-  margin-bottom: 1.5rem;
-}
+.inicio-card p { padding: 0 1rem 1rem 1rem; color: #555; }
 
 /* ===== BOTONES ===== */
 .btn {
@@ -176,29 +140,22 @@ main p {
   transition: all 0.3s ease;
   box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
-.btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
+.btn:hover { transform: scale(1.05); }
 
 /* ===== MODAL ===== */
 .modal {
   display: none;
   position: fixed;
   z-index: 2000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
   background-color: rgba(0,0,0,0.7);
   align-items: center;
   justify-content: center;
-  transition: opacity 0.4s ease;
 }
 .modal.show { display: flex; }
 .modal-content {
-  background: linear-gradient(135deg, #ffffff, #f0f0f0);
-  margin: auto;
+  background: #fff;
   padding: 30px;
   border-radius: 25px;
   width: 80%;
@@ -206,45 +163,109 @@ main p {
   text-align: center;
   box-shadow: 0 20px 50px rgba(0,0,0,0.25);
 }
+
+/* ===== KILLA ===== */
+.killa-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+  z-index: 1500;
+}
+.killa { width: 100%; }
+
+/* ===== CHAT KILLA ===== */
+#killa-chat {
+  position: fixed;
+  bottom: 180px;
+  right: 20px;
+  width: 300px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  z-index: 1600;
+  display: flex;
+  flex-direction: column;
+}
+#killa-chat.hidden { display: none; }
+#killa-chat-messages {
+  flex: 1;
+  padding: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.killa-chat-input { display: flex; border-top: 1px solid #ccc; }
+.killa-chat-input input { flex: 1; border: none; padding: 10px; }
+.killa-chat-input button {
+  padding: 0 15px;
+  border: none;
+  background: #00ff88;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 25px;
+  margin-top: 40px;
+  background: linear-gradient(90deg, #ffecd2, #fcb69f);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes gradientBG {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+@keyframes textGlow {
+  0%,100% { text-shadow: 2px 2px 8px rgba(0,0,0,0.2); }
+  50% { text-shadow: 0 0 20px #2c3e50; }
+}
 </style>
 </head>
-
 <body>
+
 <header>
   <div class="logo-title">
-    <img src="https://metapsytinkuy.github.io/logo.png" alt="Logo" width="60">
+    <img src="logometapsytinkuy.jpeg" alt="Logo" width="100">
     <h1>MetaPsy Tinkuy</h1>
   </div>
   <nav>
-    <a href="#">Inicio</a>
-    <a href="#">Nosotros</a>
-    <a href="#">Proyectos</a>
-    <a href="#">Tinkuy Psicoterapéutico</a>
+    <a href="index.html">Inicio</a>
+    <a href="nosotros.html">Nosotros</a>
+    <a href="proyectos.html">Proyectos</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="tinkuy_psicoterapeutico/index.html">Tinkuy Psicoterapéutico</a>
   </nav>
 </header>
 
 <main>
-  <h2>Bienvenido a MetaPsy Tinkuy</h2>
-  <p>Explora nuestros proyectos y participa en nuestras actividades.</p>
+  <h2>Bienvenidos a MetaPsy Tinkuy</h2>
+  <p>Grupo de estudios dedicado a la divulgación científica en psicología, inspirados en la cosmovisión andina.</p>
 
   <div class="inicio-cards">
     <div class="inicio-card">
-      <img src="https://metapsytinkuy.github.io/revision.jpg" alt="Revisión Sistemática">
-      <h3>Revisión Sistemática</h3>
-      <p>Explora nuestras investigaciones más recientes en psicología.</p>
-      <button class="btn" onclick="openModal('modal1')">Ver más</button>
+      <img src="revisionessistematicas.jpg" alt="Revisiones">
+      <h3>Revisiones Sistemáticas</h3>
+      <p>Formación especializada en diseño y análisis de revisiones.</p>
+      <button class="btn" data-modal="modal1">Explorar</button>
     </div>
     <div class="inicio-card">
-      <img src="https://metapsytinkuy.github.io/capacitacion.jpg" alt="Capacitación Avanzada">
-      <h3>Capacitación Avanzada</h3>
-      <p>Programas de formación diseñados para profesionales.</p>
-      <button class="btn" onclick="openModal('modal2')">Ver más</button>
-    </div>
-    <div class="inicio-card">
-      <img src="https://metapsytinkuy.github.io/divulgacion.jpg" alt="Divulgación Científica">
+      <img src="divulgacioncientifica.jpg" alt="Divulgación">
       <h3>Divulgación Científica</h3>
-      <p>Conoce nuestras actividades de difusión del conocimiento.</p>
-      <button class="btn" onclick="openModal('modal3')">Ver más</button>
+      <p>Acercamos la ciencia a la comunidad con mensajes accesibles.</p>
+      <button class="btn" data-modal="modal2">Explorar</button>
+    </div>
+    <div class="inicio-card">
+      <img src="capacitacionespecializada.jpg" alt="Capacitación">
+      <h3>Capacitación Avanzada</h3>
+      <p>Programas de formación integrando ciencia y humanismo.</p>
+      <button class="btn" data-modal="modal3">Explorar</button>
     </div>
   </div>
 </main>
@@ -252,90 +273,139 @@ main p {
 <!-- ===== MODALES ===== -->
 <div id="modal1" class="modal">
   <div class="modal-content">
-    <h2>Revisión Sistemática</h2>
-    <p>Información detallada sobre nuestras revisiones sistemáticas.</p>
+    <h2>Revisiones Sistemáticas</h2>
+    <img src="revisionessistematicas.jpg" alt="">
+    <a href="https://forms.gle/yb2vhjeffjxFCf7J7" target="_blank" class="btn">Ir al Formulario</a>
     <button class="btn" onclick="closeModal('modal1')">Cerrar</button>
   </div>
 </div>
-
 <div id="modal2" class="modal">
   <div class="modal-content">
-    <h2>Capacitación Avanzada</h2>
-    <p>Detalles sobre nuestros programas de formación avanzada.</p>
+    <h2>Divulgación Científica</h2>
+    <img src="divulgacioncientifica.jpg" alt="">
+    <a href="proyectos.html#divulgacion" class="btn">Ver Proyectos</a>
     <button class="btn" onclick="closeModal('modal2')">Cerrar</button>
   </div>
 </div>
-
 <div id="modal3" class="modal">
   <div class="modal-content">
-    <h2>Divulgación Científica</h2>
-    <p>Actividades para compartir conocimiento con la comunidad.</p>
+    <h2>Capacitación Avanzada</h2>
+    <img src="capacitacionespecializada.jpg" alt="">
+    <a href="proyectos.html#capacitacion" class="btn">Ver Capacitaciones</a>
     <button class="btn" onclick="closeModal('modal3')">Cerrar</button>
   </div>
 </div>
 
 <!-- ===== CHAT KILLA ===== -->
-<div id="killa-chat" class="hidden" style="position: fixed; bottom: 180px; right: 20px; width: 300px; max-width: 90%; background: #fff; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); z-index: 1100; display: flex; flex-direction: column; overflow: hidden;">
-  <div id="killa-chat-messages" style="flex: 1; padding: 10px; max-height: 300px; overflow-y: auto; font-family: Arial, sans-serif; font-size: 14px;"></div>
-  <div style="display: flex; border-top: 1px solid #ccc;">
-    <input id="killa-chat-input" type="text" placeholder="Escribe un mensaje..." style="flex: 1; border: none; padding: 10px; outline: none;">
-    <button id="killa-chat-send" style="padding: 0 15px; border: none; background: #00ff88; color: #fff; cursor: pointer;">Enviar</button>
+<div id="killa-chat" class="hidden">
+  <div id="killa-chat-messages"></div>
+  <div class="killa-chat-input">
+    <input id="killa-chat-input" type="text" placeholder="Escribe un mensaje...">
+    <button id="killa-chat-send">Enviar</button>
   </div>
 </div>
 
-<div class="killa-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1200;">
-  <img src="https://metapsytinkuy.github.io/killa.png" alt="Killa" style="width: 120px; cursor: pointer;" onclick="toggleChat()">
+<!-- ===== KILLA ===== -->
+<div class="killa-container">
+  <img src="killa.png" alt="Killa" class="killa">
 </div>
 
-<!-- ===== FOOTER ===== -->
-<footer style="text-align:center; padding:20px; background:#fff7f2; margin-top:40px; box-shadow:0 -4px 10px rgba(0,0,0,0.1);">
+<!-- ===== BANDERA PERÚ ===== -->
+<div class="peru-widget">
+  <div class="peru-flag" id="peru-toggle" title="Tip cultural">
+    <img src="peru.png" alt="Perú" />
+  </div>
+  <div class="peru-tip">
+    <p id="tip-text">🌄 ¡Bienvenido a MetaPsyTinkuy!</p>
+  </div>
+</div>
+
+<footer>
   &copy; 2025 MetaPsy Tinkuy. Todos los derechos reservados.
 </footer>
 
-<!-- ===== SCRIPTS ===== -->
 <script>
-// Funciones de modales
-function openModal(id) {
-  document.getElementById(id).classList.add('show');
-}
+// ===== MODALES =====
 function closeModal(id) {
   document.getElementById(id).classList.remove('show');
 }
-
-// Toggle Chat Killa
-function toggleChat() {
-  const chat = document.getElementById("killa-chat");
-  chat.classList.toggle("hidden");
-}
-
-// Chat básico
-const sendBtn = document.getElementById("killa-chat-send");
-const input = document.getElementById("killa-chat-input");
-const messages = document.getElementById("killa-chat-messages");
-
-sendBtn.addEventListener("click", () => {
-  const msg = input.value.trim();
-  if (msg) {
-    const userMsg = document.createElement("div");
-    userMsg.textContent = "Tú: " + msg;
-    messages.appendChild(userMsg);
-
-    const killaMsg = document.createElement("div");
-    killaMsg.textContent = "Killa: Gracias por tu mensaje 🙌";
-    messages.appendChild(killaMsg);
-
-    input.value = "";
-    messages.scrollTop = messages.scrollHeight;
-  }
+document.querySelectorAll('.btn[data-modal]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.getElementById(btn.dataset.modal).classList.add('show');
+  });
+});
+document.querySelectorAll('.modal').forEach(modal=>{
+  modal.addEventListener('click', e=>{
+    if(e.target===modal) modal.classList.remove('show');
+  });
 });
 
-input.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") sendBtn.click();
+// ===== ANIMACIÓN TARJETAS =====
+const cards=document.querySelectorAll('.inicio-card');
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.style.opacity=1; e.target.style.transform='translateY(0)'; }
+  });
+},{threshold:0.3});
+cards.forEach(c=>observer.observe(c));
+
+// ===== KILLA CHAT =====
+const killa=document.querySelector('.killa');
+const chat=document.getElementById('killa-chat');
+const input=document.getElementById('killa-chat-input');
+const sendBtn=document.getElementById('killa-chat-send');
+const messages=document.getElementById('killa-chat-messages');
+killa.addEventListener('click', ()=> chat.classList.toggle('hidden'));
+sendBtn.addEventListener('click', ()=>{
+  if(!input.value.trim()) return;
+  const msg=document.createElement('div'); msg.textContent="Tú: "+input.value; messages.appendChild(msg);
+  const reply=document.createElement('div'); reply.textContent="Killa: ¡Entendido!"; messages.appendChild(reply);
+  input.value=''; messages.scrollTop=messages.scrollHeight;
+});
+input.addEventListener('keypress', e=>{ if(e.key==="Enter") sendBtn.click(); });
+
+// ===== BANDERA PERÚ =====
+const tips=[
+"🌄 ¡Bienvenido a MetaPsyTinkuy, tierra de sabiduría andina!",
+"🧘 Respira profundo y conecta con tu presente.",
+"🌿 La cosmovisión andina nos enseña equilibrio y armonía.",
+"💛 Pequeños actos de bondad fortalecen tu espíritu."
+];
+let tipIndex=0;
+document.getElementById("peru-toggle").addEventListener("click",()=>{
+  tipIndex=(tipIndex+1)%tips.length;
+  document.getElementById("tip-text").textContent=tips[tipIndex];
 });
 </script>
+
+<style>
+/* ===== WIDGET PERÚ ===== */
+.peru-widget {
+  position: fixed;
+  bottom: 60px;
+  left: 10px;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.peru-flag {
+  width: 48px; height: 48px;
+  border-radius: 50%; cursor: pointer;
+  background: linear-gradient(315deg, #D35400 0%, #E67E22 74%);
+  display: flex; justify-content: center; align-items: center;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+.peru-flag img { width: 36px; height: 36px; border-radius: 50%; }
+.peru-tip {
+  margin-top: 8px; background: #fff; padding: 8px 12px;
+  border-radius: 12px; max-width: 220px; font-size: 14px;
+  text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+</style>
+
 </body>
 </html>
-
 
 
 
