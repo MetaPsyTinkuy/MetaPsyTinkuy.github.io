@@ -381,20 +381,88 @@ const observer=new IntersectionObserver(entries=>{
 },{threshold:0.3});
 cards.forEach(c=>observer.observe(c));
 
-// ===== KILLA CHAT =====
-const killa=document.querySelector('.killa');
-const chat=document.getElementById('killa-chat');
-const input=document.getElementById('killa-chat-input');
-const sendBtn=document.getElementById('killa-chat-send');
-const messages=document.getElementById('killa-chat-messages');
-killa.addEventListener('click', ()=> chat.classList.toggle('hidden'));
-sendBtn.addEventListener('click', ()=>{
-  if(!input.value.trim()) return;
-  const msg=document.createElement('div'); msg.textContent="Tú: "+input.value; messages.appendChild(msg);
-  const reply=document.createElement('div'); reply.textContent="Killa: ¡Entendido!"; messages.appendChild(reply);
-  input.value=''; messages.scrollTop=messages.scrollHeight;
-});
-input.addEventListener('keypress', e=>{ if(e.key==="Enter") sendBtn.click(); });
+<script>
+  // ===== Normalización del texto =====
+  function normalizar(texto) {
+    return texto
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, ""); // elimina tildes
+  }
+
+  // ===== Diccionario de respuestas =====
+  const respuestas = {
+    // --- Saludos y sociales ---
+    "hola": "¡Hola! Soy Killa 🌙✨ ¿Cómo te encuentras hoy?",
+    "holaa": "¡Qué gusto saludarte 💜",
+    "ola": "¡Hola! Soy Killa 🌙✨ ¿Cómo estás?",
+    "como estas": "Muy bien, gracias por preguntar 💜 Estoy aquí para acompañarte.",
+    "informacion": "Claro, dime qué tema te interesa y te comparto lo que sé 📚.",
+    "info": "Con gusto, dime si quieres sobre TCC, autorregulación o algo específico ✨.",
+    "que puedo hacer": "Podemos explorar juntos algunas técnicas psicológicas que ayudan a sentirte mejor 💡.",
+
+    // --- Psicología y TCC ---
+    "tcc": "La Terapia Cognitivo Conductual (TCC) trabaja en identificar y cambiar patrones de pensamiento poco útiles 🧠.",
+    "cognitivo": "La TCC ayuda a cambiar la forma en que pensamos y actuamos ante ciertas situaciones 🔄.",
+    "pensamiento": "Los pensamientos automáticos influyen en cómo nos sentimos. Una técnica es cuestionarlos y buscar alternativas 🌿.",
+    "autorregulacion": "La autorregulación es manejar emociones y conductas. Mindfulness, respiración profunda o escribir ayudan mucho 🌱.",
+    "ansiedad": "La ansiedad puede manejarse con técnicas como respiración diafragmática, reestructuración cognitiva o exposición gradual 🫁✨.",
+    "estres": "El estrés disminuye con pausas activas, relajación y organización de tareas. Un paso a la vez 😉."
+  };
+
+  // ===== Función de respuesta =====
+  function responderKilla(mensaje) {
+    const msg = normalizar(mensaje);
+
+    for (let clave in respuestas) {
+      if (msg.includes(clave)) {
+        return respuestas[clave];
+      }
+    }
+
+    // Respuesta genérica si no entiende
+    const genericas = [
+      "Interesante 🤔, cuéntame un poco más.",
+      "Entiendo 💜, ¿quieres que te muestre algo sobre TCC?",
+      "Gracias por compartir eso conmigo 🙌.",
+      "Podemos ver juntos alguna técnica de autorregulación si quieres 🌱."
+    ];
+    return genericas[Math.floor(Math.random() * genericas.length)];
+  }
+
+  // ===== Integración con el chat =====
+  const input = document.querySelector("#killa-chat-input");
+  const sendBtn = document.querySelector("#killa-chat-send");
+  const messages = document.querySelector("#killa-chat-messages");
+
+  sendBtn.addEventListener("click", () => {
+    const mensaje = input.value.trim();
+    if (!mensaje) return;
+
+    // Mensaje del usuario
+    const userMsg = document.createElement("div");
+    userMsg.className = "user-message";
+    userMsg.textContent = "Tú: " + mensaje;
+    messages.appendChild(userMsg);
+
+    // Respuesta de Killa
+    const respuesta = responderKilla(mensaje);
+    const killaMsg = document.createElement("div");
+    killaMsg.className = "killa-message";
+    killaMsg.textContent = "Killa: " + respuesta;
+    messages.appendChild(killaMsg);
+
+    input.value = "";
+    messages.scrollTop = messages.scrollHeight;
+  });
+
+  // También permite enviar con Enter
+  input.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      sendBtn.click();
+    }
+  });
+</script>
 
 // ===== BANDERA PERÚ =====
 const tips=[
@@ -438,6 +506,7 @@ document.getElementById("peru-toggle").addEventListener("click",()=>{
 
 </body>
 </html>
+
 
 
 
