@@ -270,28 +270,32 @@ footer {
   50% { transform: translateX(3px); }
 }
 
-/* Chat box Killa */
-.killa-chat-box {
-  position: fixed;
+/* ===== CHAT KILLA ===== */
+#killa-chat {
+  position: fixed;   /* ✅ lo mantiene flotante */
   bottom: 180px;
   right: 20px;
-  width: 280px;
-  max-height: 400px;
-  background: #ffffffcc;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  width: 300px;
+  max-width: 90%;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  z-index: 1100;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-family: 'Montserrat', sans-serif;
-  z-index: 2000;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
 }
 
-.killa-chat-box.hidden { display: none; }
+#killa-chat.hidden {
+  display: none !important; /* ✅ desaparece por completo */
+}
 
-.killa-chat-messages {
+#killa-chat-messages {
   flex: 1;
   padding: 10px;
+  max-height: 300px;
   overflow-y: auto;
 }
 
@@ -302,19 +306,19 @@ footer {
 
 .killa-chat-input input {
   flex: 1;
-  padding: 8px;
   border: none;
-  border-radius: 0;
+  padding: 10px;
   outline: none;
 }
 
 .killa-chat-input button {
-  padding: 8px 12px;
+  padding: 0 15px;
   border: none;
-  background-color: #6c5ce7;
-  color: white;
+  background: #00ff88;
+  color: #fff;
   cursor: pointer;
 }
+
   
 </style>
 </head>
@@ -829,6 +833,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </body>
 </html>
+
 
 
 
