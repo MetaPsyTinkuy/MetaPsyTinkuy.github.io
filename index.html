@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>MetaPsy Tinkuy - Inicio</title>
-  <!-- Favicon -->
+
+<!-- Favicon -->
 <link rel="icon" href="https://metapsytinkuy.github.io/favicon.png" type="image/png">
 
 <!-- Open Graph y Twitter Card -->
@@ -17,7 +18,9 @@
 <meta name="twitter:title" content="MetaPsy Tinkuy">
 <meta name="twitter:description" content="Proyectos de psicología y revisiones sistemáticas">
 <meta name="twitter:image" content="https://metapsytinkuy.github.io/logo_preview.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
 /* ===== BASE ===== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -115,8 +118,8 @@ main p {
   background-clip: padding-box;
   position: relative;
   transition: transform 0.5s, box-shadow 0.5s, border 1s;
-  opacity: 0;
-  transform: translateY(40px);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .inicio-card::before {
@@ -192,9 +195,7 @@ main p {
   justify-content: center;
   transition: opacity 0.4s ease;
 }
-
 .modal.show { display: flex; }
-
 .modal-content {
   background: linear-gradient(135deg, #ffffff, #f0f0f0);
   margin: auto;
@@ -203,636 +204,138 @@ main p {
   width: 80%;
   max-width: 600px;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   box-shadow: 0 20px 50px rgba(0,0,0,0.25);
 }
-
-.modal-content h2 { margin-bottom: 20px; }
-.modal-body img { border-radius: 20px; max-width: 100%; max-height: 400px; object-fit: contain; box-shadow:0 5px 25px rgba(0,0,0,0.2); margin-bottom: 15px; }
-.modal-body a.btn { padding: 12px 25px; border-radius: 20px; font-weight: 700; text-transform: uppercase; background: linear-gradient(90deg,#00ff88,#008cff); color: #fff; box-shadow:0 5px 20px rgba(0,140,255,0.3); transition: all 0.3s ease; }
-.modal-body a.btn:hover { transform: scale(1.05); box-shadow:0 5px 25px rgba(0,255,136,0.5); }
-
-/* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  padding: 25px;
-  margin-top: 40px;
-  background: linear-gradient(90deg, #ffecd2, #fcb69f);
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  color: #333;
-  box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
-}
-
-/* ===== ANIMACIONES ===== */
-@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-@keyframes gradientBG { 0% {background-position:0% 50%;} 50% {background-position:100% 50%;} 100% {background-position:0% 50%;} }
-@keyframes textGlow { 0%,100% { text-shadow: 2px 2px 8px rgba(0,0,0,0.2); } 50% { text-shadow: 0 0 20px #2c3e50, 0 0 30px #2c3e50; } }
-@keyframes borderGlow { 0% { transform: rotate(0deg); } 50% { transform: rotate(180deg); } 100% { transform: rotate(360deg); } }
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) { main h2 { font-size: 2.2rem; } }
-@media (max-width: 480px) {
-  header { flex-direction: column; text-align: center; }
-  header img { margin-bottom: 10px; }
-  nav { margin-top: 10px; }
-  nav a { font-size: 1rem; }
-  .inicio-card img { height: 200px; }
-}
-  /* ===== CONTENEDOR DE KILLA ===== */
-.killa-container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 150px;
-  height: 150px;
-  cursor: pointer;
-  z-index: 1000;
-}
-
-.killa {
-  width: 100%;
-  transform-origin: center bottom;
-  animation: breathe 4s ease-in-out infinite, sway 6s ease-in-out infinite;
-  transition: transform 0.3s ease-in-out;
-}
-
-@keyframes breathe {
-  0%,100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-5px) rotate(1deg); }
-}
-
-@keyframes sway {
-  0%,100% { transform: translateX(0px); }
-  50% { transform: translateX(3px); }
-}
-
-/* ===== CHAT KILLA ===== */
-#killa-chat {
-  position: fixed;   /* ✅ lo mantiene flotante */
-  bottom: 180px;
-  right: 20px;
-  width: 300px;
-  max-width: 90%;
-  background: #fff;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-  z-index: 1100;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-}
-
-#killa-chat.hidden {
-  display: none !important; /* ✅ desaparece por completo */
-}
-
-#killa-chat-messages {
-  flex: 1;
-  padding: 10px;
-  max-height: 300px;
-  overflow-y: auto;
-}
-
-.killa-chat-input {
-  display: flex;
-  border-top: 1px solid #ccc;
-}
-
-.killa-chat-input input {
-  flex: 1;
-  border: none;
-  padding: 10px;
-  outline: none;
-}
-
-.killa-chat-input button {
-  padding: 0 15px;
-  border: none;
-  background: #00ff88;
-  color: #fff;
-  cursor: pointer;
-}
-
-  
 </style>
 </head>
-<body>
 
+<body>
 <header>
   <div class="logo-title">
-    <img src="logometapsytinkuy.jpeg" alt="Logo MetaPsy Tinkuy" width="100">
+    <img src="https://metapsytinkuy.github.io/logo.png" alt="Logo" width="60">
     <h1>MetaPsy Tinkuy</h1>
   </div>
   <nav>
-    <a href="index.html">Inicio</a>
-    <a href="nosotros.html">Nosotros</a>
-    <a href="proyectos.html">Proyectos</a>
-    <a href="contacto.html">Contacto</a>
-    <a href="tinkuy_psicoterapeutico/index.html">Tinkuy Psicoterapéutico</a>
+    <a href="#">Inicio</a>
+    <a href="#">Nosotros</a>
+    <a href="#">Proyectos</a>
+    <a href="#">Tinkuy Psicoterapéutico</a>
   </nav>
 </header>
 
 <main>
-  <h2>Bienvenidos a MetaPsy Tinkuy</h2>
-  <p>Somos un grupo de estudios dedicado a la divulgación y difusión científica en psicología, con especial interés en revisiones sistemáticas y el encuentro entre saberes, inspirados en la cosmovisión andina.</p>
+  <h2>Bienvenido a MetaPsy Tinkuy</h2>
+  <p>Explora nuestros proyectos y participa en nuestras actividades.</p>
 
   <div class="inicio-cards">
-    <!-- Tarjeta 1 -->
     <div class="inicio-card">
-      <img src="revisionessistematicas.jpg" alt="Revisiones Sistemáticas">
-      <h3>Revisiones Sistemáticas</h3>
-      <p>Formación especializada en diseño, ejecución y análisis de revisiones sistemáticas aplicadas a la psicología clínica.</p>
-      <button class="btn" data-modal="modal1">Explorar</button>
+      <img src="https://metapsytinkuy.github.io/revision.jpg" alt="Revisión Sistemática">
+      <h3>Revisión Sistemática</h3>
+      <p>Explora nuestras investigaciones más recientes en psicología.</p>
+      <button class="btn" onclick="openModal('modal1')">Ver más</button>
     </div>
-
-    <!-- Tarjeta 2 -->
     <div class="inicio-card">
-      <img src="divulgacioncientifica.jpg" alt="Divulgación Científica">
-      <h3>Divulgación Científica</h3>
-      <p>Acercamos el conocimiento científico a la comunidad, transformando la evidencia en mensajes accesibles y relevantes.</p>
-      <button class="btn" data-modal="modal2">Explorar</button>
-    </div>
-
-    <!-- Tarjeta 3 -->
-    <div class="inicio-card">
-      <img src="capacitacionespecializada.jpg" alt="Capacitación Avanzada">
+      <img src="https://metapsytinkuy.github.io/capacitacion.jpg" alt="Capacitación Avanzada">
       <h3>Capacitación Avanzada</h3>
-      <p>Programas de formación para investigadores y clínicos, integrando herramientas científicas, didácticas y humanistas.</p>
-      <button class="btn" data-modal="modal3">Explorar</button>
+      <p>Programas de formación diseñados para profesionales.</p>
+      <button class="btn" onclick="openModal('modal2')">Ver más</button>
+    </div>
+    <div class="inicio-card">
+      <img src="https://metapsytinkuy.github.io/divulgacion.jpg" alt="Divulgación Científica">
+      <h3>Divulgación Científica</h3>
+      <p>Conoce nuestras actividades de difusión del conocimiento.</p>
+      <button class="btn" onclick="openModal('modal3')">Ver más</button>
     </div>
   </div>
+</main>
 
-    </main>
-
-<!-- ===== PASO B: Chat interactivo de Killa ===== -->
-<div id="killa-chat" class="hidden">
-  <div id="killa-chat-messages"></div>
-  <div class="killa-chat-input">
-    <input id="killa-chat-input" type="text" placeholder="Escribe un mensaje...">
-    <button id="killa-chat-send">Enviar</button>
-  </div>
-</div>
-
-
-<!-- ===== CONTENEDOR DE KILLA ===== -->
-<div class="killa-container">
-  <img src="killa.png" alt="Killa" class="killa">
-</div>
-
-<footer>
-  &copy; 2025 MetaPsy Tinkuy. Todos los derechos reservados.
-</footer>
-
-<script>
-// ===== MODALES =====
-function openModal(id) { document.getElementById(id).classList.add('show'); }
-function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-
-// ===== KILLA INTERACTIVO =====
-const killa = document.querySelector('.killa');
-const chat = document.getElementById('killa-chat');
-const input = document.getElementById('killa-chat-input');
-const sendBtn = document.getElementById('killa-chat-send');
-const messages = document.getElementById('killa-chat-messages');
-
-killa.addEventListener('click', () => { chat.classList.toggle('hidden'); });
-
-sendBtn.addEventListener('click', () => {
-  if(input.value.trim() === '') return;
-  const msg = document.createElement('div');
-  msg.textContent = "Tú: " + input.value;
-  messages.appendChild(msg);
-  const reply = document.createElement('div');
-  reply.textContent = "Killa: ¡Entendido!";
-  messages.appendChild(reply);
-  messages.scrollTop = messages.scrollHeight;
-  input.value = '';
-});
-
-input.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendBtn.click(); });
-  
-<!-- MODALES EXISTENTES -->
+<!-- ===== MODALES ===== -->
 <div id="modal1" class="modal">
   <div class="modal-content">
-    <h2>Revisiones Sistemáticas</h2>
-    <div class="modal-body">
-      <img src="revisionessistematicas.jpg" alt="Revisiones Sistemáticas">
-      <a href="https://forms.gle/yb2vhjeffjxFCf7J7" target="_blank" class="btn">Ir al Formulario</a>
-    </div>
+    <h2>Revisión Sistemática</h2>
+    <p>Información detallada sobre nuestras revisiones sistemáticas.</p>
     <button class="btn" onclick="closeModal('modal1')">Cerrar</button>
   </div>
 </div>
 
 <div id="modal2" class="modal">
   <div class="modal-content">
-    <h2>Divulgación Científica</h2>
-    <div class="modal-body">
-      <img src="divulgacioncientifica.jpg" alt="Divulgación Científica">
-      <a href="proyectos.html#divulgacion" class="btn">Ver Proyectos</a>
-    </div>
+    <h2>Capacitación Avanzada</h2>
+    <p>Detalles sobre nuestros programas de formación avanzada.</p>
     <button class="btn" onclick="closeModal('modal2')">Cerrar</button>
   </div>
 </div>
 
 <div id="modal3" class="modal">
   <div class="modal-content">
-    <h2>Capacitación Avanzada</h2>
-    <div class="modal-body">
-      <img src="capacitacionespecializada.jpg" alt="Capacitación Avanzada">
-      <a href="proyectos.html#capacitacion" class="btn">Ver Capacitaciones</a>
-    </div>
+    <h2>Divulgación Científica</h2>
+    <p>Actividades para compartir conocimiento con la comunidad.</p>
     <button class="btn" onclick="closeModal('modal3')">Cerrar</button>
   </div>
 </div>
 
-<!-- MODALES NUEVOS TINKUY -->
-<div id="modalT1" class="modal">
-  <div class="modal-content">
-    <h2>Fórmula 1</h2>
-    <div class="modal-body">
-      <img src="formula1.jpg" alt="Fórmula 1">
-      <p>Ejemplo: "Yo me siento enojado cuando no me avisas porque necesito organizarme. Me gustaría que me informes con anticipación."</p>
-    </div>
-    <button class="btn" onclick="closeModal('modalT1')">Cerrar</button>
+<!-- ===== CHAT KILLA ===== -->
+<div id="killa-chat" class="hidden" style="position: fixed; bottom: 180px; right: 20px; width: 300px; max-width: 90%; background: #fff; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); z-index: 1100; display: flex; flex-direction: column; overflow: hidden;">
+  <div id="killa-chat-messages" style="flex: 1; padding: 10px; max-height: 300px; overflow-y: auto; font-family: Arial, sans-serif; font-size: 14px;"></div>
+  <div style="display: flex; border-top: 1px solid #ccc;">
+    <input id="killa-chat-input" type="text" placeholder="Escribe un mensaje..." style="flex: 1; border: none; padding: 10px; outline: none;">
+    <button id="killa-chat-send" style="padding: 0 15px; border: none; background: #00ff88; color: #fff; cursor: pointer;">Enviar</button>
   </div>
 </div>
 
-<div id="modalT2" class="modal">
-  <div class="modal-content">
-    <h2>Fórmula 2</h2>
-    <div class="modal-body">
-      <img src="formula2.jpg" alt="Fórmula 2">
-      <p>Ejemplo: "Cuando hablas tan rápido, me cuesta seguirte. Me gustaría que pauses un momento para poder entenderte mejor."</p>
-    </div>
-    <button class="btn" onclick="closeModal('modalT2')">Cerrar</button>
-  </div>
+<div class="killa-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1200;">
+  <img src="https://metapsytinkuy.github.io/killa.png" alt="Killa" style="width: 120px; cursor: pointer;" onclick="toggleChat()">
 </div>
 
-<div id="modalT3" class="modal">
-  <div class="modal-content">
-    <h2>Fórmula 3</h2>
-    <div class="modal-body">
-      <img src="formula3.jpg" alt="Fórmula 3">
-      <p>Ejemplo: "Cuando interrumpes mis ideas, me siento frustrado. Me gustaría que me escuches hasta terminar mi explicación."</p>
-    </div>
-    <button class="btn" onclick="closeModal('modalT3')">Cerrar</button>
-  </div>
-</div>
-
-<footer>
-  <p>&copy; 2025 MetaPsy Tinkuy. Todos los derechos reservados.</p>
+<!-- ===== FOOTER ===== -->
+<footer style="text-align:center; padding:20px; background:#fff7f2; margin-top:40px; box-shadow:0 -4px 10px rgba(0,0,0,0.1);">
+  &copy; 2025 MetaPsy Tinkuy. Todos los derechos reservados.
 </footer>
 
+<!-- ===== SCRIPTS ===== -->
 <script>
-// Animación tarjetas
-const cards = document.querySelectorAll('.inicio-card');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.style.opacity = 1;
-      entry.target.style.transform = 'translateY(0)';
-    }
-  });
-}, {threshold:0.3});
-cards.forEach(card => observer.observe(card));
-
-// Modal
-const modalButtons = document.querySelectorAll('.btn[data-modal]');
-modalButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const modal = document.getElementById(btn.getAttribute('data-modal'));
-    modal.classList.add('show');
-  });
-});
-
+// Funciones de modales
+function openModal(id) {
+  document.getElementById(id).classList.add('show');
+}
 function closeModal(id) {
   document.getElementById(id).classList.remove('show');
 }
 
-// Cerrar modal al hacer click fuera del contenido
-document.querySelectorAll('.modal').forEach(modal => {
-  modal.addEventListener('click', e => {
-    if(e.target === modal) modal.classList.remove('show');
-  });
-});
-</script>
-<!-- ===== CONTENEDOR DE KILLA ===== -->
-<div class="killa-container">
-  <img src="killa.png" alt="Killa" class="killa">
-</div>
-<script>
-const killa = document.querySelector('.killa');
-const container = document.querySelector('.killa-container');
-
-// ===== Seguir cursor =====
-container.addEventListener('mousemove', (e) => {
-  const rect = container.getBoundingClientRect();
-  const x = e.clientX - rect.left - rect.width / 2;
-  const y = e.clientY - rect.top - rect.height / 2;
-  const rotateX = y * 0.03;
-  const rotateY = x * 0.03;
-  killa.style.transform = `translateY(-2px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-});
-
-// ===== Salto al clic =====
-container.addEventListener('click', () => {
-  killa.style.transform += ' translateY(-20px)';
-  setTimeout(() => {
-    killa.style.transform = killa.style.transform.replace(' translateY(-20px)', '');
-  }, 200);
-});
-
-// ===== Movimiento aleatorio pequeño =====
-function randomMove() {
-  const x = (Math.random() - 0.5) * 4;
-  const y = (Math.random() - 0.5) * 4;
-  killa.style.transform += ` translate(${x}px, ${y}px)`;
-  setTimeout(randomMove, 3000);
-}
-randomMove();
-<script src="https://cdn.jsdelivr.net/npm/@xenova/transformers@2.5.0/dist/transformers.min.js"></script>
-<script>
-let model;
-const killaPromptBase = `
-Eres Killa, psicoterapeuta peruana en terapia cognitivo-conductual. 
-Responde con calidez, claridad y empatía, guiando al usuario en reflexiones sobre sus emociones y pensamientos.
-`;
-
-async function initKillaModel() {
-  model = await window.transformers.AutoModelForCausalLM.from_pretrained('Xenova/distilgpt2');
-  console.log("Killa: modelo cargado en el navegador.");
+// Toggle Chat Killa
+function toggleChat() {
+  const chat = document.getElementById("killa-chat");
+  chat.classList.toggle("hidden");
 }
 
-// Efecto de escritura letra por letra
-async function typeEffect(element, text, speed = 25) {
-  element.textContent = "";
-  for (let i = 0; i < text.length; i++) {
-    element.textContent += text[i];
-    await new Promise(r => setTimeout(r, speed));
+// Chat básico
+const sendBtn = document.getElementById("killa-chat-send");
+const input = document.getElementById("killa-chat-input");
+const messages = document.getElementById("killa-chat-messages");
+
+sendBtn.addEventListener("click", () => {
+  const msg = input.value.trim();
+  if (msg) {
+    const userMsg = document.createElement("div");
+    userMsg.textContent = "Tú: " + msg;
+    messages.appendChild(userMsg);
+
+    const killaMsg = document.createElement("div");
+    killaMsg.textContent = "Killa: Gracias por tu mensaje 🙌";
+    messages.appendChild(killaMsg);
+
+    input.value = "";
+    messages.scrollTop = messages.scrollHeight;
   }
-}
+});
 
-async function getKillaResponse(userMessage) {
-  const input = `${killaPromptBase}\nUsuario: ${userMessage}\nKilla:`;
-  const output = await model.generate(input, { max_length: 150 });
-  return output[0]?.generated_text.replace(input, '').trim() || "Lo siento, no entendí eso.";
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-  await initKillaModel();
-
-  const killaImg = document.querySelector('.killa');
-  const chatBox = document.getElementById("killa-chat");
-  const chatMessages = document.getElementById("killa-chat-messages");
-  const chatInput = document.getElementById("killa-chat-input");
-  const chatSend = document.getElementById("killa-chat-send");
-
-  // Abrir chat al clic en Killa
-  killaImg.addEventListener("click", () => {
-    chatBox.classList.toggle("hidden");
-    chatInput.focus();
-  });
-
-  function addMessage(sender, message) {
-    const msgDiv = document.createElement("div");
-    msgDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
-    chatMessages.appendChild(msgDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-    return msgDiv;
-  }
-
-  async function sendMessage() {
-    const message = chatInput.value.trim();
-    if(!message) return;
-    addMessage("Tú", message);
-    chatInput.value = "";
-
-    const typingDiv = addMessage("Killa", "Killa está escribiendo...");
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-
-    const reply = await getKillaResponse(message);
-    await typeEffect(typingDiv, reply);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-  chatSend.addEventListener("click", sendMessage);
-  chatInput.addEventListener("keypress", e => { if(e.key === "Enter") sendMessage(); });
+input.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") sendBtn.click();
 });
 </script>
-  
-</script>
-
-<!-- ================= Widget Flotante MetaPsyTinkuy – Ultra Interactivo ================= -->
-<div class="peru-widget">
-  <div class="peru-flag" id="peru-toggle" title="Tip cultural">
-    <img src="peru.png" alt="Perú" />
-  </div>
-  <div class="peru-tip">
-    <div class="tip-background"></div>
-    <p id="tip-text">
-      <span class="tip-icon" id="tip-icon">🌄</span> ¡Bienvenido a MetaPsyTinkuy, tierra de sabiduría andina!
-    </p>
-  </div>
-</div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const toggle = document.getElementById("peru-toggle");
-  const tip = document.querySelector(".peru-tip");
-  const tipText = document.getElementById("tip-text");
-  const tipIcon = document.getElementById("tip-icon");
-
-  const tips = [
-    {text:"¡Bienvenido a MetaPsyTinkuy, tierra de sabiduría andina!", icon:"🌄"},
-    {text:"Recuerda respirar profundo y conectar con tu presente.", icon:"🧘"},
-    {text:"La cosmovisión andina nos enseña equilibrio y armonía.", icon:"🌿"},
-    {text:"Pequeños actos de bondad fortalecen tu espíritu.", icon:"💛"},
-    {text:"La meditación diaria mejora la claridad y el bienestar.", icon:"✨"},
-    {text:"Agradece cada día los logros, grandes o pequeños.", icon:"🙏"},
-    {text:"Conecta con la naturaleza para recargar energía.", icon:"🌱"},
-    {text:"Caminar descalzo sobre tierra o césped ayuda a centrarte.", icon:"🌾"},
-    {text:"Practica la paciencia; todo tiene su tiempo.", icon:"⏳"},
-    {text:"Escucha tu respiración y tu cuerpo con atención.", icon:"🌬️"},
-    {text:"Dedica unos minutos al silencio cada día.", icon:"🕊️"},
-    {text:"Registra tus pensamientos en un diario para claridad mental.", icon:"📖"},
-    {text:"Sonríe aunque estés solo, tu cerebro lo agradecerá.", icon:"🙂"},
-    {text:"Comparte tiempo con seres que te nutran emocionalmente.", icon:"💞"},
-    {text:"Observa el cielo y siente la conexión con el universo.", icon:"🌌"},
-    {text:"La música andina puede ayudar a equilibrar tus emociones.", icon:"🎶"},
-    {text:"Realiza movimientos suaves para liberar tensiones.", icon:"🤸‍♂️"},
-    {text:"Cada error es una oportunidad de aprendizaje.", icon:"📚"},
-    {text:"Apoya a otros y tu bienestar aumentará.", icon:"🤝"},
-    {text:"Desconéctate de pantallas por momentos para reconectar contigo.", icon:"📵"},
-    {text:"Usa colores que te transmitan calma en tu entorno.", icon:"🎨"},
-    {text:"Hidrátate y aliméntate conscientemente.", icon:"💧🥑"},
-    {text:"Visualiza tus metas con detalle y emoción.", icon:"🎯"},
-    {text:"Medita sobre la gratitud antes de dormir.", icon:"🌙"},
-    {text:"Escucha historias y leyendas andinas para inspiración.", icon:"📜"},
-    {text:"Respeta tus límites y aprende a decir ‘no’ cuando sea necesario.", icon:"✋"},
-    {text:"Celebra cada paso hacia tu bienestar con alegría.", icon:"🎉"}
-  ];
-
-  let index = 0;
-  let animating = false;
-
-  toggle.addEventListener("click", () => {
-    if(animating) return;
-    animating = true;
-
-    tip.classList.add("show");
-    index = (index + 1) % tips.length;
-
-    // Cambiar tip y icono
-    tipText.innerHTML = `<span class="tip-icon" id="tip-icon">${tips[index].icon}</span> ${tips[index].text}`;
-    const tipIconNew = document.getElementById("tip-icon");
-
-    // Animaciones individuales iconos (movimientos aleatorios)
-    const rotateDeg = Math.floor(Math.random() * 20) - 10; // -10 a 10 grados
-    tipIconNew.style.animation = `float ${1.5 + Math.random()}s ease-in-out infinite alternate, rotate ${3 + Math.random()*2}s linear infinite`;
-    tipIconNew.style.transform = `rotate(${rotateDeg}deg)`;
-
-    // Animación de entrada del tip
-    tipText.style.opacity = 0;
-    tipText.style.transform = "translateY(-15px) scale(0.95)";
-    setTimeout(() => {
-      tipText.style.transition = "opacity 0.5s ease, transform 0.5s ease";
-      tipText.style.opacity = 1;
-      tipText.style.transform = "translateY(0) scale(1)";
-      animating = false;
-    }, 50);
-  });
-
-  // Bandera: salto, resplandor y respiración
-  setInterval(() => {
-    toggle.style.transform = "translateY(-8px) scale(1.15)";
-    toggle.style.boxShadow = "0 8px 16px rgba(255,215,0,0.6)";
-    setTimeout(() => {
-      toggle.style.transform = "translateY(0) scale(1)";
-      toggle.style.boxShadow = "0 6px 12px rgba(0,0,0,0.3)";
-    }, 300);
-  }, 4000);
-
-  // Respiración suave bandera
-  setInterval(() => {
-    toggle.style.transition = "transform 1.5s ease-in-out";
-    toggle.style.transform = "scale(1.05)";
-    setTimeout(()=>{ toggle.style.transform = "scale(1)"; }, 1500);
-  }, 6000);
-});
-</script>
-
-<style>
-.peru-widget {
-  position: fixed;
-  bottom: 60px;
-  left: 10px;
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.peru-flag {
-  width: 48px;
-  height: 48px;
-  padding: 4px;
-  border-radius: 50%;
-  cursor: pointer;
-  background: linear-gradient(315deg, #D35400 0%, #E67E22 74%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.peru-flag img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-}
-
-.peru-flag:hover {
-  transform: scale(1.2);
-  box-shadow: 0 8px 16px rgba(255,215,0,0.6);
-}
-
-.peru-tip {
-  position: relative;
-  display: flex;
-  opacity: 0;
-  pointer-events: none;
-  flex-direction: column;
-  background: #ffffffdd;
-  padding: 12px 16px;
-  border-radius: 14px;
-  margin-top: 8px;
-  max-width: 280px;
-  text-align: center;
-  font-size: 16px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  transform: translateY(-15px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  overflow: hidden;
-}
-
-.peru-tip.show {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-
-.tip-background {
-  position: absolute;
-  top:0; left:0; right:0; bottom:0;
-  background: radial-gradient(circle, rgba(255,215,0,0.2) 0%, transparent 70%);
-  animation: pulse 3s infinite alternate;
-  border-radius: 14px;
-  z-index: 0;
-}
-
-@keyframes pulse {
-  0% { transform: scale(0.95); opacity:0.6; }
-  50% { transform: scale(1.05); opacity:0.3; }
-  100% { transform: scale(1); opacity:0.5; }
-}
-
-.tip-icon {
-  display: inline-block;
-  margin-right: 6px;
-  position: relative;
-  z-index:1;
-  animation: float 2s ease-in-out infinite alternate, rotate 4s linear infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-  100% { transform: translateY(0); }
-}
-
-@keyframes rotate {
-  0% { transform: rotate(0deg); }
-  50% { transform: rotate(10deg); }
-  100% { transform: rotate(0deg); }
-}
-
-@media (max-width: 600px) {
-  .peru-flag { width: 40px; height: 40px; }
-  .peru-flag img { width: 28px; height: 28px; }
-  .peru-tip { font-size: 14px; max-width: 220px; padding: 10px 12px; }
-}
-</style>
-
 </body>
 </html>
+
 
 
 
