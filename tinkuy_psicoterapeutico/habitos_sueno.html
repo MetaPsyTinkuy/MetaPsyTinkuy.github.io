@@ -13,6 +13,8 @@
       --text:#2c3e50;
       --track:#8B4513;
       --accent:#ff5a36;
+      --ok:#2e7d32;
+      --warn:#c62828;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{
@@ -25,10 +27,9 @@
       min-height:100vh;
     }
 
-    /* Contenedor principal con ancho similar al de tus páginas */
     .wrap{
       width:100%;
-      max-width:900px;
+      max-width:1000px;
       padding:20px 16px 40px;
       margin:0 auto;
     }
@@ -45,7 +46,7 @@
       font-size:1rem;
     }
 
-    /* Panel superior (avatar + botones + progreso) */
+    /* Panel superior (avatar + dado + progreso) */
     .panel{
       display:flex;
       gap:12px;
@@ -70,9 +71,7 @@
       background:#fff;
       cursor:pointer;
     }
-    .btns{
-      display:flex; gap:10px; flex-wrap:wrap;
-    }
+    .btns{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
     button{
       padding:10px 16px;
       font-weight:600;
@@ -86,12 +85,19 @@
     button:hover{ background:var(--beige-hover); }
     button:active{ transform:translateY(1px); }
 
-    /* Progreso */
-    .progress{
-      margin-left:auto;
-      font-weight:700;
-      color:#333;
+    .dice{
+      display:inline-flex; align-items:center; gap:10px;
     }
+    .dice-face{
+      width:44px; height:44px; border-radius:12px;
+      background:#fff7f2; border:1px solid #ffe1d2;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.1rem; font-weight:700;
+      box-shadow:0 2px 6px rgba(0,0,0,.08);
+      user-select:none;
+      min-width:44px;
+    }
+    .progress{ margin-left:auto; font-weight:700; color:#333; }
 
     /* Zona del juego */
     .game-card{
@@ -103,7 +109,7 @@
     }
     .svg-frame{
       width:100%;
-      aspect-ratio: 16 / 11; /* mantiene proporción agradable */
+      aspect-ratio: 16 / 11;
       position:relative;
     }
     svg{ width:100%; height:100%; display:block; }
@@ -112,18 +118,9 @@
     .goal{ fill:#FFD700; }
     .start-end-label{ font-size:22px; }
 
-    /* Avatar como grupo transformable con transición */
-    .player{
-      transition: transform .6s ease-in-out;
-      pointer-events:none;
-    }
-    .player text{
-      font-size:28px; /* tamaño del emoji/avatar */
-      dominant-baseline: middle;
-      text-anchor: middle;
-    }
+    .player{ transition: transform .6s ease-in-out; pointer-events:none; }
+    .player text{ font-size:28px; dominant-baseline: middle; text-anchor: middle; }
 
-    /* Mensaje */
     .message{
       margin-top:14px;
       background:#fff7f2;
@@ -134,12 +131,45 @@
       font-size:1rem;
       color:#333;
     }
+
+    /* Modal de pregunta */
+    .modal{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.35);
+      display:none;
+      align-items:center; justify-content:center;
+      z-index:999;
+      padding:16px;
+    }
+    .modal.open{ display:flex; }
+    .modal-card{
+      max-width:680px; width:100%;
+      background:#fff;
+      border-radius:16px;
+      padding:18px;
+      box-shadow:0 10px 30px rgba(0,0,0,.2);
+    }
+    .q-title{ font-weight:700; font-size:1.1rem; margin-bottom:10px; }
+    .q-text{ line-height:1.6; margin-bottom:14px; }
+    .q-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+    .q-actions button{ min-width:90px; }
+    .q-feedback{ margin-top:12px; border-left:4px solid #ddd; padding:10px 12px; background:#fafafa; border-radius:8px; display:none;}
+    .q-feedback.ok{ border-left-color: var(--ok); }
+    .q-feedback.bad{ border-left-color: var(--warn); }
+
+    .toast{
+      position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+      background:#fff; border:1px solid #eee; border-radius:10px;
+      padding:10px 14px; box-shadow:0 6px 20px rgba(0,0,0,.18);
+      display:none; z-index:1000; font-weight:600;
+    }
+    .toast.show{ display:block; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>El Camino al Buen Descanso 🌙</h1>
-    <p class="subtitle">Avanza paso a paso y descubre 50 hábitos y micro-consejos para dormir mejor.</p>
+    <p class="subtitle">Lanza el dado, responde y avanza por 50 casillas. Aprenderás hábitos de sueño con base en evidencia.</p>
 
     <div class="panel">
       <div class="panel-left">
@@ -154,7 +184,10 @@
         </select>
       </div>
       <div class="btns">
-        <button id="advanceBtn">Avanzar</button>
+        <div class="dice">
+          <button id="rollBtn">Lanzar dado 🎲</button>
+          <div class="dice-face" id="diceFace">—</div>
+        </div>
         <button id="resetBtn">Reiniciar</button>
       </div>
       <div class="progress" id="progress">Paso 1 de 50</div>
@@ -163,7 +196,6 @@
     <div class="game-card">
       <div class="svg-frame">
         <svg viewBox="0 0 1000 680" preserveAspectRatio="xMidYMid meet" aria-label="Camino serpenteante">
-          <!-- Camino serpenteante -->
           <path id="track" class="track"
             d="M 60 630
                C 180 560, 300 700, 420 620
@@ -189,48 +221,64 @@
                S 240 360, 360 420
                S 520 500, 640 560
                S 820 620, 940 580" />
-
-          <!-- Hitos cada 5 pasos (visual) -->
           <g id="milestones"></g>
-
-          <!-- Inicio y meta decorativos -->
           <text class="start-end-label" x="60" y="630" dy="28">⏰</text>
           <text class="start-end-label" x="940" y="580" dy="-14">🛏️✨</text>
-
-          <!-- Avatar -->
-          <g id="player" class="player">
-            <text id="playerEmoji" x="0" y="0">🌙</text>
-          </g>
+          <g id="player" class="player"><text id="playerEmoji" x="0" y="0">🌙</text></g>
         </svg>
       </div>
-
       <div class="message" id="message">
-        Haz clic en <strong>Avanzar</strong> para iniciar. Cada paso desbloquea una idea práctica para mejorar tu sueño.
+        Lanza el dado para avanzar. Luego responde una pregunta: si aciertas, te quedas; si fallas, retrocedes lo que marcó el dado.
       </div>
     </div>
   </div>
 
+  <!-- Modal de preguntas -->
+  <div class="modal" id="qModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <div class="q-title">Pregunta de higiene del sueño</div>
+      <div class="q-text" id="qText"></div>
+      <div class="q-actions">
+        <button id="btnYes">Sí</button>
+        <button id="btnNo">No</button>
+        <button id="btnClose" style="margin-left:auto; background:#eee;">Cerrar</button>
+      </div>
+      <div class="q-feedback" id="qFeedback"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
   <script>
-    // ====== Configuración y utilidades ======
+    // ====== Elementos base ======
     const TOTAL_STEPS = 50;
     const track = document.getElementById('track');
     const player = document.getElementById('player');
     const playerEmoji = document.getElementById('playerEmoji');
     const progressEl = document.getElementById('progress');
     const messageEl = document.getElementById('message');
-    const advanceBtn = document.getElementById('advanceBtn');
+    const rollBtn = document.getElementById('rollBtn');
     const resetBtn = document.getElementById('resetBtn');
+    const diceFace = document.getElementById('diceFace');
     const avatarSelect = document.getElementById('avatar');
     const milestonesGroup = document.getElementById('milestones');
 
-    // Generar 50 puntos equidistantes a lo largo del path
+    const qModal = document.getElementById('qModal');
+    const qText = document.getElementById('qText');
+    const qFeedback = document.getElementById('qFeedback');
+    const btnYes = document.getElementById('btnYes');
+    const btnNo = document.getElementById('btnNo');
+    const btnClose = document.getElementById('btnClose');
+    const toast = document.getElementById('toast');
+
+    // ====== Puntos a lo largo del path ======
     const pathLen = track.getTotalLength();
     const points = Array.from({length: TOTAL_STEPS}, (_, i) => {
       const p = track.getPointAtLength((i/(TOTAL_STEPS-1)) * pathLen);
       return { x: p.x, y: p.y };
     });
 
-    // Dibujar marcadores cada 5 pasos
+    // Hitos visuales
     for (let i = 0; i < TOTAL_STEPS; i++) {
       if (i % 5 === 0 || i === TOTAL_STEPS-1) {
         const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
@@ -242,62 +290,85 @@
       }
     }
 
-    // Mensajes psicoeducativos (50)
+    // ====== Mensajes psicoeducativos (50, basados en evidencia) ======
     const msgs = [
-      "Dormir bien fortalece memoria, atención y regulación emocional. Piensa en el sueño como tu aliado diario.",
-      "Define un horario de sueño constante: misma hora para acostarte y levantarte, incluso los fines de semana.",
-      "Tu ritmo circadiano ama la regularidad; respetarlo reduce somnolencia y mejora tu energía.",
-      "Luz por la mañana: abre cortinas o sal al sol 10–15 min para sincronizar tu reloj biológico.",
-      "Reduce luz intensa por la noche; atenúa luces y usa tonos cálidos 60–90 min antes de dormir.",
-      "Pantallas fuera 60 min antes: la luz azul retrasa la melatonina y dificulta conciliar el sueño.",
-      "Si debes usar pantallas de noche, baja el brillo y activa filtros nocturnos.",
-      "Crea un ritual: lectura ligera, respiración 4-7-8, mindfulness o estiramientos suaves.",
-      "Asocia la cama solo con dormir o intimidad; evita trabajar o ver TV ahí.",
-      "Si pasan 20 min despierto en cama, levántate y haz algo tranquilo hasta tener sueño.",
-      "Cuida el ambiente: habitación fresca (18–20°C), oscura y silenciosa favorece sueño profundo.",
-      "Invierte en una almohada y colchón cómodos; tu cuello y espalda lo agradecerán.",
-      "Bloquea ruido con tapones o ruido blanco; una app o un ventilador pueden ayudar.",
-      "La cafeína (café, té, bebidas energéticas) impacta hasta 6–8 horas: evítala por la tarde/noche.",
-      "Nicotina y alcohol alteran la arquitectura del sueño: reducen profundidad y fragmentan la noche.",
-      "Cena ligera 2–3 horas antes; evita comidas muy grasas o picantes cerca de dormir.",
-      "Hidrátate bien en el día, pero limita líquidos 1–2 horas antes para no interrumpir la noche.",
-      "Haz ejercicio con regularidad; idealmente por la mañana o tarde, no justo antes de dormir.",
-      "Exposición diurna a la luz y movimiento físico mejoran la presión de sueño nocturna.",
-      "Siestas: cortas (10–20 min) y tempranas. Si te cuesta conciliar por la noche, evítalas.",
-      "Gestiona el estrés: escribe pendientes, planifica el día siguiente y libera la mente antes de acostarte.",
-      "Prueba respiración diafragmática o relajación muscular progresiva para soltar tensión.",
-      "Evita revisar el reloj de madrugada; aumenta la ansiedad y el insomnio de rendimiento.",
-      "Acepta noches malas ocasionales: no persigas el sueño, deja que llegue.",
-      "Mantén expectativas realistas: la perfección del sueño no existe; busca consistencia.",
-      "Crea señales de inicio: té de hierbas, música suave o una ducha tibia marcan el cambio.",
-      "Asegura exposición a luz natural al menos 30–60 min al día para anclar tu ritmo.",
-      "Reduce rumiación: anota preocupaciones en un papel y pospón resolverlas al día siguiente.",
-      "Orden y limpieza en el dormitorio: menos estímulos, más calma.",
-      "Regula la temperatura: prueba sábanas transpirables; el calor corporal debe bajar ligeramente.",
-      "Evita discusiones intensas o trabajo mental exigente cerca de dormir.",
-      "Cuida los fines de semana: no “duermas de más” varias horas; desajusta tu reloj interno.",
-      "No uses alcohol como “inductor del sueño”: fragmenta y reduce el REM.",
-      "Si te desvelas, vuelve al horario normal la noche siguiente; evita largas siestas compensatorias.",
-      "Usa una app o diario de sueño para detectar patrones y mejoras con tus cambios.",
-      "Aromas calmantes (lavanda, manzanilla) pueden formar parte de tu ritual nocturno.",
-      "Practica gratitud antes de dormir: 3 cosas buenas del día reducen activación cognitiva.",
-      "Evita noticias o contenidos activantes por la noche; elige materiales relajantes.",
-      "Limita compromisos nocturnos si afectan tu hora objetivo de acostarte.",
-      "Dale tiempo a los cambios: los hábitos de sueño mejoran con constancia en 2–4 semanas.",
-      "Si compartes cama, acuerden rutinas y condiciones (temperatura, luz, dispositivos).",
-      "Mascotas: decide si duermen dentro o fuera del cuarto según interrumpan o no tu sueño.",
-      "Comprueba alergias (ácaros/polvo) si despiertas congestionado: funda antiácaros ayuda.",
-      "Si te despiertas en la noche, mantén luces bajas para no “despertar del todo” al cerebro.",
-      "Desconecta notificaciones: modo avión o “no molestar” desde cierta hora.",
-      "Desarrolla una frase calma (“Puedo descansar; mi cuerpo sabe dormir”) para momentos de alerta.",
-      "Evita beber mucho alcohol o grandes cenas en reuniones nocturnas.",
-      "Integra pausas de relajación en el día para no llegar sobrecargado a la noche.",
-      "Celebra micro-progresos: 10–15 min de mejora sostenida ya es un buen avance.",
-      "Busca apoyo profesional si los problemas persisten 3+ meses o hay somnolencia diurna significativa.",
-      "¡Felicidades! Has completado el camino: conserva lo que te funciona y sé amable contigo en el proceso."
+      "El sueño consolida la memoria y regula la emoción: dormir 7–9 h en adultos se asocia con mejor atención, control inhibitorio y menor reactividad amigdalar.",
+      "La consistencia horaria (acostarte y levantarte a horas similares) sincroniza tu reloj circadiano y mejora latencia de sueño y eficiencia nocturna.",
+      "Un ritmo estable reduce variabilidad de melatonina y cortisol: menos somnolencia diurna, más alerta matutina.",
+      "Exposición a luz natural por la mañana (10–30 min) adelanta el ritmo circadiano y facilita dormir antes en la noche.",
+      "Atenúa la luz 60–90 min antes de dormir; luces cálidas ayudan a no suprimir melatonina tanto como las frías.",
+      "Evita pantallas 1 h antes: la luz azul y el contenido estimulante retrasan el inicio del sueño y degradan su continuidad.",
+      "Si usas pantallas tarde, activa filtros nocturnos, baja brillo y limita tareas cognitivamente exigentes.",
+      "Establece una rutina pre-sueño (lectura ligera, respiración 4-7-8, mindfulness): prepara al sistema nervioso para el descanso.",
+      "Asocia la cama únicamente con dormir/sexualidad (control de estímulos): reduce el condicionamiento de alerta en el dormitorio.",
+      "Si en 15–20 min no concilias, levántate y realiza una actividad tranquila con luz tenue. Vuelve cuando aparezca somnolencia.",
+      "Un cuarto fresco (18–20 °C), oscuro y silencioso mejora sueño de ondas lentas; considera cortinas blackout y control de ruido.",
+      "Soporte físico adecuado (colchón y almohada) disminuye microdespertares por incomodidad y mejora dolor cervical/lumbar.",
+      "El “ruido blanco” o ventiladores pueden enmascarar ruidos intermitentes (tráfico, vecinos), estabilizando el sueño.",
+      "La cafeína bloquea receptores de adenosina por 6–8 h: evita café, té negro, mate o energizantes desde media tarde.",
+      "Nicotina y alcohol alteran arquitectura del sueño: menos REM y más fragmentación; no son buenos inductores.",
+      "Cena 2–3 h antes; comidas pesadas o picantes cerca de la hora de acostarte aumentan reflujo y despertares.",
+      "Hidrátate en el día pero limita líquidos 1–2 h antes para reducir micciones nocturnas.",
+      "Actividad física regular mejora la presión homeostática de sueño; evita ejercicio vigoroso justo antes de dormir.",
+      "La luz diurna + movimiento anclan tu cronotipo; más tiempo al aire libre se asocia con mejor calidad de sueño.",
+      "Siestas: úsalas estratégicamente (10–20 min, temprano). Si tienes insomnio, evítalas para no reducir la presión de sueño.",
+      "Gestiona el estrés con descarga cognitiva: anota pendientes y planifica el día siguiente antes de acostarte.",
+      "Relajación muscular progresiva o respiración diafragmática reducen activación fisiológica y latencia de sueño.",
+      "Evita vigilar el reloj de madrugada; aumenta la ansiedad de rendimiento y condiciona el despertar.",
+      "Acepta variabilidad: noches malas ocasionales son normales. Evita compensaciones excesivas que perpetúan el problema.",
+      "Apunta a la consistencia, no a la perfección: pequeños cambios mantenidos 2–4 semanas producen beneficios medibles.",
+      "Señales de inicio (ducha tibia, infusión de hierbas, música suave) facilitan la transición al sueño.",
+      "Busca luz natural diaria (30–60 min): ancla ritmos circadianos incluso en días nublados.",
+      "Reduce rumiación nocturna con una “lista de preocupaciones” para abordar al día siguiente; pospone y libera.",
+      "Orden y minimalismo del dormitorio reducen estímulos que compiten con la somnolencia.",
+      "Descender la temperatura corporal facilita conciliar el sueño; ropa de cama transpirable ayuda.",
+      "Evita discusiones intensas o trabajo exigente en las 2 h previas; protegen tu ventana de sueño.",
+      "Fines de semana: mantén la diferencia de horario dentro de ±1 h para no generar jet lag social.",
+      "El alcohol puede “dormir” rápido pero reduce el sueño profundo y REM, fragmentando la noche.",
+      "Si te desvelas, vuelve a tu horario habitual la noche siguiente; evita siestas largas compensatorias.",
+      "Un diario de sueño permite detectar relaciones (cafeína, estrés, horarios) y medir progresos.",
+      "Aromas (lavanda, manzanilla) pueden formar parte del ritual; no son milagros, pero ayudan a la relajación.",
+      "Gratitud o registro de 3 cosas buenas disminuye activación cognitiva y mejora el ánimo al despertar.",
+      "Evita noticias o contenidos activantes por la noche; elige material tranquilo y predecible.",
+      "Negocia con tu pareja condiciones del cuarto (temperatura, luz, dispositivos) para minimizar interrupciones.",
+      "Mascotas: valora si su presencia interrumpe; una rutina clara evita despertares por movimiento.",
+      "Si despiertas congestionado, considera alergenos (ácaros). Fundas antiácaros y limpieza regular ayudan.",
+      "Usa luz cálida y baja si te levantas de noche para no “reactivar” el cerebro en exceso.",
+      "Silencia notificaciones (modo noche) a una hora fija para reducir microdespertares.",
+      "Crea una frase calmante (“Mi cuerpo sabe dormir”) para momentos de alerta nocturna; reduce catastrofismo.",
+      "En eventos sociales, regula alcohol y hora de retorno; priorizar el horario protege la semana.",
+      "Integra micro-pausas de relajación en el día para no llegar saturado a la noche.",
+      "Celebra micro-progresos: 15 min más de sueño regular por semana ya es ganancia clínica.",
+      "Busca apoyo profesional si los problemas persisten 3+ meses o hay somnolencia diurna marcada.",
+      "Capas de intervención: horario, luz, actividad, ambiente y manejo del estrés; combinarlas potencia el efecto.",
+      "¡Meta! Conserva lo que te funciona, ajusta lo que no y sé amable con tu proceso de cambio."
     ];
 
-    let step = 0; // índice actual (0..49)
+    // ====== Banco de preguntas (Sí/No) ======
+    // correct: true si la respuesta correcta es "Sí", false si es "No"
+    const questions = [
+      { q: "¿Conviene usar pantallas brillantes durante la última hora antes de dormir?", correct: false, expl: "La luz azul y el contenido estimulante retrasan la melatonina y aumentan la latencia de sueño." },
+      { q: "¿Mantener horarios regulares de sueño y vigilia ayuda a dormir mejor?", correct: true, expl: "La regularidad circadiana mejora la eficiencia de sueño y reduce somnolencia diurna." },
+      { q: "¿Beber café por la tarde-noche suele afectar negativamente el sueño?", correct: true, expl: "La cafeína bloquea adenosina por 6–8 h, retrasando el inicio del sueño." },
+      { q: "¿El alcohol mejora la calidad global del sueño?", correct: false, expl: "Puede acelerar el inicio, pero fragmenta el sueño y reduce REM y profundidad." },
+      { q: "¿Es recomendable quedarse en la cama si no concilias tras ~20 minutos?", correct: false, expl: "Es mejor levantarse y hacer algo tranquilo con luz tenue hasta que vuelva la somnolencia." },
+      { q: "¿La habitación fresca, oscura y silenciosa favorece el sueño profundo?", correct: true, expl: "Temperatura baja, oscuridad y silencio están asociados a mejor SWS y continuidad." },
+      { q: "¿El ejercicio intenso justo antes de dormir facilita conciliar?", correct: false, expl: "La activación fisiológica puede retrasar el inicio; mejor programarlo antes." },
+      { q: "¿Una siesta de 10–20 min temprano puede ser útil si no afecta la noche?", correct: true, expl: "Siestas breves y tempranas reducen somnolencia sin interferir con la presión de sueño." },
+      { q: "¿Trabajar en la cama ayuda a que el cerebro asocie cama con descanso?", correct: false, expl: "Control de estímulos: reserva la cama para dormir y sexualidad." },
+      { q: "¿Bajar la intensidad de luz 60–90 min antes de dormir favorece el sueño?", correct: true, expl: "Reduce la supresión de melatonina y facilita la transición al descanso." },
+      { q: "¿Mirar el reloj cuando te despiertas de madrugada ayuda a volver a dormir?", correct: false, expl: "Aumenta la ansiedad y condiciona el despertar; mejor evitarlo." },
+      { q: "¿Una rutina pre-sueño (leer, respirar, relajación) es útil para el descanso?", correct: true, expl: "Señales consistentes preparan al sistema nervioso para el sueño." },
+      { q: "¿Cenar muy pesado justo antes de acostarse mejora el sueño?", correct: false, expl: "Aumenta reflujo y despertares; se recomienda cenar 2–3 horas antes." },
+      { q: "¿La exposición a luz natural por la mañana ayuda a adelantar el ritmo circadiano?", correct: true, expl: "La luz matinal es un zeitgeber potente que alinea el reloj interno." },
+      { q: "¿El ruido blanco puede estabilizar el sueño en ambientes ruidosos?", correct: true, expl: "Enmascara picos intermitentes y reduce microdespertares." }
+    ];
+
+    // ====== Estado del juego ======
+    let step = 0;           // 0..49
+    let moving = false;
+    let pendingQuestion = false;
+    let lastRoll = 0;
 
     function setPlayerToStep(i){
       const p = points[i];
@@ -306,32 +377,121 @@
       messageEl.textContent = msgs[i] || "";
     }
 
-    function advance(){
-      if (step < TOTAL_STEPS-1){
-        step++;
-        setPlayerToStep(step);
-        if (step === TOTAL_STEPS-1){
-          messageEl.innerHTML = msgs[step] + " 🌟<br><br><strong>Tip:</strong> guarda esta página entre tus favoritos y vuelve cuando necesites reforzar hábitos.";
-        }
-      } else {
-        // ya en el final
-        messageEl.innerHTML = "Ya estás en la meta 🛏️✨. Puedes <strong>Reiniciar</strong> para repasar desde el inicio.";
-      }
+    function showToast(text, ok=true){
+      toast.textContent = text;
+      toast.style.borderColor = ok ? "#cfe9d5" : "#f3c5c5";
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'), 1600);
     }
 
+    // ====== Dado ======
+    function rollDice(){
+      if (moving || pendingQuestion) return;
+      if (step >= TOTAL_STEPS-1) { showToast("Ya llegaste a la meta 🛏️✨", true); return; }
+
+      // animación breve del dado
+      let ticks = 10;
+      const anim = setInterval(()=>{
+        diceFace.textContent = Math.floor(Math.random()*6)+1;
+        if(--ticks<=0){
+          clearInterval(anim);
+          const roll = Math.floor(Math.random()*6)+1;
+          diceFace.textContent = roll;
+          lastRoll = roll;
+          advanceBy(roll);
+        }
+      }, 60);
+    }
+
+    function advanceBy(n){
+      moving = true;
+      const target = Math.min(step + n, TOTAL_STEPS-1);
+      step = target;
+      setPlayerToStep(step);
+      setTimeout(()=>{
+        moving = false;
+        askQuestion(n);   // tras mover, preguntar
+      }, 650);
+    }
+
+    function retreatBy(n){
+      moving = true;
+      const target = Math.max(step - n, 0);
+      step = target;
+      setPlayerToStep(step);
+      setTimeout(()=>{ moving = false; }, 650);
+    }
+
+    // ====== Preguntas ======
+    function openModal(){ qModal.classList.add('open'); qModal.setAttribute('aria-hidden','false'); }
+    function closeModal(){ qModal.classList.remove('open'); qModal.setAttribute('aria-hidden','true'); }
+
+    function askQuestion(rollValue){
+      pendingQuestion = true;
+      const idx = Math.floor(Math.random()*questions.length);
+      const item = questions[idx];
+      qText.textContent = item.q;
+      qFeedback.style.display = 'none';
+      qFeedback.className = 'q-feedback';
+      openModal();
+
+      function handle(answerIsYes){
+        const correct = (answerIsYes === item.correct);
+        qFeedback.style.display = 'block';
+        if (correct){
+          qFeedback.classList.add('ok');
+          qFeedback.innerHTML = `<strong>✔ Correcto.</strong> ${item.expl}`;
+          showToast("¡Bien! Te quedas en la casilla.", true);
+          // mantener paso y mostrar mensaje psicoeducativo (ya se muestra automático al posicionarse)
+          pendingQuestion = false;
+        } else {
+          qFeedback.classList.add('bad');
+          qFeedback.innerHTML = `<strong>✖ Incorrecto.</strong> ${item.expl} Retrocedes ${rollValue} paso(s).`;
+          showToast(`Retrocedes ${rollValue}`, false);
+          // retroceder
+          setTimeout(()=>{
+            closeModal();
+            retreatBy(rollValue);
+            pendingQuestion = false;
+          }, 700);
+          return; // salir para no cerrar aún
+        }
+        // Cerrar modal si fue correcto
+        setTimeout(closeModal, 800);
+      }
+
+      // Listeners únicos por pregunta
+      const onYes = ()=>{ cleanup(); handle(true); };
+      const onNo  = ()=>{ cleanup(); handle(false); };
+      const onClose = ()=>{ /* permitir cerrar solo si ya se respondió correctamente o para leer explicación */
+        // Si aún no se ha mostrado feedback, no cerrar
+        if (qFeedback.style.display === 'block') closeModal();
+      };
+
+      function cleanup(){
+        btnYes.removeEventListener('click', onYes);
+        btnNo.removeEventListener('click', onNo);
+        btnClose.removeEventListener('click', onClose);
+      }
+      btnYes.addEventListener('click', onYes);
+      btnNo.addEventListener('click', onNo);
+      btnClose.addEventListener('click', onClose);
+    }
+
+    // ====== Avatar / Reset ======
+    function changeAvatar(){ playerEmoji.textContent = avatarSelect.value; }
     function resetGame(){
+      moving = false; pendingQuestion = false; lastRoll = 0;
+      diceFace.textContent = '—';
       step = 0;
       setPlayerToStep(step);
-    }
-
-    function changeAvatar(){
-      playerEmoji.textContent = avatarSelect.value;
+      messageEl.textContent = "Lanza el dado para avanzar. Luego responde una pregunta: si aciertas, te quedas; si fallas, retrocedes lo que marcó el dado.";
     }
 
     // Init
     changeAvatar();
     setPlayerToStep(0);
-    advanceBtn.addEventListener('click', advance);
+    rollBtn.addEventListener('click', rollDice);
     resetBtn.addEventListener('click', resetGame);
     avatarSelect.addEventListener('change', changeAvatar);
   </script>
