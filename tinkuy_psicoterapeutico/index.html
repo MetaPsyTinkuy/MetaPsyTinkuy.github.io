@@ -8,131 +8,50 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <!-- Estilos -->
   <style>
-    body {
-      font-family: 'Montserrat', sans-serif;
-      margin: 0;
-      background-color: #f9e0d9; /* fondo rosado suave */
-      color: #333;
-    }
+  header {
+    background-color: #f6e2c5;
+    padding: 0.8rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
 
-    header {
-      background-color: #f6e2c5; /* beige del header */
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    header h1 {
-      margin: 0;
-      font-weight: 700;
-      font-size: 1.6rem;
-      color: #333;
-    }
-    nav a {
-      margin-left: 1.5rem;
-      text-decoration: none;
-      font-weight: 600;
-      color: #333;
-      transition: color .2s;
-    }
-    nav a:hover, nav a.active {
-      color: #8B4513;
-    }
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
 
-    main {
-      padding: 2rem 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    h2.section-title {
-      text-align: center;
-      font-size: 2rem;
-      color: #2c2c2c;
-      margin-bottom: 0.5rem;
-    }
-    p.section-subtitle {
-      text-align: center;
-      margin-bottom: 2rem;
-      color: #555;
-    }
+  .logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* aquí queda redondo */
+    margin-right: 10px;
+  }
 
-    .card-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-    .card {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform .2s, box-shadow .2s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    }
-    .card-img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-    .card-body {
-      padding: 1.2rem;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .card-title {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #333;
-    }
-    .card-text {
-      flex-grow: 1;
-      margin-bottom: 1rem;
-      color: #555;
-    }
-    .card-btn {
-      display: inline-block;
-      padding: 0.6rem 1rem;
-      text-align: center;
-      background-color: #f6e2c5;
-      border-radius: 8px;
-      font-weight: 600;
-      color: #333;
-      text-decoration: none;
-      transition: background-color .2s;
-    }
-    .card-btn:hover {
-      background-color: #f3d7b2;
-    }
+  header h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.4rem; /* mismo tamaño que en tu página principal */
+    color: #333;
+  }
 
-    footer {
-      background-color: #f6e2c5;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: #444;
-    }
-    footer a {
-      color: #8B4513;
-      font-weight: 600;
-      text-decoration: none;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  nav a {
+    margin-left: 1.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    color: #333;
+    transition: color .2s;
+    font-size: 1rem; /* ajustado para coincidir con index */
+  }
+
+  nav a:hover, nav a.active {
+    color: #8B4513;
+  }
+</style>
 </head>
 <body>
   <header>
