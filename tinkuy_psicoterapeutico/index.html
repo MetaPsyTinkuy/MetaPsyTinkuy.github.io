@@ -4,87 +4,189 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tinkuy Psicoterapéutico</title>
+  <!-- Tipografía -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css"> <!-- usa tu mismo CSS -->
+  <!-- Estilos -->
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      background-color: #f9e0d9; /* fondo rosado suave */
+      color: #333;
+    }
+
+    header {
+      background-color: #f6e2c5; /* beige del header */
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: #333;
+    }
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      color: #333;
+      transition: color .2s;
+    }
+    nav a:hover {
+      color: #8B4513;
+    }
+
+    main {
+      padding: 2rem 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h2.section-title {
+      text-align: center;
+      font-size: 2rem;
+      color: #2c2c2c;
+      margin-bottom: 0.5rem;
+    }
+    p.section-subtitle {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #555;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card-body {
+      padding: 1.2rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    .card-text {
+      flex-grow: 1;
+      margin-bottom: 1rem;
+      color: #555;
+    }
+    .card-btn {
+      display: inline-block;
+      padding: 0.6rem 1rem;
+      text-align: center;
+      background-color: #f6e2c5;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #333;
+      text-decoration: none;
+      transition: background-color .2s;
+    }
+    .card-btn:hover {
+      background-color: #f3d7b2;
+    }
+
+    footer {
+      background-color: #f6e2c5;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #444;
+    }
+    footer a {
+      color: #8B4513;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <!-- Fondo animado -->
-  <div class="background"></div>
-
   <!-- Header -->
   <header>
     <h1>Tinkuy Psicoterapéutico</h1>
-    <p class="subtitle">Recursos interactivos para tu bienestar</p>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="asertividad.html">Asertividad</a>
+      <a href="habitos_sueno.html">Sueño</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
   </header>
 
   <!-- Main -->
   <main>
-    <h2>Bienvenido</h2>
-    <p class="lead">Selecciona el recurso con el que quieres comenzar:</p>
-    <p class="tap-hint">💡 Toca la tarjeta en tu teléfono o pasa el ratón en PC para explorar.</p>
+    <h2 class="section-title">Recursos Interactivos</h2>
+    <p class="section-subtitle">Selecciona un recurso para comenzar tu práctica</p>
 
-    <section class="grid" aria-label="Opciones principales">
-      
-      <!-- CARD: Ejercicios de Asertividad -->
-      <article class="flip-card" tabindex="0" role="button" aria-label="Ejercicios de Asertividad">
-        <div class="flip-inner">
-          <div class="flip-face front">
-            <span class="badge">A</span>
-            <h3>Ejercicios de Asertividad</h3>
-            <p class="formula">
-              <span class="token">Comunicación</span>
-              <span class="plus">+</span>
-              <span class="token">Confianza</span>
-              <span class="plus">+</span>
-              <span class="token">Respeto</span>
-            </p>
-          </div>
-          <div class="flip-face back">
-            <h4>Explora</h4>
-            <p>12 fórmulas prácticas con ejemplos listos para aplicar en tu vida diaria.</p>
-            <p style="margin-top:12px; text-align:center;">
-              <a href="./asertividad.html" 
-                 class="btn-link">
-                Ir a ejercicios
-              </a>
-            </p>
-          </div>
+    <div class="card-container">
+      <!-- Card: Asertividad -->
+      <div class="card">
+        <img src="img/asertividad.jpg" alt="Ejercicios de Asertividad" class="card-img">
+        <div class="card-body">
+          <h3 class="card-title">Ejercicios de Asertividad</h3>
+          <p class="card-text">
+            Explora 12 fórmulas prácticas con ejemplos listos para aplicar en tu vida diaria.
+          </p>
+          <a href="asertividad.html" class="card-btn">Ver ejercicios</a>
         </div>
-      </article>
+      </div>
 
-      <!-- CARD: Psicoeducación en Hábitos de Sueño -->
-      <article class="flip-card" tabindex="0" role="button" aria-label="Psicoeducación en Hábitos de Sueño">
-        <div class="flip-inner">
-          <div class="flip-face front">
-            <span class="badge">S</span>
-            <h3>Hábitos de Sueño</h3>
-            <p class="formula">
-              <span class="token">Rutina</span>
-              <span class="plus">+</span>
-              <span class="token">Descanso</span>
-              <span class="plus">+</span>
-              <span class="token">Bienestar</span>
-            </p>
-          </div>
-          <div class="flip-face back">
-            <h4>Explora</h4>
-            <p>Estrategias basadas en evidencia para mejorar tu descanso y bienestar emocional.</p>
-            <p style="margin-top:12px; text-align:center;">
-              <a href="./habitos_sueno.html" 
-                 class="btn-link">
-                Ir a psicoeducación
-              </a>
-            </p>
-          </div>
+      <!-- Card: Sueño -->
+      <div class="card">
+        <img src="img/sueno.jpg" alt="Hábitos de Sueño" class="card-img">
+        <div class="card-body">
+          <h3 class="card-title">Psicoeducación en Hábitos de Sueño</h3>
+          <p class="card-text">
+            Estrategias basadas en evidencia para mejorar tu descanso y bienestar emocional.
+          </p>
+          <a href="habitos_sueno.html" class="card-btn">Ver recursos</a>
         </div>
-      </article>
+      </div>
+    </div>
 
+    <!-- Sección extra abajo -->
+    <section style="margin-top:3rem; text-align:center;">
+      <h2 class="section-title">Otros recursos</h2>
+      <p class="section-subtitle">Próximamente añadiremos más herramientas de psicoeducación.</p>
     </section>
   </main>
 
   <!-- Footer -->
   <footer>
-    <p>© 2025 Tinkuy Psicoterapéutico - Giuliano Milla Segovia · Desarrollado con ❤️ para la salud mental</p>
+    <p>© 2025 Tinkuy Psicoterapéutico · Desarrollado con ❤️ para la salud mental</p>
     <p><a href="https://metapsytinkuy.github.io/" target="_blank">Visita nuestro sitio principal</a></p>
   </footer>
 </body>
