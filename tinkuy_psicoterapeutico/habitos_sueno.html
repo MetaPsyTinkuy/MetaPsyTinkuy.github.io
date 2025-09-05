@@ -3,177 +3,155 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Camino al Buen Descanso — Tinkuy Psicoterapéutico</title>
+  <title>Hábitos de Sueño — Tinkuy Psicoterapéutico</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg-rose:#f9e0d9;       /* fondo rosado suave */
-      --beige:#f6e2c5;         /* beige botones/cards */
+      --bg-rose:#f9e0d9;
+      --beige:#f6e2c5;
       --beige-hover:#f3d7b2;
       --text:#2c3e50;
       --track:#8B4513;
-      --accent:#ff5a36;
-      --ok:#2e7d32;
-      --warn:#c62828;
+      --card:#fff7f2;
     }
     *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
     body{
       font-family:'Montserrat',sans-serif;
       background-color:var(--bg-rose);
       color:var(--text);
+      min-height:100vh;
       display:flex;
       flex-direction:column;
-      align-items:center;
-      min-height:100vh;
     }
 
-    .wrap{
-      width:100%;
-      max-width:1000px;
-      padding:20px 16px 40px;
-      margin:0 auto;
+    /* ===== Header estilo Tinkuy ===== */
+    header{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:16px 24px;
+      background: rgba(255,236,210,0.92);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.14);
+      position: sticky; top:0; z-index:1100;
+      backdrop-filter: blur(6px);
     }
+    .logo-title{display:flex;align-items:center;gap:14px;}
+    .logo{
+      width:72px;height:72px;border-radius:50%;
+      object-fit:cover; box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+      transition: transform .45s ease;
+    }
+    .logo:hover{ transform: scale(1.08) rotate(3deg); }
+    header h1{ font-size:1.6rem; color:#2c3e50; }
+    .subtitle-mini{ font-size:.82rem; color:#5b5b5b; }
 
-    h1{
-      text-align:center;
-      font-size:2rem;
-      margin:18px 0 6px;
+    nav{ display:flex; gap:26px; align-items:center; flex-wrap:wrap;}
+    nav a{
+      text-decoration:none; color:#2c3e50; font-weight:600;
+      padding:6px 10px; border-radius:8px; transition: all .22s ease;
+      font-size:1.1rem;
     }
-    .subtitle{
-      text-align:center;
-      color:#4b4b4b;
-      margin-bottom:16px;
-      font-size:1rem;
-    }
+    nav a:hover{ color:#ff5a36; text-shadow: 0 0 8px #ff5a36; background: rgba(255,255,255,0.35); }
 
-    /* Panel superior (avatar + dado + progreso) */
+    /* ===== Sidebar Podcast ===== */
+    .sidebar{
+      position:fixed; left:10px; top:50%; transform:translateY(-50%);
+      background: rgba(255,236,210,0.92);
+      padding:10px; border-radius:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.18);
+      z-index:1200;
+      display:flex; flex-direction:column; gap:18px;
+    }
+    .sidebar a{
+      writing-mode: vertical-rl; transform: rotate(180deg);
+      text-decoration:none; font-weight:700; font-size:1rem;
+      color:#2c3e50; transition: transform .25s ease, color .25s ease;
+    }
+    .sidebar a:hover{ color:#ff5a36; transform: rotate(180deg) scale(1.08); }
+
+    main{ flex:1; padding:24px 16px 40px; max-width:1100px; margin:0 auto; width:100%; }
+
+    /* ===== Panel superior del juego ===== */
     .panel{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      background:#fff;
-      padding:12px;
-      border-radius:14px;
-      box-shadow:0 4px 12px rgba(0,0,0,.08);
-      margin-bottom:16px;
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      background:#fff; padding:12px 14px; border-radius:14px; box-shadow:0 4px 12px rgba(0,0,0,.08); margin-bottom:16px;
     }
-    .panel-left{
-      display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-    }
-    label{font-weight:600}
-    select{
-      font-size:1rem;
-      padding:8px 10px;
-      border-radius:10px;
-      border:1px solid #ddd;
-      background:#fff;
-      cursor:pointer;
-    }
-    .btns{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-    button{
-      padding:10px 16px;
-      font-weight:600;
-      font-size:1rem;
-      background:var(--beige);
-      border:none;
-      border-radius:10px;
-      cursor:pointer;
-      transition:background .25s ease, transform .05s ease;
-    }
-    button:hover{ background:var(--beige-hover); }
-    button:active{ transform:translateY(1px); }
+    .panel-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+    select{padding:8px 10px;border-radius:10px;border:1px solid #ddd;font-size:1rem;background:#fff;}
+    button{padding:10px 16px;border:none;border-radius:10px;background:var(--beige);font-weight:600;cursor:pointer;}
+    button:hover{background:var(--beige-hover);}
+    .dice{display:inline-flex;align-items:center;gap:10px;}
+    .dice-face{width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:#fff7f2;border:1px solid #ffe1d2;border-radius:12px;font-weight:700;}
+    .progress{font-weight:700;}
 
-    .dice{
-      display:inline-flex; align-items:center; gap:10px;
-    }
-    .dice-face{
-      width:44px; height:44px; border-radius:12px;
-      background:#fff7f2; border:1px solid #ffe1d2;
-      display:flex; align-items:center; justify-content:center;
-      font-size:1.1rem; font-weight:700;
-      box-shadow:0 2px 6px rgba(0,0,0,.08);
-      user-select:none;
-      min-width:44px;
-    }
-    .progress{ margin-left:auto; font-weight:700; color:#333; }
-
-    /* Zona del juego */
-    .game-card{
-      background:#fff;
-      border-radius:16px;
-      box-shadow:0 6px 16px rgba(0,0,0,.1);
-      padding:14px;
-      overflow:hidden;
-    }
-    .svg-frame{
-      width:100%;
-      aspect-ratio: 16 / 11;
-      position:relative;
-    }
-    svg{ width:100%; height:100%; display:block; }
-    .track{ stroke:var(--track); stroke-width:12; fill:none; stroke-linecap:round; }
-    .milestone{ fill:#4CAF50; }
-    .goal{ fill:#FFD700; }
-    .start-end-label{ font-size:22px; }
-
-    .player{ transition: transform .6s ease-in-out; pointer-events:none; }
-    .player text{ font-size:28px; dominant-baseline: middle; text-anchor: middle; }
+    /* ===== Tarjeta del tablero ===== */
+    .game-card{background:#fff;padding:16px;border-radius:16px;box-shadow:0 6px 16px rgba(0,0,0,.1);}
+    svg{width:100%;height:520px;display:block;}
+    .track{stroke:var(--track);stroke-width:12;fill:none;stroke-linecap:round; opacity:.95;}
+    .milestone{fill:#ffe6d6; stroke:#c97c48; stroke-width:1.5;}
+    .milestone text{font-size:10px; fill:#5b3a22;}
+    .player text{font-size:28px;dominant-baseline:middle;text-anchor:middle;}
 
     .message{
-      margin-top:14px;
-      background:#fff7f2;
-      border:1px solid #ffe4d6;
-      border-radius:14px;
-      padding:16px;
-      line-height:1.65;
-      font-size:1rem;
-      color:#333;
+      margin-top:14px;background:var(--card);border:1px solid #ffe4d6;border-radius:14px;padding:16px;line-height:1.65;
     }
 
-    /* Modal de pregunta */
-    .modal{
-      position:fixed; inset:0;
-      background:rgba(0,0,0,.35);
-      display:none;
-      align-items:center; justify-content:center;
-      z-index:999;
-      padding:16px;
-    }
-    .modal.open{ display:flex; }
-    .modal-card{
-      max-width:680px; width:100%;
-      background:#fff;
-      border-radius:16px;
-      padding:18px;
-      box-shadow:0 10px 30px rgba(0,0,0,.2);
-    }
-    .q-title{ font-weight:700; font-size:1.1rem; margin-bottom:10px; }
-    .q-text{ line-height:1.6; margin-bottom:14px; }
-    .q-actions{ display:flex; gap:10px; flex-wrap:wrap; }
-    .q-actions button{ min-width:90px; }
-    .q-feedback{ margin-top:12px; border-left:4px solid #ddd; padding:10px 12px; background:#fafafa; border-radius:8px; display:none;}
-    .q-feedback.ok{ border-left-color: var(--ok); }
-    .q-feedback.bad{ border-left-color: var(--warn); }
+    /* ===== Modal reutilizable ===== */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.35);z-index:2000;padding:16px;}
+    .modal.open{display:flex;}
+    .modal-card{background:#fff;max-width:760px;width:100%;padding:18px 18px 16px;border-radius:16px;box-shadow:0 16px 40px rgba(0,0,0,.25);}
+    .modal h3{margin-bottom:10px;}
+    .modal .content{line-height:1.7;color:#223;}
+    .modal .actions{margin-top:14px;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;}
+    .badge{display:inline-block;background:#fff7f2;border:1px solid #ffd8c3;border-radius:999px;padding:4px 10px;font-size:.85rem;font-weight:700;color:#8B4513;}
 
-    .toast{
-      position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
-      background:#fff; border:1px solid #eee; border-radius:10px;
-      padding:10px 14px; box-shadow:0 6px 20px rgba(0,0,0,.18);
-      display:none; z-index:1000; font-weight:600;
+    /* ===== Footer ===== */
+    footer{
+      text-align:center;
+      padding:18px 14px;
+      background: rgba(255,236,210,0.92);
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.06);
+      font-size:.95rem;
+      margin-top:auto;
     }
-    .toast.show{ display:block; }
+
+    @media (max-width: 820px){
+      svg{height:460px;}
+      .sidebar{left:4px}
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>El Camino al Buen Descanso 🌙</h1>
-    <p class="subtitle">Lanza el dado, responde y avanza por 50 casillas. Aprenderás hábitos de sueño con base en evidencia.</p>
+  <!-- Sidebar podcast vertical -->
+  <div class="sidebar" aria-label="barra lateral">
+    <a href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer">😴 Podcast</a>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-title">
+      <img src="../logometapsytinkuy.jpeg" alt="Logo MetaPsy Tinkuy" class="logo" width="72" height="72">
+      <div>
+        <h1>MetaPsy Tinkuy</h1>
+        <div class="subtitle-mini">Tinkuy Psicoterapéutico</div>
+      </div>
+    </div>
+
+    <nav aria-label="Navegación principal">
+      <a href="../index.html">Inicio</a>
+      <a href="../nosotros.html">Nosotros</a>
+      <a href="../proyectos.html">Proyectos</a>
+      <a href="../contacto.html">Contacto</a>
+      <a href="./index.html" aria-current="page">Tinkuy Psicoterapéutico</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2 style="text-align:center; font-size:2rem; margin:14px 0 6px;">El Camino al Buen Descanso 🌙</h2>
+    <p style="text-align:center; color:#444; margin-bottom:16px;">Avanza por 50 casillas. Lanza el dado, responde sí/no. Si aciertas avanzas; si fallas retrocedes. Aprende hábitos de sueño <span class="badge">basados en evidencia</span>.</p>
 
     <div class="panel">
       <div class="panel-left">
-        <label for="avatar">Avatar:</label>
+        <label for="avatar"><strong>Avatar:</strong></label>
         <select id="avatar">
           <option value="🌙" selected>🌙 Luna</option>
           <option value="😴">😴 Carita dormida</option>
@@ -183,317 +161,373 @@
           <option value="🐻">🐻 Osito</option>
         </select>
       </div>
-      <div class="btns">
-        <div class="dice">
-          <button id="rollBtn">Lanzar dado 🎲</button>
-          <div class="dice-face" id="diceFace">—</div>
-        </div>
-        <button id="resetBtn">Reiniciar</button>
+      <div class="dice">
+        <button id="rollBtn">Lanzar dado 🎲</button>
+        <div class="dice-face" id="diceFace">—</div>
       </div>
+      <button id="resetBtn">Reiniciar</button>
       <div class="progress" id="progress">Paso 1 de 50</div>
     </div>
 
     <div class="game-card">
-      <div class="svg-frame">
-        <svg viewBox="0 0 1000 680" preserveAspectRatio="xMidYMid meet" aria-label="Camino serpenteante">
-          <path id="track" class="track"
-            d="M 60 630
-               C 180 560, 300 700, 420 620
-               S 660 540, 780 600
-               S 940 560, 920 450
-               S 780 360, 640 400
-               S 500 440, 380 360
-               S 240 280, 160 340
-               S 120 420, 220 470
-               S 420 540, 600 500
-               S 820 420, 860 300
-               S 760 180, 620 220
-               S 480 260, 360 180
-               S 240 120, 160 180
-               S 120 260, 220 320
-               S 380 380, 540 340
-               S 720 280, 800 200
-               S 860 120, 780 80
-               S 600 60, 480 120
-               S 360 180, 260 140
-               S 160 100, 100 140
-               S 80 220, 140 280
-               S 240 360, 360 420
-               S 520 500, 640 560
-               S 820 620, 940 580" />
-          <g id="milestones"></g>
-          <text class="start-end-label" x="60" y="630" dy="28">⏰</text>
-          <text class="start-end-label" x="940" y="580" dy="-14">🛏️✨</text>
-          <g id="player" class="player"><text id="playerEmoji" x="0" y="0">🌙</text></g>
-        </svg>
-      </div>
+      <svg viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid meet" aria-label="tablero serpenteante">
+        <!-- Senda serpenteante -->
+        <path id="track" class="track"
+          d="M 60 520
+             C 200 460, 320 600, 460 520
+             S 700 440, 840 500
+             S 940 480, 900 380
+             S 760 320, 620 360
+             S 480 400, 360 320
+             S 240 260, 160 320
+             S 120 400, 220 440
+             S 420 500, 600 460
+             S 820 400, 860 300
+             S 760 200, 620 240
+             S 480 280, 360 200
+             S 240 140, 160 200
+             S 120 280, 200 340
+             S 360 400, 540 360
+             S 720 300, 820 220
+             S 900 160, 780 120
+             S 620 100, 480 160
+             S 360 200, 260 160
+             S 160 120, 100 160" />
+        <!-- Hitos numerados -->
+        <g id="milestones"></g>
+        <!-- Avatar -->
+        <g id="player" class="player"><text id="playerEmoji" x="0" y="0">🌙</text></g>
+      </svg>
+
       <div class="message" id="message">
-        Lanza el dado para avanzar. Luego responde una pregunta: si aciertas, te quedas; si fallas, retrocedes lo que marcó el dado.
+        Lanza el dado para comenzar. Si respondes bien, avanzas lo que indica el dado; si fallas, retrocedes lo mismo.
       </div>
     </div>
-  </div>
+  </main>
 
-  <!-- Modal de preguntas -->
-  <div class="modal" id="qModal" aria-hidden="true">
-    <div class="modal-card" role="dialog" aria-modal="true">
-      <div class="q-title">Pregunta de higiene del sueño</div>
-      <div class="q-text" id="qText"></div>
-      <div class="q-actions">
-        <button id="btnYes">Sí</button>
+  <footer>
+    © 2025 MetaPsy Tinkuy — Tinkuy Psicoterapéutico. Todos los derechos reservados.
+    <br>Contacto: <a href="mailto:info@tinkuy.com">info@tinkuy.com</a>
+  </footer>
+
+  <!-- Modal de Preguntas -->
+  <div class="modal" id="qModal" role="dialog" aria-modal="true" aria-labelledby="qTitle">
+    <div class="modal-card">
+      <h3 id="qTitle">Pregunta de higiene del sueño</h3>
+      <div id="qText" class="content" style="margin-top:6px;"></div>
+      <div class="actions">
         <button id="btnNo">No</button>
-        <button id="btnClose" style="margin-left:auto; background:#eee;">Cerrar</button>
+        <button id="btnYes">Sí</button>
       </div>
-      <div class="q-feedback" id="qFeedback"></div>
+      <div id="qFeedback" class="content" style="margin-top:10px;"></div>
     </div>
   </div>
 
-  <div class="toast" id="toast"></div>
+  <!-- Modal Psicoeducación -->
+  <div class="modal" id="eduModal" role="dialog" aria-modal="true" aria-labelledby="eduTitle">
+    <div class="modal-card">
+      <h3 id="eduTitle">Nota psicoeducativa</h3>
+      <div id="eduText" class="content" style="margin-top:6px;"></div>
+      <div class="actions">
+        <button id="btnContinue">Continuar</button>
+      </div>
+    </div>
+  </div>
 
   <script>
-    // ====== Elementos base ======
-    const TOTAL_STEPS = 50;
+    // ===== Utilidades SVG / Tablero =====
+    const N_STEPS = 50; // 50 casillas
     const track = document.getElementById('track');
-    const player = document.getElementById('player');
-    const playerEmoji = document.getElementById('playerEmoji');
+    const milestonesG = document.getElementById('milestones');
+    const playerEmojiEl = document.getElementById('playerEmoji');
     const progressEl = document.getElementById('progress');
     const messageEl = document.getElementById('message');
+
     const rollBtn = document.getElementById('rollBtn');
-    const resetBtn = document.getElementById('resetBtn');
     const diceFace = document.getElementById('diceFace');
-    const avatarSelect = document.getElementById('avatar');
-    const milestonesGroup = document.getElementById('milestones');
+    const resetBtn = document.getElementById('resetBtn');
+    const avatarSel = document.getElementById('avatar');
 
     const qModal = document.getElementById('qModal');
     const qText = document.getElementById('qText');
     const qFeedback = document.getElementById('qFeedback');
     const btnYes = document.getElementById('btnYes');
     const btnNo = document.getElementById('btnNo');
-    const btnClose = document.getElementById('btnClose');
-    const toast = document.getElementById('toast');
 
-    // ====== Puntos a lo largo del path ======
-    const pathLen = track.getTotalLength();
-    const points = Array.from({length: TOTAL_STEPS}, (_, i) => {
-      const p = track.getPointAtLength((i/(TOTAL_STEPS-1)) * pathLen);
-      return { x: p.x, y: p.y };
+    const eduModal = document.getElementById('eduModal');
+    const eduText = document.getElementById('eduText');
+    const btnContinue = document.getElementById('btnContinue');
+
+    let pathLen;
+    let points = []; // puntos equidistantes sobre la senda
+    let currentIdx = 0; // 0..49 (mostrar 1..50)
+    let lastRoll = 0;
+    let rollingLocked = false;
+
+    // ===== Preguntas (15) sí/no con explicación basada en evidencia =====
+    const questions = [
+      {
+        q: "¿La luz azul de pantallas por la noche puede retrasar el inicio del sueño?",
+        ans: true,
+        exp: "Correcto. La luz azul inhibe la secreción de melatonina y desplaza el ritmo circadiano. Minimiza pantallas 1–2 h antes de dormir o usa filtros nocturnos."
+      },
+      {
+        q: "¿Es recomendable acostarse y levantarse a horas muy variables entre semana y fines de semana?",
+        ans: false,
+        exp: "No. La constancia horaria fortalece tu reloj biológico. Mantener una ventana estable de sueño-vigilia mejora latencia y calidad del descanso."
+      },
+      {
+        q: "¿Consumir café 6 horas antes de dormir puede afectar el sueño?",
+        ans: true,
+        exp: "Sí. La cafeína tiene vida media de 3–7 h. Evítala desde media tarde para no aumentar la latencia y fragmentar el sueño."
+      },
+      {
+        q: "¿El alcohol ayuda a dormir profundamente toda la noche?",
+        ans: false,
+        exp: "Induce somnolencia inicial pero fragmenta el sueño y reduce REM. Evita alcohol al acercarse la hora de dormir."
+      },
+      {
+        q: "¿Hacer ejercicio regular (no muy tarde) mejora la calidad del sueño?",
+        ans: true,
+        exp: "Correcto. Actividad física moderada diurna reduce latencia y aumenta sueño profundo. Evita ejercicio intenso 2–3 h antes de dormir."
+      },
+      {
+        q: "¿Dormir siestas largas (>60 min) por la tarde suele facilitar conciliar el sueño nocturno?",
+        ans: false,
+        exp: "Siestas largas reducen la presión de sueño. Prefiere siestas breves (10–20 min) y tempranas si las necesitas."
+      },
+      {
+        q: "¿Una rutina relajante previa (lectura, respiración) ayuda a conciliar el sueño?",
+        ans: true,
+        exp: "Sí. Señales consistentes pre-sueño condicionan al cuerpo a bajar activación (arousal) y benefician la latencia."
+      },
+      {
+        q: "¿Es útil quedarse en la cama si no puedes dormir durante 30–40 minutos?",
+        ans: false,
+        exp: "No. Levántate, haz algo tranquilo con poca luz y vuelve cuando aparezca somnolencia. Evita asociar cama con vigilia."
+      },
+      {
+        q: "¿La habitación más fresca (≈18–20°C), oscura y silenciosa favorece el sueño?",
+        ans: true,
+        exp: "Sí. Control de temperatura, luz y sonido optimiza el ambiente de sueño y reduce microdespertares."
+      },
+      {
+        q: "¿Cenar muy pesado justo antes de dormir es recomendable?",
+        ans: false,
+        exp: "Evítalo. Las comidas copiosas cerca de la hora de dormir incrementan reflujo y activación digestiva."
+      },
+      {
+        q: "¿Exponerse a luz natural por la mañana ayuda a regular el ritmo circadiano?",
+        ans: true,
+        exp: "Correcto. Luz matutina sincroniza el reloj biológico (zeitgeber potente) y facilita el inicio del sueño nocturno."
+      },
+      {
+        q: "¿Fumar ayuda a dormir mejor?",
+        ans: false,
+        exp: "La nicotina es estimulante, aumenta la latencia y fragmenta el sueño. Evita nicotina especialmente por la tarde-noche."
+      },
+      {
+        q: "¿Tener relojes visibles y chequear la hora repetidamente ayuda a conciliar el sueño?",
+        ans: false,
+        exp: "Mirar la hora aumenta la ansiedad de desempeño del sueño. Voltea el reloj o retíralo del campo visual."
+      },
+      {
+        q: "¿Las técnicas de respiración lenta (p. ej., 4-7-8) pueden reducir la activación antes de dormir?",
+        ans: true,
+        exp: "Sí. Activan el sistema parasimpático, reducen frecuencia cardiaca y facilitan el inicio del sueño."
+      },
+      {
+        q: "¿Acostarse solo cuando aparece somnolencia real es una pauta válida de higiene del sueño?",
+        ans: true,
+        exp: "Correcto. Evita ir a la cama por horario si no hay somnolencia; así previenes asociación cama-vigilia."
+      }
+    ];
+
+    // ===== Mensajes psicoeducativos (uno por casilla; 50) =====
+    const eduNotes = Array.from({length: N_STEPS}, (_, i) => {
+      const base = i+1;
+      const blocks = [
+        "Constancia circadiana: intenta acostarte y levantarte a horarios similares diariamente. Tu reloj biológico se estabiliza y mejora la latencia.",
+        "Ancla matutina: sal a la luz natural durante 10–30 minutos por la mañana. La luz es un sincronizador potente del ritmo sueño-vigilia.",
+        "Corte a pantallas: reduce exposición a luz azul 1–2 h antes de dormir o usa filtros nocturnos; protege la secreción de melatonina.",
+        "Ambiente: prioriza una habitación fresca (18–20°C), oscura y silenciosa. Considera cortinas blackout, tapones o ruido blanco si es necesario.",
+        "Rutina pre-sueño: crea un ritual relajante (lectura ligera, estiramientos suaves, respiración lenta). Señaliza al cuerpo que es hora de bajar.",
+        "Cafeína: evita cafés, tés estimulantes y bebidas energéticas desde media tarde. Recuerda la vida media de la cafeína (3–7 h).",
+        "Alcohol: no es un inductor de sueño saludable. Evítalo cerca de la hora de acostarte para no fragmentar el sueño.",
+        "Siesta: si necesitas, que sea breve (10–20 min) y temprana. Evita siestas largas que reduzcan la presión de sueño nocturna.",
+        "Ejercicio: moverse a diario mejora la profundidad del sueño; solo evita la alta intensidad 2–3 h antes de dormir.",
+        "Cama = dormir: usa la cama solo para dormir e intimidad. Si no concilias en ~20–30 min, levántate y vuelve con somnolencia.",
+      ];
+      // distribuye cíclicamente bloques y añade detalle incremental
+      const text = blocks[i % blocks.length] +
+        " " +
+        "Si tienes insomnio persistente, considera intervención cognitivo-conductual (CBT-I), la terapia de primera línea según guías clínicas.";
+      return `Casilla ${base}: ${text}`;
     });
 
-    // Hitos visuales
-    for (let i = 0; i < TOTAL_STEPS; i++) {
-      if (i % 5 === 0 || i === TOTAL_STEPS-1) {
-        const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
-        c.setAttribute('cx', points[i].x);
-        c.setAttribute('cy', points[i].y);
-        c.setAttribute('r', i === TOTAL_STEPS-1 ? 10 : 6);
-        c.setAttribute('class', i === TOTAL_STEPS-1 ? 'goal' : 'milestone');
-        milestonesGroup.appendChild(c);
-      }
-    }
-
-    // ====== Mensajes psicoeducativos (50, basados en evidencia) ======
-    const msgs = [
-      "El sueño consolida la memoria y regula la emoción: dormir 7–9 h en adultos se asocia con mejor atención, control inhibitorio y menor reactividad amigdalar.",
-      "La consistencia horaria (acostarte y levantarte a horas similares) sincroniza tu reloj circadiano y mejora latencia de sueño y eficiencia nocturna.",
-      "Un ritmo estable reduce variabilidad de melatonina y cortisol: menos somnolencia diurna, más alerta matutina.",
-      "Exposición a luz natural por la mañana (10–30 min) adelanta el ritmo circadiano y facilita dormir antes en la noche.",
-      "Atenúa la luz 60–90 min antes de dormir; luces cálidas ayudan a no suprimir melatonina tanto como las frías.",
-      "Evita pantallas 1 h antes: la luz azul y el contenido estimulante retrasan el inicio del sueño y degradan su continuidad.",
-      "Si usas pantallas tarde, activa filtros nocturnos, baja brillo y limita tareas cognitivamente exigentes.",
-      "Establece una rutina pre-sueño (lectura ligera, respiración 4-7-8, mindfulness): prepara al sistema nervioso para el descanso.",
-      "Asocia la cama únicamente con dormir/sexualidad (control de estímulos): reduce el condicionamiento de alerta en el dormitorio.",
-      "Si en 15–20 min no concilias, levántate y realiza una actividad tranquila con luz tenue. Vuelve cuando aparezca somnolencia.",
-      "Un cuarto fresco (18–20 °C), oscuro y silencioso mejora sueño de ondas lentas; considera cortinas blackout y control de ruido.",
-      "Soporte físico adecuado (colchón y almohada) disminuye microdespertares por incomodidad y mejora dolor cervical/lumbar.",
-      "El “ruido blanco” o ventiladores pueden enmascarar ruidos intermitentes (tráfico, vecinos), estabilizando el sueño.",
-      "La cafeína bloquea receptores de adenosina por 6–8 h: evita café, té negro, mate o energizantes desde media tarde.",
-      "Nicotina y alcohol alteran arquitectura del sueño: menos REM y más fragmentación; no son buenos inductores.",
-      "Cena 2–3 h antes; comidas pesadas o picantes cerca de la hora de acostarte aumentan reflujo y despertares.",
-      "Hidrátate en el día pero limita líquidos 1–2 h antes para reducir micciones nocturnas.",
-      "Actividad física regular mejora la presión homeostática de sueño; evita ejercicio vigoroso justo antes de dormir.",
-      "La luz diurna + movimiento anclan tu cronotipo; más tiempo al aire libre se asocia con mejor calidad de sueño.",
-      "Siestas: úsalas estratégicamente (10–20 min, temprano). Si tienes insomnio, evítalas para no reducir la presión de sueño.",
-      "Gestiona el estrés con descarga cognitiva: anota pendientes y planifica el día siguiente antes de acostarte.",
-      "Relajación muscular progresiva o respiración diafragmática reducen activación fisiológica y latencia de sueño.",
-      "Evita vigilar el reloj de madrugada; aumenta la ansiedad de rendimiento y condiciona el despertar.",
-      "Acepta variabilidad: noches malas ocasionales son normales. Evita compensaciones excesivas que perpetúan el problema.",
-      "Apunta a la consistencia, no a la perfección: pequeños cambios mantenidos 2–4 semanas producen beneficios medibles.",
-      "Señales de inicio (ducha tibia, infusión de hierbas, música suave) facilitan la transición al sueño.",
-      "Busca luz natural diaria (30–60 min): ancla ritmos circadianos incluso en días nublados.",
-      "Reduce rumiación nocturna con una “lista de preocupaciones” para abordar al día siguiente; pospone y libera.",
-      "Orden y minimalismo del dormitorio reducen estímulos que compiten con la somnolencia.",
-      "Descender la temperatura corporal facilita conciliar el sueño; ropa de cama transpirable ayuda.",
-      "Evita discusiones intensas o trabajo exigente en las 2 h previas; protegen tu ventana de sueño.",
-      "Fines de semana: mantén la diferencia de horario dentro de ±1 h para no generar jet lag social.",
-      "El alcohol puede “dormir” rápido pero reduce el sueño profundo y REM, fragmentando la noche.",
-      "Si te desvelas, vuelve a tu horario habitual la noche siguiente; evita siestas largas compensatorias.",
-      "Un diario de sueño permite detectar relaciones (cafeína, estrés, horarios) y medir progresos.",
-      "Aromas (lavanda, manzanilla) pueden formar parte del ritual; no son milagros, pero ayudan a la relajación.",
-      "Gratitud o registro de 3 cosas buenas disminuye activación cognitiva y mejora el ánimo al despertar.",
-      "Evita noticias o contenidos activantes por la noche; elige material tranquilo y predecible.",
-      "Negocia con tu pareja condiciones del cuarto (temperatura, luz, dispositivos) para minimizar interrupciones.",
-      "Mascotas: valora si su presencia interrumpe; una rutina clara evita despertares por movimiento.",
-      "Si despiertas congestionado, considera alergenos (ácaros). Fundas antiácaros y limpieza regular ayudan.",
-      "Usa luz cálida y baja si te levantas de noche para no “reactivar” el cerebro en exceso.",
-      "Silencia notificaciones (modo noche) a una hora fija para reducir microdespertares.",
-      "Crea una frase calmante (“Mi cuerpo sabe dormir”) para momentos de alerta nocturna; reduce catastrofismo.",
-      "En eventos sociales, regula alcohol y hora de retorno; priorizar el horario protege la semana.",
-      "Integra micro-pausas de relajación en el día para no llegar saturado a la noche.",
-      "Celebra micro-progresos: 15 min más de sueño regular por semana ya es ganancia clínica.",
-      "Busca apoyo profesional si los problemas persisten 3+ meses o hay somnolencia diurna marcada.",
-      "Capas de intervención: horario, luz, actividad, ambiente y manejo del estrés; combinarlas potencia el efecto.",
-      "¡Meta! Conserva lo que te funciona, ajusta lo que no y sé amable con tu proceso de cambio."
-    ];
-
-    // ====== Banco de preguntas (Sí/No) ======
-    // correct: true si la respuesta correcta es "Sí", false si es "No"
-    const questions = [
-      { q: "¿Conviene usar pantallas brillantes durante la última hora antes de dormir?", correct: false, expl: "La luz azul y el contenido estimulante retrasan la melatonina y aumentan la latencia de sueño." },
-      { q: "¿Mantener horarios regulares de sueño y vigilia ayuda a dormir mejor?", correct: true, expl: "La regularidad circadiana mejora la eficiencia de sueño y reduce somnolencia diurna." },
-      { q: "¿Beber café por la tarde-noche suele afectar negativamente el sueño?", correct: true, expl: "La cafeína bloquea adenosina por 6–8 h, retrasando el inicio del sueño." },
-      { q: "¿El alcohol mejora la calidad global del sueño?", correct: false, expl: "Puede acelerar el inicio, pero fragmenta el sueño y reduce REM y profundidad." },
-      { q: "¿Es recomendable quedarse en la cama si no concilias tras ~20 minutos?", correct: false, expl: "Es mejor levantarse y hacer algo tranquilo con luz tenue hasta que vuelva la somnolencia." },
-      { q: "¿La habitación fresca, oscura y silenciosa favorece el sueño profundo?", correct: true, expl: "Temperatura baja, oscuridad y silencio están asociados a mejor SWS y continuidad." },
-      { q: "¿El ejercicio intenso justo antes de dormir facilita conciliar?", correct: false, expl: "La activación fisiológica puede retrasar el inicio; mejor programarlo antes." },
-      { q: "¿Una siesta de 10–20 min temprano puede ser útil si no afecta la noche?", correct: true, expl: "Siestas breves y tempranas reducen somnolencia sin interferir con la presión de sueño." },
-      { q: "¿Trabajar en la cama ayuda a que el cerebro asocie cama con descanso?", correct: false, expl: "Control de estímulos: reserva la cama para dormir y sexualidad." },
-      { q: "¿Bajar la intensidad de luz 60–90 min antes de dormir favorece el sueño?", correct: true, expl: "Reduce la supresión de melatonina y facilita la transición al descanso." },
-      { q: "¿Mirar el reloj cuando te despiertas de madrugada ayuda a volver a dormir?", correct: false, expl: "Aumenta la ansiedad y condiciona el despertar; mejor evitarlo." },
-      { q: "¿Una rutina pre-sueño (leer, respirar, relajación) es útil para el descanso?", correct: true, expl: "Señales consistentes preparan al sistema nervioso para el sueño." },
-      { q: "¿Cenar muy pesado justo antes de acostarse mejora el sueño?", correct: false, expl: "Aumenta reflujo y despertares; se recomienda cenar 2–3 horas antes." },
-      { q: "¿La exposición a luz natural por la mañana ayuda a adelantar el ritmo circadiano?", correct: true, expl: "La luz matinal es un zeitgeber potente que alinea el reloj interno." },
-      { q: "¿El ruido blanco puede estabilizar el sueño en ambientes ruidosos?", correct: true, expl: "Enmascara picos intermitentes y reduce microdespertares." }
-    ];
-
-    // ====== Estado del juego ======
-    let step = 0;           // 0..49
-    let moving = false;
-    let pendingQuestion = false;
-    let lastRoll = 0;
-
-    function setPlayerToStep(i){
-      const p = points[i];
-      player.setAttribute('transform', `translate(${p.x}, ${p.y})`);
-      progressEl.textContent = `Paso ${i+1} de ${TOTAL_STEPS}`;
-      messageEl.textContent = msgs[i] || "";
-    }
-
-    function showToast(text, ok=true){
-      toast.textContent = text;
-      toast.style.borderColor = ok ? "#cfe9d5" : "#f3c5c5";
-      toast.classList.add('show');
-      setTimeout(()=>toast.classList.remove('show'), 1600);
-    }
-
-    // ====== Dado ======
-    function rollDice(){
-      if (moving || pendingQuestion) return;
-      if (step >= TOTAL_STEPS-1) { showToast("Ya llegaste a la meta 🛏️✨", true); return; }
-
-      // animación breve del dado
-      let ticks = 10;
-      const anim = setInterval(()=>{
-        diceFace.textContent = Math.floor(Math.random()*6)+1;
-        if(--ticks<=0){
-          clearInterval(anim);
-          const roll = Math.floor(Math.random()*6)+1;
-          diceFace.textContent = roll;
-          lastRoll = roll;
-          advanceBy(roll);
+    // ===== Inicialización del tablero =====
+    function initBoard(){
+      pathLen = track.getTotalLength();
+      points = [];
+      milestonesG.innerHTML = "";
+      const stepLen = pathLen / (N_STEPS-1);
+      for(let i=0;i<N_STEPS;i++){
+        const p = track.getPointAtLength(i*stepLen);
+        points.push({x:p.x, y:p.y});
+        // dibuja hitos cada 5 para no saturar (y el primero/último)
+        if(i===0 || i===N_STEPS-1 || i%5===0){
+          const g = document.createElementNS("http://www.w3.org/2000/svg","g");
+          const c = document.createElementNS("http://www.w3.org/2000/svg","circle");
+          c.setAttribute("cx", p.x);
+          c.setAttribute("cy", p.y);
+          c.setAttribute("r", 10);
+          c.setAttribute("class","milestone");
+          const t = document.createElementNS("http://www.w3.org/2000/svg","text");
+          t.setAttribute("x", p.x);
+          t.setAttribute("y", p.y - 16);
+          t.setAttribute("text-anchor","middle");
+          t.textContent = i+1;
+          g.appendChild(c); g.appendChild(t);
+          milestonesG.appendChild(g);
         }
-      }, 60);
+      }
+      placePlayer(0);
+      updateProgress();
+      messageEl.textContent = "Lanza el dado para comenzar. Si respondes bien, avanzas; si fallas, retrocedes.";
+      diceFace.textContent = "—";
+      rollBtn.disabled = false;
+      rollingLocked = false;
     }
 
-    function advanceBy(n){
-      moving = true;
-      const target = Math.min(step + n, TOTAL_STEPS-1);
-      step = target;
-      setPlayerToStep(step);
+    function placePlayer(idx){
+      const p = points[idx];
+      playerEmojiEl.setAttribute("x", p.x);
+      playerEmojiEl.setAttribute("y", p.y - 16);
+    }
+
+    function animateTo(targetIdx, cb){
+      // animación simple paso a paso
+      const dir = targetIdx > currentIdx ? 1 : -1;
+      const total = Math.abs(targetIdx - currentIdx);
+      let done = 0;
+      function step(){
+        if(done>=total){ cb && cb(); return; }
+        currentIdx += dir;
+        placePlayer(currentIdx);
+        done++;
+        requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    function updateProgress(){
+      progressEl.textContent = `Paso ${currentIdx+1} de ${N_STEPS}`;
+    }
+
+    // ===== Lógica principal =====
+    function openQuestion(){
+      const q = questions[Math.floor(Math.random()*questions.length)];
+      qModal.classList.add('open');
+      qModal.dataset.correct = q.ans ? "yes" : "no";
+      qText.innerHTML = `<strong>${q.q}</strong>`;
+      qFeedback.textContent = "";
+      return q.exp;
+    }
+
+    function closeQuestion(){
+      qModal.classList.remove('open');
+    }
+
+    function openEduNote(text){
+      eduText.innerHTML = `<p>${text}</p><p style="margin-top:8px;color:#555;">${eduNotes[currentIdx]}</p>`;
+      eduModal.classList.add('open');
+    }
+
+    function closeEduNote(){
+      eduModal.classList.remove('open');
+    }
+
+    function handleAnswer(isYes){
+      if(rollingLocked) return;
+      const expected = qModal.dataset.correct === "yes";
+      const correct = (isYes === expected);
+      const exp = questions.find(q => q.q === qText.textContent)?.exp || "";
+      qFeedback.innerHTML = (correct
+        ? `<span class="badge">¡Correcto!</span> ${exp}`
+        : `<span class="badge">Respuesta incorrecta</span> ${exp}`);
+      // calcula destino según acierto
+      const move = lastRoll;
+      let target = currentIdx + (correct ? move : -move);
+      if(target < 0) target = 0;
+      if(target > N_STEPS-1) target = N_STEPS-1;
+
+      rollingLocked = true;
+      // Cerramos pregunta tras 1.2s para que lean la explicación y luego movemos
       setTimeout(()=>{
-        moving = false;
-        askQuestion(n);   // tras mover, preguntar
-      }, 650);
+        closeQuestion();
+        animateTo(target, ()=>{
+          updateProgress();
+          // Al llegar, mostramos nota psicoeducativa larga (permanece hasta "Continuar")
+          openEduNote(correct
+            ? "Avanzas según el dado. Integra esta pauta en tu próxima semana."
+            : "Retrocedes según el dado. Observa esta pauta y prueba un cambio concreto hoy.");
+          // Si llegó al final, deshabilita
+          if(currentIdx === N_STEPS-1){
+            eduText.innerHTML = `<p><strong>¡Meta alcanzada!</strong> Has completado el Camino al Buen Descanso.</p>
+              <p>Te recomendamos consolidar 2–3 hábitos por semana. La consistencia gana al perfeccionismo.</p>
+              <p style="margin-top:8px;color:#555;">${eduNotes[currentIdx]}</p>`;
+            rollBtn.disabled = true;
+          }
+        });
+      }, 1200);
     }
 
-    function retreatBy(n){
-      moving = true;
-      const target = Math.max(step - n, 0);
-      step = target;
-      setPlayerToStep(step);
-      setTimeout(()=>{ moving = false; }, 650);
-    }
+    // ===== Eventos =====
+    rollBtn.addEventListener('click', ()=>{
+      if(rollingLocked) return;
+      lastRoll = Math.floor(Math.random()*6)+1;
+      diceFace.textContent = lastRoll;
+      const exp = openQuestion();
+      messageEl.textContent = "Responde la pregunta. Si aciertas, avanzas; si fallas, retrocedes.";
+    });
 
-    // ====== Preguntas ======
-    function openModal(){ qModal.classList.add('open'); qModal.setAttribute('aria-hidden','false'); }
-    function closeModal(){ qModal.classList.remove('open'); qModal.setAttribute('aria-hidden','true'); }
+    btnYes.addEventListener('click', ()=>handleAnswer(true));
+    btnNo.addEventListener('click', ()=>handleAnswer(false));
 
-    function askQuestion(rollValue){
-      pendingQuestion = true;
-      const idx = Math.floor(Math.random()*questions.length);
-      const item = questions[idx];
-      qText.textContent = item.q;
-      qFeedback.style.display = 'none';
-      qFeedback.className = 'q-feedback';
-      openModal();
+    btnContinue.addEventListener('click', ()=>{
+      closeEduNote();
+      rollingLocked = false;
+      if(currentIdx === N_STEPS-1){
+        messageEl.textContent = "Juego completado. ¡Excelente trabajo!";
+      }else{
+        messageEl.textContent = "Lanza el dado para continuar tu camino.";
+      }
+    });
 
-      function handle(answerIsYes){
-        const correct = (answerIsYes === item.correct);
-        qFeedback.style.display = 'block';
-        if (correct){
-          qFeedback.classList.add('ok');
-          qFeedback.innerHTML = `<strong>✔ Correcto.</strong> ${item.expl}`;
-          showToast("¡Bien! Te quedas en la casilla.", true);
-          // mantener paso y mostrar mensaje psicoeducativo (ya se muestra automático al posicionarse)
-          pendingQuestion = false;
-        } else {
-          qFeedback.classList.add('bad');
-          qFeedback.innerHTML = `<strong>✖ Incorrecto.</strong> ${item.expl} Retrocedes ${rollValue} paso(s).`;
-          showToast(`Retrocedes ${rollValue}`, false);
-          // retroceder
-          setTimeout(()=>{
-            closeModal();
-            retreatBy(rollValue);
-            pendingQuestion = false;
-          }, 700);
-          return; // salir para no cerrar aún
+    resetBtn.addEventListener('click', ()=>{
+      currentIdx = 0; lastRoll = 0; rollingLocked = false;
+      initBoard();
+    });
+
+    avatarSel.addEventListener('change', (e)=>{
+      playerEmojiEl.textContent = e.target.value;
+    });
+
+    // Cerrar modales al click fuera (opcional)
+    [qModal, eduModal].forEach(modal=>{
+      modal.addEventListener('click', (e)=>{
+        if(e.target === modal){
+          // Solo permitimos cerrar manualmente el modal educativo
+          if(modal === eduModal){
+            closeEduNote(); rollingLocked = false;
+          }
         }
-        // Cerrar modal si fue correcto
-        setTimeout(closeModal, 800);
-      }
-
-      // Listeners únicos por pregunta
-      const onYes = ()=>{ cleanup(); handle(true); };
-      const onNo  = ()=>{ cleanup(); handle(false); };
-      const onClose = ()=>{ /* permitir cerrar solo si ya se respondió correctamente o para leer explicación */
-        // Si aún no se ha mostrado feedback, no cerrar
-        if (qFeedback.style.display === 'block') closeModal();
-      };
-
-      function cleanup(){
-        btnYes.removeEventListener('click', onYes);
-        btnNo.removeEventListener('click', onNo);
-        btnClose.removeEventListener('click', onClose);
-      }
-      btnYes.addEventListener('click', onYes);
-      btnNo.addEventListener('click', onNo);
-      btnClose.addEventListener('click', onClose);
-    }
-
-    // ====== Avatar / Reset ======
-    function changeAvatar(){ playerEmoji.textContent = avatarSelect.value; }
-    function resetGame(){
-      moving = false; pendingQuestion = false; lastRoll = 0;
-      diceFace.textContent = '—';
-      step = 0;
-      setPlayerToStep(step);
-      messageEl.textContent = "Lanza el dado para avanzar. Luego responde una pregunta: si aciertas, te quedas; si fallas, retrocedes lo que marcó el dado.";
-    }
+      });
+    });
 
     // Init
-    changeAvatar();
-    setPlayerToStep(0);
-    rollBtn.addEventListener('click', rollDice);
-    resetBtn.addEventListener('click', resetGame);
-    avatarSelect.addEventListener('change', changeAvatar);
+    window.addEventListener('load', initBoard);
+    window.addEventListener('resize', ()=>placePlayer(currentIdx));
   </script>
 </body>
 </html>
