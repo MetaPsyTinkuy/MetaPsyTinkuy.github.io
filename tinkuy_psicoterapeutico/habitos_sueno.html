@@ -104,20 +104,7 @@
     .modal .actions{margin-top:14px;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;}
     .badge{display:inline-block;background:#fff7f2;border:1px solid #ffd8c3;border-radius:999px;padding:4px 10px;font-size:.85rem;font-weight:700;color:#8B4513;}
 
-<!-- Botón flotante -->
-<button class="chatbot-btn" onclick="toggleChat()">😴</button>
-
-<!-- Ventana del chatbot -->
-<div class="chatbot-window" id="chatbot">
-  <div class="chatbot-header">Asistente del Sueño 😴</div>
-  <div class="chatbot-messages" id="chatMessages"></div>
-  <div class="chatbot-input">
-    <input type="text" id="chatInput" placeholder="Escribe tu pregunta..." />
-    <button onclick="sendMessage()">Enviar</button>
-  </div>
-</div>
-
-    
+ 
     /* ===== Footer ===== */
     footer{
       text-align:center;
@@ -283,6 +270,19 @@
     </div>
   </main>
 
+<!-- Botón flotante -->
+<button class="chatbot-btn" onclick="toggleChat()">😴</button>
+
+<!-- Ventana del chatbot -->
+<div class="chatbot-window" id="chatbot">
+  <div class="chatbot-header">Asistente del Sueño 😴</div>
+  <div class="chatbot-messages" id="chatMessages"></div>
+  <div class="chatbot-input">
+    <input type="text" id="chatInput" placeholder="Escribe tu pregunta..." />
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
+</div>
+  
   <footer>
     © 2025 MetaPsy Tinkuy — Tinkuy Psicoterapéutico. Todos los derechos reservados.
     <br>Contacto: <a href="mailto:info@tinkuy.com">info@tinkuy.com</a>
