@@ -1,154 +1,339 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Camino al Buen Descanso</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Camino al Buen Descanso — Tinkuy Psicoterapéutico</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(to top, #fceabb, #f8b500);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
+    :root{
+      --bg-rose:#f9e0d9;       /* fondo rosado suave */
+      --beige:#f6e2c5;         /* beige botones/cards */
+      --beige-hover:#f3d7b2;
+      --text:#2c3e50;
+      --track:#8B4513;
+      --accent:#ff5a36;
     }
-    h1 {
-      margin: 20px;
-      color: #333;
-      text-align: center;
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:'Montserrat',sans-serif;
+      background-color:var(--bg-rose);
+      color:var(--text);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      min-height:100vh;
     }
-    #avatarSelect {
-      margin: 10px;
-      font-size: 1.2rem;
-      padding: 5px;
-      border-radius: 8px;
+
+    /* Contenedor principal con ancho similar al de tus páginas */
+    .wrap{
+      width:100%;
+      max-width:900px;
+      padding:20px 16px 40px;
+      margin:0 auto;
     }
-    #gameArea {
-      width: 100%;
-      max-width: 600px;
-      position: relative;
+
+    h1{
+      text-align:center;
+      font-size:2rem;
+      margin:18px 0 6px;
     }
-    svg {
-      width: 100%;
-      height: auto;
+    .subtitle{
+      text-align:center;
+      color:#4b4b4b;
+      margin-bottom:16px;
+      font-size:1rem;
     }
-    #player {
-      position: absolute;
-      font-size: 2rem;
-      transform: translate(-50%, -50%);
-      transition: left 0.8s ease-in-out, top 0.8s ease-in-out;
+
+    /* Panel superior (avatar + botones + progreso) */
+    .panel{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      background:#fff;
+      padding:12px;
+      border-radius:14px;
+      box-shadow:0 4px 12px rgba(0,0,0,.08);
+      margin-bottom:16px;
     }
-    button {
-      margin: 20px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      font-weight: 600;
-      background: #f6e2c5;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s;
+    .panel-left{
+      display:flex; align-items:center; gap:12px; flex-wrap:wrap;
     }
-    button:hover {
-      background: #f3d7b2;
+    label{font-weight:600}
+    select{
+      font-size:1rem;
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px solid #ddd;
+      background:#fff;
+      cursor:pointer;
     }
-    #messageBox {
-      max-width: 600px;
-      padding: 15px;
-      border-radius: 10px;
-      background: #fff;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #333;
-      text-align: center;
-      min-height: 120px;
+    .btns{
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    button{
+      padding:10px 16px;
+      font-weight:600;
+      font-size:1rem;
+      background:var(--beige);
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      transition:background .25s ease, transform .05s ease;
+    }
+    button:hover{ background:var(--beige-hover); }
+    button:active{ transform:translateY(1px); }
+
+    /* Progreso */
+    .progress{
+      margin-left:auto;
+      font-weight:700;
+      color:#333;
+    }
+
+    /* Zona del juego */
+    .game-card{
+      background:#fff;
+      border-radius:16px;
+      box-shadow:0 6px 16px rgba(0,0,0,.1);
+      padding:14px;
+      overflow:hidden;
+    }
+    .svg-frame{
+      width:100%;
+      aspect-ratio: 16 / 11; /* mantiene proporción agradable */
+      position:relative;
+    }
+    svg{ width:100%; height:100%; display:block; }
+    .track{ stroke:var(--track); stroke-width:12; fill:none; stroke-linecap:round; }
+    .milestone{ fill:#4CAF50; }
+    .goal{ fill:#FFD700; }
+    .start-end-label{ font-size:22px; }
+
+    /* Avatar como grupo transformable con transición */
+    .player{
+      transition: transform .6s ease-in-out;
+      pointer-events:none;
+    }
+    .player text{
+      font-size:28px; /* tamaño del emoji/avatar */
+      dominant-baseline: middle;
+      text-anchor: middle;
+    }
+
+    /* Mensaje */
+    .message{
+      margin-top:14px;
+      background:#fff7f2;
+      border:1px solid #ffe4d6;
+      border-radius:14px;
+      padding:16px;
+      line-height:1.65;
+      font-size:1rem;
+      color:#333;
     }
   </style>
 </head>
 <body>
-  <h1>El Camino al Buen Descanso 🌙</h1>
+  <div class="wrap">
+    <h1>El Camino al Buen Descanso 🌙</h1>
+    <p class="subtitle">Avanza paso a paso y descubre 50 hábitos y micro-consejos para dormir mejor.</p>
 
-  <!-- Selección de avatar -->
-  <label for="avatarSelect">Elige tu avatar:</label>
-  <select id="avatarSelect" onchange="changeAvatar()">
-    <option value="🌙">🌙 Luna</option>
-    <option value="😴">😴 Carita dormida</option>
-    <option value="🚶‍♂️">🚶‍♂️ Caminante</option>
-    <option value="🐑">🐑 Oveja</option>
-  </select>
+    <div class="panel">
+      <div class="panel-left">
+        <label for="avatar">Avatar:</label>
+        <select id="avatar">
+          <option value="🌙" selected>🌙 Luna</option>
+          <option value="😴">😴 Carita dormida</option>
+          <option value="🚶‍♂️">🚶‍♂️ Caminante</option>
+          <option value="🐑">🐑 Oveja</option>
+          <option value="🧑">🧑 Persona</option>
+          <option value="🐻">🐻 Osito</option>
+        </select>
+      </div>
+      <div class="btns">
+        <button id="advanceBtn">Avanzar</button>
+        <button id="resetBtn">Reiniciar</button>
+      </div>
+      <div class="progress" id="progress">Paso 1 de 50</div>
+    </div>
 
-  <div id="gameArea">
-    <svg viewBox="0 0 600 600">
-      <!-- Camino más largo -->
-      <path d="M50,550 
-               C150,500 250,600 350,520 
-               S550,450 550,350
-               S450,250 350,300
-               S250,200 150,250
-               S50,150 150,100
-               S300,50 500,80
-               S550,150 400,200
-               S300,300 200,400
-               S100,500 50,550" 
-            fill="none" stroke="#8B4513" stroke-width="10" stroke-linecap="round"/>
-    </svg>
+    <div class="game-card">
+      <div class="svg-frame">
+        <svg viewBox="0 0 1000 680" preserveAspectRatio="xMidYMid meet" aria-label="Camino serpenteante">
+          <!-- Camino serpenteante -->
+          <path id="track" class="track"
+            d="M 60 630
+               C 180 560, 300 700, 420 620
+               S 660 540, 780 600
+               S 940 560, 920 450
+               S 780 360, 640 400
+               S 500 440, 380 360
+               S 240 280, 160 340
+               S 120 420, 220 470
+               S 420 540, 600 500
+               S 820 420, 860 300
+               S 760 180, 620 220
+               S 480 260, 360 180
+               S 240 120, 160 180
+               S 120 260, 220 320
+               S 380 380, 540 340
+               S 720 280, 800 200
+               S 860 120, 780 80
+               S 600 60, 480 120
+               S 360 180, 260 140
+               S 160 100, 100 140
+               S 80 220, 140 280
+               S 240 360, 360 420
+               S 520 500, 640 560
+               S 820 620, 940 580" />
 
-    <!-- Personaje -->
-    <div id="player">🌙</div>
+          <!-- Hitos cada 5 pasos (visual) -->
+          <g id="milestones"></g>
+
+          <!-- Inicio y meta decorativos -->
+          <text class="start-end-label" x="60" y="630" dy="28">⏰</text>
+          <text class="start-end-label" x="940" y="580" dy="-14">🛏️✨</text>
+
+          <!-- Avatar -->
+          <g id="player" class="player">
+            <text id="playerEmoji" x="0" y="0">🌙</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="message" id="message">
+        Haz clic en <strong>Avanzar</strong> para iniciar. Cada paso desbloquea una idea práctica para mejorar tu sueño.
+      </div>
+    </div>
   </div>
 
-  <button onclick="movePlayer()">Avanzar</button>
-
-  <div id="messageBox">Haz clic en "Avanzar" para comenzar tu camino hacia un mejor descanso.</div>
-
   <script>
-    const positions = [
-      {x:50, y:550, msg:"El sueño es vital: mejora tu memoria, concentración y regula tus emociones."},
-      {x:150, y:500, msg:"Mantén horarios regulares para dormir y despertar, incluso en fines de semana."},
-      {x:250, y:600, msg:"Evita pantallas 1 hora antes de dormir: la luz azul retrasa tu descanso."},
-      {x:350, y:520, msg:"Crea una rutina relajante: meditación, lectura o respiración profunda ayudan."},
-      {x:550, y:450, msg:"La cafeína y la nicotina dificultan conciliar el sueño. Evítalas en la tarde/noche."},
-      {x:550, y:350, msg:"Haz ejercicio regularmente, pero no justo antes de dormir. Favorece un descanso reparador."},
-      {x:450, y:250, msg:"Cuida tu entorno: habitación fresca, silenciosa y oscura promueve un sueño profundo."},
-      {x:350, y:300, msg:"La cama es solo para dormir o intimidad: evita usarla para trabajar o ver TV."},
-      {x:250, y:200, msg:"Evita siestas largas. Si necesitas, duerme máximo 20-30 minutos temprano en la tarde."},
-      {x:150, y:250, msg:"No te quedes despierto en la cama más de 20 minutos. Levántate y haz algo relajante."},
-      {x:50, y:150, msg:"Aliméntate ligero en la noche. Las comidas pesadas retrasan la conciliación del sueño."},
-      {x:150, y:100, msg:"Un vaso de leche tibia o infusiones relajantes pueden favorecer el descanso."},
-      {x:300, y:50, msg:"El estrés impacta tu sueño. Practica técnicas de manejo de ansiedad y relajación."},
-      {x:500, y:80, msg:"Ten rituales de desconexión digital: apaga notificaciones y guarda el celular lejos."},
-      {x:400, y:200, msg:"¡Felicidades! Has llegado al final del camino. Dormir bien es cuidar tu salud física y emocional."}
-    ];
+    // ====== Configuración y utilidades ======
+    const TOTAL_STEPS = 50;
+    const track = document.getElementById('track');
+    const player = document.getElementById('player');
+    const playerEmoji = document.getElementById('playerEmoji');
+    const progressEl = document.getElementById('progress');
+    const messageEl = document.getElementById('message');
+    const advanceBtn = document.getElementById('advanceBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const avatarSelect = document.getElementById('avatar');
+    const milestonesGroup = document.getElementById('milestones');
 
-    let step = 0;
-    const player = document.getElementById("player");
-    const messageBox = document.getElementById("messageBox");
-    const avatarSelect = document.getElementById("avatarSelect");
+    // Generar 50 puntos equidistantes a lo largo del path
+    const pathLen = track.getTotalLength();
+    const points = Array.from({length: TOTAL_STEPS}, (_, i) => {
+      const p = track.getPointAtLength((i/(TOTAL_STEPS-1)) * pathLen);
+      return { x: p.x, y: p.y };
+    });
 
-    function movePlayer() {
-      if (step < positions.length) {
-        const pos = positions[step];
-        player.style.left = pos.x + "px";
-        player.style.top = pos.y + "px";
-        messageBox.textContent = pos.msg;
-        step++;
-      } else {
-        messageBox.textContent = "Ya completaste el recorrido. ¡Pon en práctica estos hábitos en tu vida diaria!";
+    // Dibujar marcadores cada 5 pasos
+    for (let i = 0; i < TOTAL_STEPS; i++) {
+      if (i % 5 === 0 || i === TOTAL_STEPS-1) {
+        const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        c.setAttribute('cx', points[i].x);
+        c.setAttribute('cy', points[i].y);
+        c.setAttribute('r', i === TOTAL_STEPS-1 ? 10 : 6);
+        c.setAttribute('class', i === TOTAL_STEPS-1 ? 'goal' : 'milestone');
+        milestonesGroup.appendChild(c);
       }
     }
 
-    function changeAvatar() {
-      player.textContent = avatarSelect.value;
+    // Mensajes psicoeducativos (50)
+    const msgs = [
+      "Dormir bien fortalece memoria, atención y regulación emocional. Piensa en el sueño como tu aliado diario.",
+      "Define un horario de sueño constante: misma hora para acostarte y levantarte, incluso los fines de semana.",
+      "Tu ritmo circadiano ama la regularidad; respetarlo reduce somnolencia y mejora tu energía.",
+      "Luz por la mañana: abre cortinas o sal al sol 10–15 min para sincronizar tu reloj biológico.",
+      "Reduce luz intensa por la noche; atenúa luces y usa tonos cálidos 60–90 min antes de dormir.",
+      "Pantallas fuera 60 min antes: la luz azul retrasa la melatonina y dificulta conciliar el sueño.",
+      "Si debes usar pantallas de noche, baja el brillo y activa filtros nocturnos.",
+      "Crea un ritual: lectura ligera, respiración 4-7-8, mindfulness o estiramientos suaves.",
+      "Asocia la cama solo con dormir o intimidad; evita trabajar o ver TV ahí.",
+      "Si pasan 20 min despierto en cama, levántate y haz algo tranquilo hasta tener sueño.",
+      "Cuida el ambiente: habitación fresca (18–20°C), oscura y silenciosa favorece sueño profundo.",
+      "Invierte en una almohada y colchón cómodos; tu cuello y espalda lo agradecerán.",
+      "Bloquea ruido con tapones o ruido blanco; una app o un ventilador pueden ayudar.",
+      "La cafeína (café, té, bebidas energéticas) impacta hasta 6–8 horas: evítala por la tarde/noche.",
+      "Nicotina y alcohol alteran la arquitectura del sueño: reducen profundidad y fragmentan la noche.",
+      "Cena ligera 2–3 horas antes; evita comidas muy grasas o picantes cerca de dormir.",
+      "Hidrátate bien en el día, pero limita líquidos 1–2 horas antes para no interrumpir la noche.",
+      "Haz ejercicio con regularidad; idealmente por la mañana o tarde, no justo antes de dormir.",
+      "Exposición diurna a la luz y movimiento físico mejoran la presión de sueño nocturna.",
+      "Siestas: cortas (10–20 min) y tempranas. Si te cuesta conciliar por la noche, evítalas.",
+      "Gestiona el estrés: escribe pendientes, planifica el día siguiente y libera la mente antes de acostarte.",
+      "Prueba respiración diafragmática o relajación muscular progresiva para soltar tensión.",
+      "Evita revisar el reloj de madrugada; aumenta la ansiedad y el insomnio de rendimiento.",
+      "Acepta noches malas ocasionales: no persigas el sueño, deja que llegue.",
+      "Mantén expectativas realistas: la perfección del sueño no existe; busca consistencia.",
+      "Crea señales de inicio: té de hierbas, música suave o una ducha tibia marcan el cambio.",
+      "Asegura exposición a luz natural al menos 30–60 min al día para anclar tu ritmo.",
+      "Reduce rumiación: anota preocupaciones en un papel y pospón resolverlas al día siguiente.",
+      "Orden y limpieza en el dormitorio: menos estímulos, más calma.",
+      "Regula la temperatura: prueba sábanas transpirables; el calor corporal debe bajar ligeramente.",
+      "Evita discusiones intensas o trabajo mental exigente cerca de dormir.",
+      "Cuida los fines de semana: no “duermas de más” varias horas; desajusta tu reloj interno.",
+      "No uses alcohol como “inductor del sueño”: fragmenta y reduce el REM.",
+      "Si te desvelas, vuelve al horario normal la noche siguiente; evita largas siestas compensatorias.",
+      "Usa una app o diario de sueño para detectar patrones y mejoras con tus cambios.",
+      "Aromas calmantes (lavanda, manzanilla) pueden formar parte de tu ritual nocturno.",
+      "Practica gratitud antes de dormir: 3 cosas buenas del día reducen activación cognitiva.",
+      "Evita noticias o contenidos activantes por la noche; elige materiales relajantes.",
+      "Limita compromisos nocturnos si afectan tu hora objetivo de acostarte.",
+      "Dale tiempo a los cambios: los hábitos de sueño mejoran con constancia en 2–4 semanas.",
+      "Si compartes cama, acuerden rutinas y condiciones (temperatura, luz, dispositivos).",
+      "Mascotas: decide si duermen dentro o fuera del cuarto según interrumpan o no tu sueño.",
+      "Comprueba alergias (ácaros/polvo) si despiertas congestionado: funda antiácaros ayuda.",
+      "Si te despiertas en la noche, mantén luces bajas para no “despertar del todo” al cerebro.",
+      "Desconecta notificaciones: modo avión o “no molestar” desde cierta hora.",
+      "Desarrolla una frase calma (“Puedo descansar; mi cuerpo sabe dormir”) para momentos de alerta.",
+      "Evita beber mucho alcohol o grandes cenas en reuniones nocturnas.",
+      "Integra pausas de relajación en el día para no llegar sobrecargado a la noche.",
+      "Celebra micro-progresos: 10–15 min de mejora sostenida ya es un buen avance.",
+      "Busca apoyo profesional si los problemas persisten 3+ meses o hay somnolencia diurna significativa.",
+      "¡Felicidades! Has completado el camino: conserva lo que te funciona y sé amable contigo en el proceso."
+    ];
+
+    let step = 0; // índice actual (0..49)
+
+    function setPlayerToStep(i){
+      const p = points[i];
+      player.setAttribute('transform', `translate(${p.x}, ${p.y})`);
+      progressEl.textContent = `Paso ${i+1} de ${TOTAL_STEPS}`;
+      messageEl.textContent = msgs[i] || "";
     }
 
-    // Posición inicial
-    player.style.left = positions[0].x + "px";
-    player.style.top = positions[0].y + "px";
+    function advance(){
+      if (step < TOTAL_STEPS-1){
+        step++;
+        setPlayerToStep(step);
+        if (step === TOTAL_STEPS-1){
+          messageEl.innerHTML = msgs[step] + " 🌟<br><br><strong>Tip:</strong> guarda esta página entre tus favoritos y vuelve cuando necesites reforzar hábitos.";
+        }
+      } else {
+        // ya en el final
+        messageEl.innerHTML = "Ya estás en la meta 🛏️✨. Puedes <strong>Reiniciar</strong> para repasar desde el inicio.";
+      }
+    }
+
+    function resetGame(){
+      step = 0;
+      setPlayerToStep(step);
+    }
+
+    function changeAvatar(){
+      playerEmoji.textContent = avatarSelect.value;
+    }
+
+    // Init
+    changeAvatar();
+    setPlayerToStep(0);
+    advanceBtn.addEventListener('click', advance);
+    resetBtn.addEventListener('click', resetGame);
+    avatarSelect.addEventListener('change', changeAvatar);
   </script>
 </body>
 </html>
