@@ -1,209 +1,154 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Camino al Buen Descanso</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #1a1a40, #000);
-    color: white;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-  }
-  header {
-    background: #2c2c54;
-    padding: 1rem;
-    font-size: 1.4rem;
-  }
-  #board {
-    display: grid;
-    grid-template-columns: repeat(10, 50px);
-    gap: 5px;
-    justify-content: center;
-    margin: 20px auto;
-  }
-  .cell {
-    width: 50px;
-    height: 50px;
-    background: #444;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.7rem;
-    color: #ccc;
-    position: relative;
-  }
-  .player {
-    width: 25px;
-    height: 25px;
-    background: gold;
-    border-radius: 50%;
-    border: 2px solid white;
-    position: absolute;
-    transition: all 0.3s ease; /* animación suave */
-  }
-  button {
-    margin: 10px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 8px;
-    background: #f6e58d;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  button:hover {
-    background: #f9ca24;
-  }
-  #question {
-    margin: 20px 0 10px;
-    font-size: 1.1rem;
-  }
-  .habit-img {
-    width: 100px;
-    margin: 10px auto;
-    display: block;
-  }
-  #message {
-    margin-top: 15px;
-    font-size: 1rem;
-    font-weight: bold;
-    line-height: 1.4;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  #score {
-    margin: 10px;
-    font-size: 1.2rem;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camino al Buen Descanso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(to top, #fceabb, #f8b500);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    h1 {
+      margin: 20px;
+      color: #333;
+      text-align: center;
+    }
+    #avatarSelect {
+      margin: 10px;
+      font-size: 1.2rem;
+      padding: 5px;
+      border-radius: 8px;
+    }
+    #gameArea {
+      width: 100%;
+      max-width: 600px;
+      position: relative;
+    }
+    svg {
+      width: 100%;
+      height: auto;
+    }
+    #player {
+      position: absolute;
+      font-size: 2rem;
+      transform: translate(-50%, -50%);
+      transition: left 0.8s ease-in-out, top 0.8s ease-in-out;
+    }
+    button {
+      margin: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      background: #f6e2c5;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #f3d7b2;
+    }
+    #messageBox {
+      max-width: 600px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #333;
+      text-align: center;
+      min-height: 120px;
+    }
+  </style>
 </head>
 <body>
+  <h1>El Camino al Buen Descanso 🌙</h1>
 
-<header>🌙 Camino al Buen Descanso 😴</header>
+  <!-- Selección de avatar -->
+  <label for="avatarSelect">Elige tu avatar:</label>
+  <select id="avatarSelect" onchange="changeAvatar()">
+    <option value="🌙">🌙 Luna</option>
+    <option value="😴">😴 Carita dormida</option>
+    <option value="🚶‍♂️">🚶‍♂️ Caminante</option>
+    <option value="🐑">🐑 Oveja</option>
+  </select>
 
-<div id="score">⭐ Puntos: 0</div>
-<div id="board"></div>
+  <div id="gameArea">
+    <svg viewBox="0 0 600 600">
+      <!-- Camino más largo -->
+      <path d="M50,550 
+               C150,500 250,600 350,520 
+               S550,450 550,350
+               S450,250 350,300
+               S250,200 150,250
+               S50,150 150,100
+               S300,50 500,80
+               S550,150 400,200
+               S300,300 200,400
+               S100,500 50,550" 
+            fill="none" stroke="#8B4513" stroke-width="10" stroke-linecap="round"/>
+    </svg>
 
-<p id="question">Haz clic en "Tirar dado" para comenzar</p>
-<img id="habitImage" class="habit-img" src="" alt="" style="display:none;">
-<div id="options"></div>
-<p id="message"></p>
-<button onclick="rollDice()">🎲 Tirar dado</button>
+    <!-- Personaje -->
+    <div id="player">🌙</div>
+  </div>
 
-<script>
-  const board = document.getElementById("board");
-  const questionEl = document.getElementById("question");
-  const habitImage = document.getElementById("habitImage");
-  const optionsEl = document.getElementById("options");
-  const messageEl = document.getElementById("message");
-  const scoreEl = document.getElementById("score");
+  <button onclick="movePlayer()">Avanzar</button>
 
-  const questions = [
-    { 
-      q: "¿Usar el celular en la cama?", 
-      img: "img/celular.png", 
-      good: false, 
-      exp: "La luz azul de las pantallas engaña al cerebro haciéndole creer que aún es de día. Esto retrasa la liberación de melatonina, la hormona del sueño, y dificulta conciliarlo." 
-    },
-    { 
-      q: "¿Leer un libro relajante antes de dormir?", 
-      img: "img/libro.png", 
-      good: true, 
-      exp: "Leer una historia ligera o inspiradora ayuda a relajar la mente y preparar al cuerpo para el descanso. Evita libros de suspenso o muy estimulantes, ya que podrían activar tu sistema nervioso." 
-    },
-    { 
-      q: "¿Tomar café a las 10pm?", 
-      img: "img/cafe.png", 
-      good: false, 
-      exp: "La cafeína bloquea los receptores de adenosina, que es la sustancia que nos da la sensación de sueño. Puede mantenerse activa en tu organismo entre 6 y 8 horas, retrasando el descanso profundo." 
-    },
-    { 
-      q: "¿Dormir siempre a la misma hora?", 
-      img: "img/reloj.png", 
-      good: true, 
-      exp: "Mantener horarios regulares fortalece tu ritmo circadiano (tu reloj biológico interno). Esto facilita conciliar el sueño y que tu cuerpo entre más rápido en fases de descanso reparador." 
-    }
-  ];
+  <div id="messageBox">Haz clic en "Avanzar" para comenzar tu camino hacia un mejor descanso.</div>
 
-  let playerPos = 0;
-  let points = 0;
+  <script>
+    const positions = [
+      {x:50, y:550, msg:"El sueño es vital: mejora tu memoria, concentración y regula tus emociones."},
+      {x:150, y:500, msg:"Mantén horarios regulares para dormir y despertar, incluso en fines de semana."},
+      {x:250, y:600, msg:"Evita pantallas 1 hora antes de dormir: la luz azul retrasa tu descanso."},
+      {x:350, y:520, msg:"Crea una rutina relajante: meditación, lectura o respiración profunda ayudan."},
+      {x:550, y:450, msg:"La cafeína y la nicotina dificultan conciliar el sueño. Evítalas en la tarde/noche."},
+      {x:550, y:350, msg:"Haz ejercicio regularmente, pero no justo antes de dormir. Favorece un descanso reparador."},
+      {x:450, y:250, msg:"Cuida tu entorno: habitación fresca, silenciosa y oscura promueve un sueño profundo."},
+      {x:350, y:300, msg:"La cama es solo para dormir o intimidad: evita usarla para trabajar o ver TV."},
+      {x:250, y:200, msg:"Evita siestas largas. Si necesitas, duerme máximo 20-30 minutos temprano en la tarde."},
+      {x:150, y:250, msg:"No te quedes despierto en la cama más de 20 minutos. Levántate y haz algo relajante."},
+      {x:50, y:150, msg:"Aliméntate ligero en la noche. Las comidas pesadas retrasan la conciliación del sueño."},
+      {x:150, y:100, msg:"Un vaso de leche tibia o infusiones relajantes pueden favorecer el descanso."},
+      {x:300, y:50, msg:"El estrés impacta tu sueño. Practica técnicas de manejo de ansiedad y relajación."},
+      {x:500, y:80, msg:"Ten rituales de desconexión digital: apaga notificaciones y guarda el celular lejos."},
+      {x:400, y:200, msg:"¡Felicidades! Has llegado al final del camino. Dormir bien es cuidar tu salud física y emocional."}
+    ];
 
-  function drawBoard() {
-    board.innerHTML = "";
-    for (let i = 0; i < 30; i++) {
-      const cell = document.createElement("div");
-      cell.className = "cell";
-      cell.textContent = i + 1;
-      if (i === playerPos) {
-        const token = document.createElement("div");
-        token.className = "player";
-        cell.appendChild(token);
+    let step = 0;
+    const player = document.getElementById("player");
+    const messageBox = document.getElementById("messageBox");
+    const avatarSelect = document.getElementById("avatarSelect");
+
+    function movePlayer() {
+      if (step < positions.length) {
+        const pos = positions[step];
+        player.style.left = pos.x + "px";
+        player.style.top = pos.y + "px";
+        messageBox.textContent = pos.msg;
+        step++;
+      } else {
+        messageBox.textContent = "Ya completaste el recorrido. ¡Pon en práctica estos hábitos en tu vida diaria!";
       }
-      board.appendChild(cell);
     }
-  }
 
-  function rollDice() {
-    if (playerPos >= 29) {
-      messageEl.textContent = "🎉 ¡Ganaste! Descansarás profundamente 😴";
-      return;
+    function changeAvatar() {
+      player.textContent = avatarSelect.value;
     }
-    const dice = Math.floor(Math.random() * 6) + 1;
-    messageEl.textContent = `🎲 Sacaste un ${dice}`;
-    setTimeout(() => askQuestion(dice), 1000);
-  }
 
-  function askQuestion(steps) {
-    const q = questions[Math.floor(Math.random() * questions.length)];
-    questionEl.textContent = q.q;
-    habitImage.src = q.img;
-    habitImage.style.display = "block";
-    optionsEl.innerHTML = `
-      <button onclick="answer(true, ${steps}, ${q.good}, '${q.exp.replace(/'/g, "\\'")}')">Sí</button>
-      <button onclick="answer(false, ${steps}, ${q.good}, '${q.exp.replace(/'/g, "\\'")}')">No</button>
-    `;
-  }
-
-  function movePlayer(steps, forward = true, callback) {
-    let moved = 0;
-    const interval = setInterval(() => {
-      if (moved >= steps) {
-        clearInterval(interval);
-        if (callback) callback();
-        return;
-      }
-      playerPos += forward ? 1 : -1;
-      if (playerPos < 0) playerPos = 0;
-      drawBoard();
-      moved++;
-    }, 300); // avanza cada 0.3s
-  }
-
-  function answer(choice, steps, correct, exp) {
-    if (choice === correct) {
-      movePlayer(steps, true, () => {
-        points += 10;
-        messageEl.textContent = `✅ Correcto. ${exp}`;
-        if (playerPos >= 29) {
-          messageEl.textContent = "🎉 ¡Ganaste el juego! Tus hábitos de sueño mejoraron 😴";
-        }
-      });
-    } else {
-      movePlayer(2, false, () => {
-        points -= 5;
-        messageEl.textContent = `❌ Incorrecto. ${exp}`;
-      });
-    }
-    scoreEl.textContent = `⭐ Puntos: ${points}`;
-  }
-
-  drawBoard();
-</script>
-
+    // Posición inicial
+    player.style.left = positions[0].x + "px";
+    player.style.top = positions[0].y + "px";
+  </script>
 </body>
 </html>
