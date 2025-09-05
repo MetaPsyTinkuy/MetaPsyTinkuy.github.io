@@ -1,62 +1,91 @@
-<main>
-  <h2>Tinkuy Psicoterapéutico</h2>
-  <p class="lead">Selecciona el recurso con el que quieres comenzar:</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tinkuy Psicoterapéutico</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"> <!-- usa tu mismo CSS -->
+</head>
+<body>
+  <!-- Fondo animado -->
+  <div class="background"></div>
 
-  <section class="grid" aria-label="Opciones principales">
-    
-    <!-- CARD: Ejercicios de Asertividad -->
-    <article class="flip-card" tabindex="0" role="button" aria-label="Ejercicios de asertividad">
-      <div class="flip-inner">
-        <div class="flip-face front">
-          <span class="badge">A</span>
-          <h3>Ejercicios de Asertividad</h3>
-          <p class="formula">
-            <span class="token">Comunicación</span>
-            <span class="plus">+</span>
-            <span class="token">Confianza</span>
-            <span class="plus">+</span>
-            <span class="token">Respeto</span>
-          </p>
-        </div>
-        <div class="flip-face back">
-          <h4>Explora</h4>
-          <p>12 fórmulas prácticas con ejemplos listos para aplicar en tu vida diaria.</p>
-          <p style="margin-top:12px; text-align:center;">
-            <a href="./asertividad.html" 
-               style="display:inline-block; padding:10px 18px; font-weight:600; border-radius:12px; background:#fff7f2; color:#8B4513; text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,0.12); transition: all .22s ease;">
-              Ir a ejercicios
-            </a>
-          </p>
-        </div>
-      </div>
-    </article>
+  <!-- Header -->
+  <header>
+    <h1>Tinkuy Psicoterapéutico</h1>
+    <p class="subtitle">Recursos interactivos para tu bienestar</p>
+  </header>
 
-    <!-- CARD: Psicoeducación en Hábitos de Sueño -->
-    <article class="flip-card" tabindex="0" role="button" aria-label="Psicoeducación en hábitos de sueño">
-      <div class="flip-inner">
-        <div class="flip-face front">
-          <span class="badge">S</span>
-          <h3>Hábitos de Sueño</h3>
-          <p class="formula">
-            <span class="token">Rutina</span>
-            <span class="plus">+</span>
-            <span class="token">Descanso</span>
-            <span class="plus">+</span>
-            <span class="token">Bienestar</span>
-          </p>
-        </div>
-        <div class="flip-face back">
-          <h4>Explora</h4>
-          <p>Estrategias basadas en evidencia para mejorar tu descanso y bienestar emocional.</p>
-          <p style="margin-top:12px; text-align:center;">
-            <a href="./habitos_sueno.html" 
-               style="display:inline-block; padding:10px 18px; font-weight:600; border-radius:12px; background:#fff7f2; color:#8B4513; text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,0.12); transition: all .22s ease;">
-              Ir a psicoeducación
-            </a>
-          </p>
-        </div>
-      </div>
-    </article>
+  <!-- Main -->
+  <main>
+    <h2>Bienvenido</h2>
+    <p class="lead">Selecciona el recurso con el que quieres comenzar:</p>
+    <p class="tap-hint">💡 Toca la tarjeta en tu teléfono o pasa el ratón en PC para explorar.</p>
 
-  </section>
-</main>
+    <section class="grid" aria-label="Opciones principales">
+      
+      <!-- CARD: Ejercicios de Asertividad -->
+      <article class="flip-card" tabindex="0" role="button" aria-label="Ejercicios de Asertividad">
+        <div class="flip-inner">
+          <div class="flip-face front">
+            <span class="badge">A</span>
+            <h3>Ejercicios de Asertividad</h3>
+            <p class="formula">
+              <span class="token">Comunicación</span>
+              <span class="plus">+</span>
+              <span class="token">Confianza</span>
+              <span class="plus">+</span>
+              <span class="token">Respeto</span>
+            </p>
+          </div>
+          <div class="flip-face back">
+            <h4>Explora</h4>
+            <p>12 fórmulas prácticas con ejemplos listos para aplicar en tu vida diaria.</p>
+            <p style="margin-top:12px; text-align:center;">
+              <a href="./asertividad.html" 
+                 class="btn-link">
+                Ir a ejercicios
+              </a>
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD: Psicoeducación en Hábitos de Sueño -->
+      <article class="flip-card" tabindex="0" role="button" aria-label="Psicoeducación en Hábitos de Sueño">
+        <div class="flip-inner">
+          <div class="flip-face front">
+            <span class="badge">S</span>
+            <h3>Hábitos de Sueño</h3>
+            <p class="formula">
+              <span class="token">Rutina</span>
+              <span class="plus">+</span>
+              <span class="token">Descanso</span>
+              <span class="plus">+</span>
+              <span class="token">Bienestar</span>
+            </p>
+          </div>
+          <div class="flip-face back">
+            <h4>Explora</h4>
+            <p>Estrategias basadas en evidencia para mejorar tu descanso y bienestar emocional.</p>
+            <p style="margin-top:12px; text-align:center;">
+              <a href="./habitos_sueno.html" 
+                 class="btn-link">
+                Ir a psicoeducación
+              </a>
+            </p>
+          </div>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Tinkuy Psicoterapéutico - Giuliano Milla Segovia · Desarrollado con ❤️ para la salud mental</p>
+    <p><a href="https://metapsytinkuy.github.io/" target="_blank">Visita nuestro sitio principal</a></p>
+  </footer>
+</body>
+</html>
