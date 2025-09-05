@@ -44,6 +44,7 @@
     border-radius: 50%;
     border: 2px solid white;
     position: absolute;
+    transition: all 0.3s ease; /* animación suave */
   }
   button {
     margin: 10px;
@@ -70,6 +71,10 @@
     margin-top: 15px;
     font-size: 1rem;
     font-weight: bold;
+    line-height: 1.4;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
   #score {
     margin: 10px;
@@ -99,10 +104,30 @@
   const scoreEl = document.getElementById("score");
 
   const questions = [
-    { q: "¿Usar el celular en la cama?", img: "img/celular.png", good: false, exp: "La luz azul retrasa el sueño." },
-    { q: "¿Leer un libro relajante?", img: "img/libro.png", good: true, exp: "Leer calma la mente antes de dormir." },
-    { q: "¿Tomar café a las 10pm?", img: "img/cafe.png", good: false, exp: "La cafeína puede retrasar el sueño hasta 6h." },
-    { q: "¿Dormir a la misma hora?", img: "img/reloj.png", good: true, exp: "La rutina regula tu reloj biológico." }
+    { 
+      q: "¿Usar el celular en la cama?", 
+      img: "img/celular.png", 
+      good: false, 
+      exp: "La luz azul de las pantallas engaña al cerebro haciéndole creer que aún es de día. Esto retrasa la liberación de melatonina, la hormona del sueño, y dificulta conciliarlo." 
+    },
+    { 
+      q: "¿Leer un libro relajante antes de dormir?", 
+      img: "img/libro.png", 
+      good: true, 
+      exp: "Leer una historia ligera o inspiradora ayuda a relajar la mente y preparar al cuerpo para el descanso. Evita libros de suspenso o muy estimulantes, ya que podrían activar tu sistema nervioso." 
+    },
+    { 
+      q: "¿Tomar café a las 10pm?", 
+      img: "img/cafe.png", 
+      good: false, 
+      exp: "La cafeína bloquea los receptores de adenosina, que es la sustancia que nos da la sensación de sueño. Puede mantenerse activa en tu organismo entre 6 y 8 horas, retrasando el descanso profundo." 
+    },
+    { 
+      q: "¿Dormir siempre a la misma hora?", 
+      img: "img/reloj.png", 
+      good: true, 
+      exp: "Mantener horarios regulares fortalece tu ritmo circadiano (tu reloj biológico interno). Esto facilita conciliar el sueño y que tu cuerpo entre más rápido en fases de descanso reparador." 
+    }
   ];
 
   let playerPos = 0;
@@ -139,26 +164,42 @@
     habitImage.src = q.img;
     habitImage.style.display = "block";
     optionsEl.innerHTML = `
-      <button onclick="answer(true, ${steps}, ${q.good}, '${q.exp}')">Sí</button>
-      <button onclick="answer(false, ${steps}, ${q.good}, '${q.exp}')">No</button>
+      <button onclick="answer(true, ${steps}, ${q.good}, '${q.exp.replace(/'/g, "\\'")}')">Sí</button>
+      <button onclick="answer(false, ${steps}, ${q.good}, '${q.exp.replace(/'/g, "\\'")}')">No</button>
     `;
+  }
+
+  function movePlayer(steps, forward = true, callback) {
+    let moved = 0;
+    const interval = setInterval(() => {
+      if (moved >= steps) {
+        clearInterval(interval);
+        if (callback) callback();
+        return;
+      }
+      playerPos += forward ? 1 : -1;
+      if (playerPos < 0) playerPos = 0;
+      drawBoard();
+      moved++;
+    }, 300); // avanza cada 0.3s
   }
 
   function answer(choice, steps, correct, exp) {
     if (choice === correct) {
-      playerPos += steps;
-      points += 10;
-      messageEl.textContent = `✅ Correcto: ${exp}`;
+      movePlayer(steps, true, () => {
+        points += 10;
+        messageEl.textContent = `✅ Correcto. ${exp}`;
+        if (playerPos >= 29) {
+          messageEl.textContent = "🎉 ¡Ganaste el juego! Tus hábitos de sueño mejoraron 😴";
+        }
+      });
     } else {
-      playerPos = Math.max(0, playerPos - 2);
-      points -= 5;
-      messageEl.textContent = `❌ Incorrecto: ${exp}`;
+      movePlayer(2, false, () => {
+        points -= 5;
+        messageEl.textContent = `❌ Incorrecto. ${exp}`;
+      });
     }
     scoreEl.textContent = `⭐ Puntos: ${points}`;
-    drawBoard();
-    if (playerPos >= 29) {
-      messageEl.textContent = "🎉 ¡Ganaste el juego! Tus hábitos de sueño mejoraron 😴";
-    }
   }
 
   drawBoard();
