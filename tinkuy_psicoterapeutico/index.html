@@ -7,6 +7,13 @@
   <!-- Tipografía -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <!-- Estilos -->
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tinkuy Psicoterapéutico</title>
+  <!-- Tipografía -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Estilos -->
   <style>
     body {
       font-family: 'Montserrat', sans-serif;
@@ -26,18 +33,39 @@
       z-index: 1000;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;      /* círculo perfecto */
+      object-fit: cover;       /* evita deformaciones */
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      margin-right: 10px;
+      transition: transform 0.3s ease;
+    }
+    .logo:hover {
+      transform: scale(1.1);   /* efecto zoom suave */
+    }
+
     header h1 {
       margin: 0;
       font-weight: 700;
       font-size: 1.6rem;
       color: #333;
     }
+
     nav a {
       margin-left: 1.5rem;
       text-decoration: none;
       font-weight: 600;
       color: #333;
       transition: color .2s;
+      font-size: 1rem; /* igual que en tu index */
     }
     nav a:hover, nav a.active {
       color: #8B4513;
@@ -133,6 +161,8 @@
       text-decoration: underline;
     }
   </style>
+</head>
+
 </head>
 <body>
   <header>
