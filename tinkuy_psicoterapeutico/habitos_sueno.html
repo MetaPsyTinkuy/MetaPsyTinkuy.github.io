@@ -104,6 +104,20 @@
     .modal .actions{margin-top:14px;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;}
     .badge{display:inline-block;background:#fff7f2;border:1px solid #ffd8c3;border-radius:999px;padding:4px 10px;font-size:.85rem;font-weight:700;color:#8B4513;}
 
+<!-- Botón flotante -->
+<button class="chatbot-btn" onclick="toggleChat()">😴</button>
+
+<!-- Ventana del chatbot -->
+<div class="chatbot-window" id="chatbot">
+  <div class="chatbot-header">Asistente del Sueño 😴</div>
+  <div class="chatbot-messages" id="chatMessages"></div>
+  <div class="chatbot-input">
+    <input type="text" id="chatInput" placeholder="Escribe tu pregunta..." />
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
+</div>
+
+    
     /* ===== Footer ===== */
     footer{
       text-align:center;
@@ -118,6 +132,67 @@
       svg{height:460px;}
       .sidebar{left:4px}
     }
+/* ==== Chatbot flotante ==== */
+.chatbot-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #5e60ce;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 2000;
+}
+.chatbot-window {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 320px;
+  max-height: 420px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 2000;
+}
+.chatbot-header {
+  background: #5e60ce;
+  color: #fff;
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+.chatbot-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 0.95rem;
+}
+.chatbot-input {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+.chatbot-input input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  outline: none;
+}
+.chatbot-input button {
+  background: #5e60ce;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+    
   </style>
 </head>
 <body>
@@ -531,6 +606,54 @@
     // Init
     window.addEventListener('load', initBoard);
     window.addEventListener('resize', ()=>placePlayer(currentIdx));
+
+    // ==== Chatbot ====
+const faq = {
+  "me cuesta dormir": "Es común en el insomnio inicial. Intenta una rutina relajante, evita pantallas 1-2h antes y usa técnicas de respiración lenta.",
+  "me despierto en la noche": "Eso es insomnio de mantenimiento. Levántate si estás despierto >20 min, haz algo tranquilo y regresa cuando sientas sueño.",
+  "me despierto muy temprano": "Eso se llama insomnio terminal. Puede mejorar con exposición a luz natural en la mañana y evitando alcohol por la noche.",
+  "debo tomar pastillas para dormir": "Los hipnóticos solo se recomiendan en casos específicos y a corto plazo. La terapia cognitivo-conductual para el insomnio (CBT-I) es la primera línea de tratamiento.",
+  "las siestas son buenas": "Siestas cortas (10–20 min) y tempranas pueden ser beneficiosas, pero si son largas o tardías, dificultan el sueño nocturno.",
+  "el alcohol ayuda a dormir": "El alcohol facilita dormir al inicio, pero fragmenta el sueño y reduce el REM. No es recomendable.",
+  "la cafeina afecta el sueño": "Sí. La cafeína tiene vida media de 3–7 horas. Evítala desde media tarde.",
+  "la nicotina afecta el sueño": "Sí. Es un estimulante que aumenta la latencia y fragmenta el sueño.",
+  "que temperatura es mejor": "Lo ideal es mantener la habitación fresca (18–20°C).",
+  "mirar la hora ayuda": "No. Mirar el reloj aumenta la ansiedad y dificulta el sueño.",
+  "hacer ejercicio de noche ayuda": "El ejercicio es positivo si es en el día. Evita intensidad alta 2–3h antes de dormir.",
+  "la luz natural sirve": "Sí. La exposición a luz natural por la mañana ayuda a regular tu ritmo circadiano.",
+  "debo usar la cama para leer o ver tv": "No. La cama debe asociarse solo con dormir o intimidad, así entrenas al cerebro a relajarse al acostarte.",
+  "que hago si no puedo dormir": "Levántate tras 20–30 min, haz algo tranquilo con poca luz y regresa solo cuando tengas sueño.",
+  "tengo insomnio cronico": "Consulta a un profesional de salud. La CBT-I es el tratamiento recomendado con más evidencia científica."
+};
+
+function toggleChat(){
+  const chat = document.getElementById("chatbot");
+  chat.style.display = chat.style.display === "flex" ? "none" : "flex";
+}
+
+function sendMessage(){
+  const input = document.getElementById("chatInput");
+  const msg = input.value.trim();
+  if(!msg) return;
+  addMessage("Tú", msg);
+
+  const norm = msg.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+  let found = null;
+  for(const key in faq){
+    if(norm.includes(key)) { found = faq[key]; break; }
+  }
+  addMessage("😴", found || "No tengo una respuesta exacta, pero recuerda: mantener horarios constantes, ambiente adecuado y evitar pantallas ayuda mucho al descanso.");
+  input.value = "";
+}
+
+function addMessage(sender, text){
+  const box = document.getElementById("chatMessages");
+  const p = document.createElement("p");
+  p.innerHTML = `<strong>${sender}:</strong> ${text}`;
+  box.appendChild(p);
+  box.scrollTop = box.scrollHeight;
+}
+
   </script>
 </body>
 </html>
